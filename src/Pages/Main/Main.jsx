@@ -1,9 +1,11 @@
-import React from 'react';
+import React, { useState } from 'react';
 import TodoList from '../../Components/TodoList/TodoList';
 import AddTodo from '../../Components/AddTodo/AddTodo';
 import * as S from './Main.style';
 
 export default function Main() {
+	let [todoList, setTodoList] = useState([]);
+	let [newTodo, setNewTodo] = useState('');
 	return (
 		<>
 			<S.Wrapper>
@@ -14,8 +16,16 @@ export default function Main() {
 						which helps you manage time.
 					</p>
 				</header> */}
-				<TodoList />
-				<AddTodo />
+				<TodoList
+					todoList={todoList}
+					setTodoList={setTodoList}
+				/>
+				<AddTodo
+					todoList={todoList}
+					setTodoList={setTodoList}
+					newTodo={newTodo}
+					setNewTodo={setNewTodo}
+				/>
 			</S.Wrapper>
 		</>
 	);

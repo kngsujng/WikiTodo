@@ -1,16 +1,14 @@
 import React from 'react';
 import * as S from './TodoList.style';
 
-export default function TodoList() {
+export default function TodoList({ todoList, setTodoList }) {
 	return (
 		<>
 			<S.Wrapper>
 				<ul>
-					<li>todo-item</li>
-					<li>todo-item</li>
-					<li>todo-item</li>
-					<li>todo-item</li>
-					<li>todo-item</li>
+					{todoList.map((v, i) => (
+						<li key={i}>{v}</li>
+					))}
 				</ul>
 			</S.Wrapper>
 		</>
