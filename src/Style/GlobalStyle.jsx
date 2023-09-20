@@ -14,9 +14,9 @@ const GlobalStyle = createGlobalStyle`
         color : inherit;
     }
     button{
+        background-color: transparent;
         border : none;
         cursor : pointer;
-        background-color: yellow;
     }
     input{
         &::placeholder{

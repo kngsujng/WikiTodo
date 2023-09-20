@@ -10,7 +10,7 @@ export const Wrapper = styled.section`
 	justify-content: center;
 	align-items: center;
 	width: 500px;
-	height: 600px;
+	height: 650px;
 	background-color: #fff;
 	border-radius: 10px;
 	box-shadow: 0px 4px 4px 0px #00000040;

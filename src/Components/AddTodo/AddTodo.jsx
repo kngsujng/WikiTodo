@@ -31,7 +31,7 @@ export default function AddTodo({
 						console.log(todoList);
 					}}
 				>
-					add
+					Add Now
 				</button>
 			</S.Wrapper>
 		</>

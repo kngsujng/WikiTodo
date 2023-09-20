@@ -16,4 +16,16 @@ export const Wrapper = styled.form`
 		border: none;
 		background-color: #f1f1f1;
 	}
+	button {
+		width: 50%;
+		margin: 0 auto;
+		padding: 10px;
+		border-radius: 15px;
+		background-color: #000000;
+		color: #ffffff;
+		font-size: 18px;
+		&:hover {
+			box-shadow: 0px 4px 4px 0px #00000040;
+		}
+	}
 `;
