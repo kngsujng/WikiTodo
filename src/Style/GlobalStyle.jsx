@@ -13,12 +13,16 @@ const GlobalStyle = createGlobalStyle`
         text-decoration : none;
         color : inherit;
     }
-
     button{
         border : none;
         cursor : pointer;
+        background-color: yellow;
     }
-
+    input{
+        &::placeholder{
+            color: #9F9F9F;
+        }
+    }
 `;
 
 export default GlobalStyle;
