@@ -11,7 +11,7 @@ export default function TodoList({ todoList, setTodoList }) {
 				<h1>Todo List</h1>
 				<ul>
 					{todoList.map((v, i) => (
-						<li key={i}>
+						<li key={v.toString()}>
 							<div className="todoItemWrap">
 								<input
 									type="checkbox"
@@ -35,7 +35,13 @@ export default function TodoList({ todoList, setTodoList }) {
 									{v}
 								</p>
 							</div>
-							<button>
+							<button
+								onClick={() => {
+									let copy = [...todoList];
+									copy.splice(i, 1);
+									setTodoList(copy);
+								}}
+							>
 								<FaRegTrashAlt />
 							</button>
 						</li>
