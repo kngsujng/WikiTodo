@@ -4,7 +4,10 @@ import * as S from './TodoList.style';
 import { FaRegTrashAlt } from 'react-icons/fa';
 
 export default function TodoList({ todoList, setTodoList }) {
-	const [completed, setCompleted] = useState({ content: '', isChecked: false });
+	const [completed, setCompleted] = useState([]);
+	useEffect(() => {
+		console.log(completed);
+	}, [completed]);
 	return (
 		<>
 			<S.Wrapper>
@@ -16,21 +19,26 @@ export default function TodoList({ todoList, setTodoList }) {
 								<input
 									type="checkbox"
 									value={v}
-									onChange={(e) => {
-										setCompleted((prev) => ({
+									// checked={completed[i]?.isChecked}
+									onClick={(e) => {
+										//  ---> 여기서부터 여기까지 정상 작동<----
+										setCompleted((prev) => [
 											...prev,
-											content: e.target.value,
-											isChecked: e.target.checked,
-										}));
+											{
+												content: e.target.value,
+												isChecked: e.target.checked,
+											},
+										]);
+										//  ---> 여기서부터 여기까지 정상작동<----//
 									}}
 								/>
 								<p
 									className="todoItem"
-									style={
-										completed.isChecked && completed.content === v
-											? { color: '#bdbdbd', textDecoration: 'line-through' }
-											: null
-									}
+									// style={
+									// 	completed.isChecked && completed.content === v
+									// 		? { color: '#bdbdbd', textDecoration: 'line-through' }
+									// 		: null
+									// }
 								>
 									{v}
 								</p>
