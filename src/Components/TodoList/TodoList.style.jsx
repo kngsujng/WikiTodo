@@ -30,5 +30,9 @@ export const Wrapper = styled.section`
 		&:hover {
 			background-color: #ebebeb;
 		}
+		input {
+			margin-right: 10px;
+			cursor: pointer;
+		}
 	}
 `;

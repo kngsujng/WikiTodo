@@ -1,8 +1,5 @@
+import { useEffect } from 'react';
 import * as S from './AddTodo.style';
-
-// 1. input창에 입력한 todo state로 관리 및 저장
-// 2. button 클릭시, todos 배열 state에 추가
-//		-
 
 export default function AddTodo({
 	newTodo,
@@ -28,7 +25,6 @@ export default function AddTodo({
 						let todoItems = [...todoList];
 						setTodoList([...todoItems, newTodo]);
 						setNewTodo('');
-						console.log(todoList);
 					}}
 				>
 					Add Now
