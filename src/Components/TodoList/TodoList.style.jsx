@@ -6,7 +6,6 @@ export const Wrapper = styled.section`
 	height: 60%;
 	display: flex;
 	flex-direction: column;
-	/* background-color: blue; */
 	h1 {
 		font-weight: 600;
 		font-size: 22px;
@@ -33,6 +32,12 @@ export const Wrapper = styled.section`
 		input {
 			margin-right: 10px;
 			cursor: pointer;
+		}
+	}
+	div {
+		&.todoItemWrap {
+			display: flex;
+			align-items: center;
 		}
 	}
 `;

@@ -12,7 +12,7 @@ export default function TodoList({ todoList, setTodoList }) {
 				<ul>
 					{todoList.map((v, i) => (
 						<li key={i}>
-							<div>
+							<div className="todoItemWrap">
 								<input
 									type="checkbox"
 									value={v}
@@ -24,7 +24,7 @@ export default function TodoList({ todoList, setTodoList }) {
 										}));
 									}}
 								/>
-								<label
+								<p
 									className="todoItem"
 									style={
 										completed.isChecked && completed.content === v
@@ -33,7 +33,7 @@ export default function TodoList({ todoList, setTodoList }) {
 									}
 								>
 									{v}
-								</label>
+								</p>
 							</div>
 							<button>
 								<FaRegTrashAlt />
