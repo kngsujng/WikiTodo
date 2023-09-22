@@ -22,8 +22,13 @@ export default function AddTodo({
 					type="submit"
 					onClick={(e) => {
 						e.preventDefault();
-						let todoItems = [...todoList];
-						setTodoList([...todoItems, newTodo]);
+						setTodoList((prev) => [
+							...prev,
+							{
+								content: newTodo,
+								completed: false,
+							},
+						]);
 						setNewTodo('');
 					}}
 				>
