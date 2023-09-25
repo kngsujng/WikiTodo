@@ -7,6 +7,7 @@ import Todo from '../../Components/Todo/Todo';
 export default function Main() {
 	const [todoList, setTodoList] = useState([]);
 	const [status, setStatus] = useState('all');
+	console.log(status);
 	const [newTodo, setNewTodo] = useState('');
 	return (
 		<>
@@ -21,9 +22,24 @@ export default function Main() {
 				<S.NavWrapper>
 					<h1>Todo List</h1>
 					<ul>
-						<li onClick={() => setStatus('all')}>All</li>
-						<li onClick={() => setStatus('progressing')}>Progressing</li>
-						<li onClick={() => setStatus('completed')}>Completed</li>
+						<li
+							className={status === 'all' ? 'all' : null}
+							onClick={() => setStatus('all')}
+						>
+							All
+						</li>
+						<li
+							className={status === 'progressing' ? 'progressing' : null}
+							onClick={() => setStatus('progressing')}
+						>
+							Progressing
+						</li>
+						<li
+							className={status === 'completed' ? 'completed' : null}
+							onClick={() => setStatus('completed')}
+						>
+							Completed
+						</li>
 					</ul>
 				</S.NavWrapper>
 				<Todo

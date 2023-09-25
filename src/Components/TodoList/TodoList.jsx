@@ -7,7 +7,7 @@ export default function TodoList({ todoList, setTodoList }) {
 	return (
 		<>
 			<S.Wrapper>
-				<ul className="todoList_all">
+				<ul>
 					{todoList.map((v, i) => (
 						<li key={v.id}>
 							<div className="todoItemWrap">

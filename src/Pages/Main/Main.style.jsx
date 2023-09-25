@@ -32,6 +32,12 @@ export const NavWrapper = styled.section`
 		justify-content: flex-end;
 	}
 	li {
+		&.all,
+		&.progressing,
+		&.completed {
+			border-bottom: 2px solid #00a2e5;
+			color: #00a2e5;
+		}
 		&:nth-child(2) {
 			margin: 0 0.8rem;
 		}
