@@ -1,4 +1,4 @@
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import * as S from './AddTodo.style';
 
 export default function AddTodo({
@@ -7,6 +7,29 @@ export default function AddTodo({
 	todoList,
 	setTodoList,
 }) {
+	useEffect(() => {
+		if (newTodo !== '') {
+			setDisabled(false);
+		} else {
+			setDisabled(true);
+		}
+	}, [newTodo]);
+	const [disabled, setDisabled] = useState(false);
+
+	function handleAddBtn(e) {
+		e.preventDefault();
+		if (newTodo !== '') {
+			setDisabled(false);
+			setTodoList((prev) => [
+				...prev,
+				{
+					content: newTodo,
+					completed: false,
+				},
+			]);
+		}
+		setNewTodo('');
+	}
 	return (
 		<>
 			<S.Wrapper>
@@ -18,19 +41,11 @@ export default function AddTodo({
 					value={newTodo}
 					onChange={(e) => setNewTodo(e.target.value)}
 				/>
+				<p className="inpWarning">{}</p>
 				<button
 					type="submit"
-					onClick={(e) => {
-						e.preventDefault();
-						setTodoList((prev) => [
-							...prev,
-							{
-								content: newTodo,
-								completed: false,
-							},
-						]);
-						setNewTodo('');
-					}}
+					disabled={disabled}
+					onClick={handleAddBtn}
 				>
 					Add Now
 				</button>

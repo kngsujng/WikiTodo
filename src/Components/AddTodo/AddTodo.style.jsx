@@ -24,8 +24,18 @@ export const Wrapper = styled.form`
 		background-color: #000000;
 		color: #ffffff;
 		font-size: 18px;
-		&:hover {
+		&:disabled {
+			background-color: #bdbdbd;
+		}
+		/* &:hover {
 			box-shadow: 0px 4px 4px 0px #00000040;
+		} */
+	}
+	p {
+		&.inpWarning {
+			margin: 5px 0 15px 5px;
+			font-size: 13px;
+			color: #dc143c;
 		}
 	}
 `;
