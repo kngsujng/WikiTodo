@@ -1,11 +1,13 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import TodoList from '../../Components/TodoList/TodoList';
 import AddTodo from '../../Components/AddTodo/AddTodo';
 import * as S from './Main.style';
+import Todo from '../../Components/Todo/Todo';
 
 export default function Main() {
-	let [todoList, setTodoList] = useState([]);
-	let [newTodo, setNewTodo] = useState('');
+	const [todoList, setTodoList] = useState([]);
+	const [status, setStatus] = useState('all');
+	const [newTodo, setNewTodo] = useState('');
 	return (
 		<>
 			<S.Wrapper>
@@ -16,9 +18,18 @@ export default function Main() {
 						which helps you manage time.
 					</p>
 				</header> */}
-				<TodoList
+				<S.NavWrapper>
+					<h1>Todo List</h1>
+					<ul>
+						<li onClick={() => setStatus('all')}>All</li>
+						<li onClick={() => setStatus('progressing')}>Progressing</li>
+						<li onClick={() => setStatus('completed')}>Completed</li>
+					</ul>
+				</S.NavWrapper>
+				<Todo
 					todoList={todoList}
 					setTodoList={setTodoList}
+					status={status}
 				/>
 				<AddTodo
 					todoList={todoList}

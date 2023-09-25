@@ -7,10 +7,9 @@ export default function TodoList({ todoList, setTodoList }) {
 	return (
 		<>
 			<S.Wrapper>
-				<h1>Todo List</h1>
-				<ul>
+				<ul className="todoList_all">
 					{todoList.map((v, i) => (
-						<li key={v.content.toString()}>
+						<li key={v.id}>
 							<div className="todoItemWrap">
 								<input
 									type="checkbox"

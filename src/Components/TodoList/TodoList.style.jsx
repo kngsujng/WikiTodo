@@ -6,10 +6,6 @@ export const Wrapper = styled.section`
 	height: 60%;
 	display: flex;
 	flex-direction: column;
-	h1 {
-		font-weight: 600;
-		font-size: 22px;
-	}
 	ul {
 		border-top: 2px solid #f1f1f1;
 		overflow: auto;

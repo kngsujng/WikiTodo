@@ -7,6 +7,7 @@ export default function AddTodo({
 	todoList,
 	setTodoList,
 }) {
+	const [disabled, setDisabled] = useState(false);
 	useEffect(() => {
 		if (newTodo !== '') {
 			setDisabled(false);
@@ -14,15 +15,17 @@ export default function AddTodo({
 			setDisabled(true);
 		}
 	}, [newTodo]);
-	const [disabled, setDisabled] = useState(false);
 
 	function handleAddBtn(e) {
+		const currentDate = new Date();
+		const id = currentDate.getTime().toString();
 		e.preventDefault();
 		if (newTodo !== '') {
 			setDisabled(false);
 			setTodoList((prev) => [
 				...prev,
 				{
+					id: id,
 					content: newTodo,
 					completed: false,
 				},
