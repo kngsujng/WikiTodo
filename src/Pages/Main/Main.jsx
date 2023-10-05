@@ -11,7 +11,6 @@ export default function Main() {
 	useEffect(() => {
 		if (!localStorage.getItem('todoList')) {
 			localStorage.setItem('todoList', JSON.stringify([]));
-			setTodoList([]);
 		} else {
 			// 새로고침해도 로컬스토리지 데이터 보이기 위해선, 저장해야 함 ! (핵심)
 			const data = JSON.parse(localStorage.getItem('todoList'));

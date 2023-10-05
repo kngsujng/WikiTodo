@@ -19,6 +19,10 @@ export default function TodoList({ todoList, setTodoList }) {
 										setTodoList((prev) => {
 											const updatedList = [...prev]; // 기존 배열 복제
 											updatedList[i] = { ...v, completed: e.target.checked }; // 특정 객체의 completed 업데이트
+											localStorage.setItem(
+												'todoList',
+												JSON.stringify(updatedList)
+											);
 											return updatedList;
 										});
 									}}
