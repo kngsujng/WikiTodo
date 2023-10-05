@@ -8,31 +8,34 @@ export default function AddTodo({
 	setTodoList,
 }) {
 	const [disabled, setDisabled] = useState(false);
+
 	useEffect(() => {
 		if (newTodo !== '') {
 			setDisabled(false);
 		} else {
 			setDisabled(true);
 		}
-	}, [newTodo]);
+	}, [newTodo, todoList]);
 
-	function handleAddBtn(e) {
-		const currentDate = new Date();
-		const id = currentDate.getTime().toString();
+	function addTodoItem(e) {
 		e.preventDefault();
 		if (newTodo !== '') {
+			const currentDate = new Date();
+			const id = currentDate.getTime().toString();
+			const newTodoItem = {
+				id: id,
+				content: newTodo,
+				completed: false,
+			};
+			// 로컬 스토리지에 데이터를 추가하고 업데이트된 데이터를 가져오기
+			const updatedList = [...todoList, newTodoItem];
+			localStorage.setItem('todoList', JSON.stringify(updatedList));
+			setTodoList(updatedList); // todoList 업데이트
+			setNewTodo('');
 			setDisabled(false);
-			setTodoList((prev) => [
-				...prev,
-				{
-					id: id,
-					content: newTodo,
-					completed: false,
-				},
-			]);
 		}
-		setNewTodo('');
 	}
+
 	return (
 		<>
 			<S.Wrapper>
@@ -44,11 +47,10 @@ export default function AddTodo({
 					value={newTodo}
 					onChange={(e) => setNewTodo(e.target.value)}
 				/>
-				<p className="inpWarning">{}</p>
 				<button
 					type="submit"
 					disabled={disabled}
-					onClick={handleAddBtn}
+					onClick={addTodoItem}
 				>
 					Add Now
 				</button>
