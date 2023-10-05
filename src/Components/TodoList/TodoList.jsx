@@ -42,6 +42,11 @@ export default function TodoList({ todoList, setTodoList }) {
 									let copy = [...todoList];
 									copy.splice(i, 1);
 									setTodoList(copy);
+
+									// 로컬스토리지에서 제거
+									const todos = JSON.parse(localStorage.getItem('todoList'));
+									const newTodos = todos.filter((todo) => todo.id !== v.id);
+									localStorage.setItem('todoList', JSON.stringify(newTodos));
 								}}
 							>
 								<FaRegTrashAlt />
