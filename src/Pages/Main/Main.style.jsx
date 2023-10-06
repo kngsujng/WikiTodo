@@ -15,36 +15,3 @@ export const Wrapper = styled.section`
 	border-radius: 10px;
 	box-shadow: 0px 4px 4px 0px #00000040;
 `;
-
-export const NavWrapper = styled.section`
-	width: 75%;
-	height: 4%;
-	margin: 10px 0;
-	display: flex;
-	justify-content: space-between;
-	align-items: center;
-	h1 {
-		font-weight: 600;
-		font-size: 22px;
-	}
-	ul {
-		display: flex;
-		justify-content: flex-end;
-	}
-	li {
-		&.all,
-		&.progressing,
-		&.completed {
-			border-bottom: 2px solid #00a2e5;
-			color: #00a2e5;
-		}
-		&:nth-child(2) {
-			margin: 0 0.8rem;
-		}
-		&:hover {
-			border-bottom: 2px solid #00a2e5;
-			color: #00a2e5;
-			cursor: pointer;
-		}
-	}
-`;

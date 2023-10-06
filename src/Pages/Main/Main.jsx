@@ -2,11 +2,13 @@ import React, { useEffect, useState } from 'react';
 import TodoList from '../../Components/TodoList/TodoList';
 import AddTodo from '../../Components/AddTodo/AddTodo';
 import * as S from './Main.style';
-import Todo from '../../Components/Todo/Todo';
+import Header from '../../Components/Header/Header';
+
+const filters = ['all', 'progressing', 'completed'];
 
 export default function Main() {
+	const [filter, setFilter] = useState(filters[0]);
 	const [todoList, setTodoList] = useState([]);
-	const [status, setStatus] = useState('all');
 	const [newTodo, setNewTodo] = useState('');
 	useEffect(() => {
 		if (!localStorage.getItem('todoList')) {
@@ -27,33 +29,15 @@ export default function Main() {
 						which helps you manage time.
 					</p>
 				</header> */}
-				<S.NavWrapper>
-					<h1>Todo List</h1>
-					<ul>
-						<li
-							className={status === 'all' ? 'all' : null}
-							onClick={() => setStatus('all')}
-						>
-							All
-						</li>
-						<li
-							className={status === 'progressing' ? 'progressing' : null}
-							onClick={() => setStatus('progressing')}
-						>
-							Progressing
-						</li>
-						<li
-							className={status === 'completed' ? 'completed' : null}
-							onClick={() => setStatus('completed')}
-						>
-							Completed
-						</li>
-					</ul>
-				</S.NavWrapper>
-				<Todo
+				<Header
+					filters={filters}
+					filter={filter}
+					onFilterChange={setFilter}
+				/>
+				<TodoList
+					filter={filter}
 					todoList={todoList}
 					setTodoList={setTodoList}
-					status={status}
 				/>
 				<AddTodo
 					todoList={todoList}

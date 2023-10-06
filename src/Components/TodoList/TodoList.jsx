@@ -1,30 +1,41 @@
-import React, { useEffect, useState } from 'react';
 import * as S from './TodoList.style';
 
 import { FaRegTrashAlt } from 'react-icons/fa';
 
-export default function TodoList({ todoList, setTodoList }) {
+export default function TodoList({ filter, todoList, setTodoList }) {
+	const filtered = getFilteredItems(todoList, filter);
 	return (
 		<>
 			<S.Wrapper>
 				<ul>
-					{todoList.map((v, i) => (
+					{filtered.map((v) => (
 						<li key={v.id}>
 							<div className="todoItemWrap">
 								<input
 									type="checkbox"
 									value={v.content}
 									checked={v.completed}
-									onChange={(e) => {
-										setTodoList((prev) => {
-											const updatedList = [...prev]; // 기존 배열 복제
-											updatedList[i] = { ...v, completed: e.target.checked }; // 특정 객체의 completed 업데이트
-											localStorage.setItem(
-												'todoList',
-												JSON.stringify(updatedList)
-											);
-											return updatedList;
+									onChange={() => {
+										// 체크하면 로컬스토리지에 반영되기
+										// 1. 체크표시하면 -> 해당 id를 찾아서 해당 todolist의 completed를 바꿔주고
+										// 2. 로컬스토리지 todoList에 반영하기
+										const oldTodos = JSON.parse(
+											localStorage.getItem('todoList')
+										);
+										const todoToUpdate = oldTodos.find(
+											(oldTodo) => oldTodo.id === v.id
+										);
+										todoToUpdate.completed = !todoToUpdate.completed;
+										const newTodos = oldTodos.map((todo) => {
+											if (todo.id === v.id) {
+												return todoToUpdate;
+											} else {
+												return todo;
+											}
 										});
+										console.log(newTodos);
+										localStorage.setItem('todoList', JSON.stringify(newTodos));
+										setTodoList(newTodos);
 									}}
 								/>
 								<p
@@ -43,14 +54,11 @@ export default function TodoList({ todoList, setTodoList }) {
 							</div>
 							<button
 								onClick={() => {
-									let copy = [...todoList];
-									copy.splice(i, 1);
-									setTodoList(copy);
-
 									// 로컬스토리지에서 제거
 									const todos = JSON.parse(localStorage.getItem('todoList'));
 									const newTodos = todos.filter((todo) => todo.id !== v.id);
 									localStorage.setItem('todoList', JSON.stringify(newTodos));
+									setTodoList(newTodos);
 								}}
 							>
 								<FaRegTrashAlt />
@@ -61,4 +69,16 @@ export default function TodoList({ todoList, setTodoList }) {
 			</S.Wrapper>
 		</>
 	);
+}
+
+function getFilteredItems(todoList, filter) {
+	if (filter === 'all') {
+		return todoList;
+	}
+	if (filter === 'progressing') {
+		return todoList.filter((todo) => !todo.completed);
+	}
+	if (filter === 'completed') {
+		return todoList.filter((todo) => todo.completed);
+	}
 }
