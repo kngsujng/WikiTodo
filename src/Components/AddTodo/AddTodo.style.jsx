@@ -21,11 +21,11 @@ export const Wrapper = styled.form`
 		margin: 0 auto;
 		padding: 10px;
 		border-radius: 15px;
-		background-color: #000000;
+		background-color: #3182f6;
 		color: #ffffff;
 		font-size: 18px;
 		&:disabled {
-			background-color: #bdbdbd;
+			background-color: #90c2ef;
 		}
 		/* &:hover {
 			box-shadow: 0px 4px 4px 0px #00000040;

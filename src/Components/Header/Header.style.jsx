@@ -19,10 +19,15 @@ export const Wrapper = styled.section`
 		&:nth-child(2) {
 			margin: 0 0.8rem;
 		}
-		button:hover {
-			border-bottom: 2px solid #00a2e5;
-			color: #00a2e5;
-			cursor: pointer;
+		button {
+			padding: 0 0 4px 0;
+			font-size: 15px;
+			&:hover {
+				padding: 0 0 2px 0;
+				border-bottom: 2px solid #05acf3;
+				color: #00a2e5;
+				cursor: pointer;
+			}
 		}
 	}
 `;

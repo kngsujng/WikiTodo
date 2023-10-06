@@ -9,8 +9,8 @@ export const Wrapper = styled.section`
 	flex-direction: column;
 	justify-content: center;
 	align-items: center;
-	width: 500px;
-	height: 650px;
+	width: 550px;
+	height: 700px;
 	background-color: #fff;
 	border-radius: 10px;
 	box-shadow: 0px 4px 4px 0px #00000040;
