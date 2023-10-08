@@ -8,6 +8,7 @@ export const Wrapper = styled.section`
 	justify-content: space-between;
 	align-items: center;
 	h1 {
+		color: ${({ theme }) => theme.txtColor};
 		font-weight: 600;
 		font-size: 22px;
 	}
@@ -22,10 +23,11 @@ export const Wrapper = styled.section`
 		button {
 			padding: 0 0 4px 0;
 			font-size: 15px;
+			color: ${({ theme }) => theme.txtColor};
 			&:hover {
 				padding: 0 0 2px 0;
-				border-bottom: 2px solid #05acf3;
-				color: #00a2e5;
+				border-bottom: 2px solid ${({ theme }) => theme.filterColor};
+				color: ${({ theme }) => theme.filterColor};
 				cursor: pointer;
 			}
 		}

@@ -1,14 +1,13 @@
-import Main from './Pages/Main/Main';
+import { ThemeModeProvider } from './Context/ThemeModeProvider';
 import Router from './Router';
 import GlobalStyle from './Style/GlobalStyle';
-import { useState } from 'react';
 
 function App() {
 	return (
-		<>
+		<ThemeModeProvider>
 			<GlobalStyle />
 			<Router />
-		</>
+		</ThemeModeProvider>
 	);
 }
 

@@ -17,13 +17,14 @@ export const Wrapper = styled.section`
 		display: flex;
 		justify-content: space-between;
 		align-items: center;
-		background-color: #f5f9fe;
+		background-color: ${({ theme }) => theme.todoListColor};
 		border-radius: 15px;
+		color: ${({ theme }) => theme.txtColor};
 		&:first-child {
 			margin-top: 0.5rem;
 		}
 		&:hover {
-			background-color: #c9e2ff;
+			background-color: ${({ theme }) => theme.hoverColor};
 		}
 		input {
 			margin-right: 10px;

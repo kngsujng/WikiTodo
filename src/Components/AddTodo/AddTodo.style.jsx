@@ -5,6 +5,7 @@ export const Wrapper = styled.form`
 	display: flex;
 	flex-direction: column;
 	justify-content: center;
+	color: ${({ theme }) => theme.txtColor};
 	label {
 		font-weight: 600;
 		font-size: 18px;
@@ -14,22 +15,22 @@ export const Wrapper = styled.form`
 		padding: 20px;
 		border-radius: 7px;
 		border: none;
-		background-color: #f1f1f1;
+		background-color: ${({ theme }) => theme.inpColor};
 	}
 	button {
 		width: 50%;
 		margin: 0 auto;
 		padding: 10px;
 		border-radius: 15px;
-		background-color: #3182f6;
+		background-color: ${({ theme }) => theme.activeBtnColor};
 		color: #ffffff;
 		font-size: 18px;
 		&:disabled {
-			background-color: #90c2ef;
+			background-color: ${({ theme }) => theme.disabledBtnColor};
 		}
-		/* &:hover {
-			box-shadow: 0px 4px 4px 0px #00000040;
-		} */
+		&:hover {
+			box-shadow: 0px 4px 4px 0px ${({ theme }) => theme.shadowColor};
+		}
 	}
 	p {
 		&.inpWarning {

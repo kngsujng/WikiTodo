@@ -7,20 +7,21 @@ const GlobalStyle = createGlobalStyle`
     box-sizing: border-box;
     }
     body{
-        background-color:#F5F5F6
+        background-color: ${({ theme }) => theme.bodyBgColor};
     }
     a{
         text-decoration : none;
-        color : inherit;
+        color: ${({ theme }) => theme.txtColor};
     }
     button{
-        background-color: transparent;
+        background-color: ${({ theme }) => theme.defaultBtnColor};
         border : none;
         cursor : pointer;
     }
     input{
+        background-color: ${({ theme }) => theme.inpColor};
         &::placeholder{
-            color: #9F9F9F;
+            color: ${({ theme }) => theme.placeholderColor};
         }
     }
 `;

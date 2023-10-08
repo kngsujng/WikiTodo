@@ -11,7 +11,7 @@ export const Wrapper = styled.section`
 	align-items: center;
 	width: 550px;
 	height: 700px;
-	background-color: #fff;
+	background-color: ${({ theme }) => theme.mainBgColor};
 	border-radius: 10px;
 	box-shadow: 0px 4px 4px 0px #00000040;
 `;
