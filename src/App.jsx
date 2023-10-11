@@ -1,12 +1,12 @@
 import { ThemeModeProvider } from './Context/ThemeModeProvider';
-import Router from './Router';
+import Main from './Pages/Main/Main';
 import GlobalStyle from './Style/GlobalStyle';
 
 function App() {
 	return (
 		<ThemeModeProvider>
 			<GlobalStyle />
-			<Router />
+			<Main />
 		</ThemeModeProvider>
 	);
 }

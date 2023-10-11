@@ -17,7 +17,7 @@ export const Wrapper = styled.section`
 	button {
 		&.btn_toggle {
 			position: absolute;
-			top: 1%;
+			top: 2%;
 			right: 2%;
 			width: 2.2rem;
 			height: 1.3rem;

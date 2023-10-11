@@ -12,6 +12,7 @@ export default function TodoList({ filter, todoList, setTodoList }) {
 						<li key={v.id}>
 							<div className="todoItemWrap">
 								<input
+									id={v.id}
 									type="checkbox"
 									value={v.content}
 									checked={v.completed}
@@ -33,13 +34,12 @@ export default function TodoList({ filter, todoList, setTodoList }) {
 												return todo;
 											}
 										});
-										console.log(newTodos);
 										localStorage.setItem('todoList', JSON.stringify(newTodos));
 										setTodoList(newTodos);
 									}}
 								/>
-								<p
-									className="todoItem"
+								<label
+									htmlFor={v.id}
 									style={
 										v.completed
 											? {
@@ -50,19 +50,22 @@ export default function TodoList({ filter, todoList, setTodoList }) {
 									}
 								>
 									{v.content}
-								</p>
+								</label>
 							</div>
-							<button
-								onClick={() => {
-									// 로컬스토리지에서 제거
-									const todos = JSON.parse(localStorage.getItem('todoList'));
-									const newTodos = todos.filter((todo) => todo.id !== v.id);
-									localStorage.setItem('todoList', JSON.stringify(newTodos));
-									setTodoList(newTodos);
-								}}
-							>
-								<FaRegTrashAlt />
-							</button>
+							<span className="wrap_delete">
+								<button
+									className="btn_delete"
+									onClick={() => {
+										// 로컬스토리지에서 제거
+										const todos = JSON.parse(localStorage.getItem('todoList'));
+										const newTodos = todos.filter((todo) => todo.id !== v.id);
+										localStorage.setItem('todoList', JSON.stringify(newTodos));
+										setTodoList(newTodos);
+									}}
+								>
+									<FaRegTrashAlt />
+								</button>
+							</span>
 						</li>
 					))}
 				</ul>

@@ -26,7 +26,7 @@ export const Wrapper = styled.section`
 		&:hover {
 			background-color: ${({ theme }) => theme.hoverColor};
 		}
-		input {
+		label {
 			margin-right: 10px;
 			cursor: pointer;
 		}
@@ -34,7 +34,22 @@ export const Wrapper = styled.section`
 	div {
 		&.todoItemWrap {
 			display: flex;
+			justify-content: center;
 			align-items: center;
+		}
+	}
+	input {
+		margin: 0 10px;
+		cursor: pointer;
+	}
+	span .wrap_delete {
+		/* background-color: ; */
+	}
+	button.btn_delete {
+		transition: all 150ms ease-out;
+		&:hover {
+			transform: rotate(15deg) scale(1.2);
+			color: ${({ theme }) => theme.activeBtnColor};
 		}
 	}
 `;

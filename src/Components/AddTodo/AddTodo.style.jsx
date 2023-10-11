@@ -1,11 +1,13 @@
 import { styled } from 'styled-components';
 
-export const Wrapper = styled.form`
+export const Wrapper = styled.section`
 	width: 75%;
-	display: flex;
-	flex-direction: column;
-	justify-content: center;
-	color: ${({ theme }) => theme.txtColor};
+	form {
+		display: flex;
+		flex-direction: column;
+		justify-content: center;
+		color: ${({ theme }) => theme.txtColor};
+	}
 	label {
 		font-weight: 600;
 		font-size: 18px;
@@ -28,8 +30,10 @@ export const Wrapper = styled.form`
 		&:disabled {
 			background-color: ${({ theme }) => theme.disabledBtnColor};
 		}
-		&:hover {
-			box-shadow: 0px 4px 4px 0px ${({ theme }) => theme.shadowColor};
+		&:not(:disabled) {
+			&:hover {
+				box-shadow: 0px 4px 4px 0px ${({ theme }) => theme.shadowColor};
+			}
 		}
 	}
 	p {

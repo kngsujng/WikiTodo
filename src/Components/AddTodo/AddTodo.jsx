@@ -39,21 +39,22 @@ export default function AddTodo({
 	return (
 		<>
 			<S.Wrapper>
-				<label htmlFor="inp_todo">Create your WikiTodo</label>
-				<input
-					type="text"
-					placeholder="Input your to-do!"
-					id="inp_todo"
-					value={newTodo}
-					onChange={(e) => setNewTodo(e.target.value)}
-				/>
-				<button
-					type="submit"
-					disabled={disabled}
-					onClick={addTodoItem}
-				>
-					Add Now
-				</button>
+				<form onSubmit={addTodoItem}>
+					<label htmlFor="inp_todo">Create your WikiTodo</label>
+					<input
+						type="text"
+						placeholder="Input your to-do!"
+						id="inp_todo"
+						value={newTodo}
+						onChange={(e) => setNewTodo(e.target.value)}
+					/>
+					<button
+						type="submit"
+						disabled={disabled}
+					>
+						Add Now
+					</button>
+				</form>
 			</S.Wrapper>
 		</>
 	);
