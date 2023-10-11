@@ -23,8 +23,6 @@ export default function Main() {
 	}, []);
 	return (
 		<>
-			<button onClick={() => toggleTheme()}>다크모드 전환 버튼</button>
-			<span>{themeMode}</span>
 			<S.Wrapper>
 				{/* <header>
 					<h1>Get Organized Your Life!</h1>
@@ -49,6 +47,12 @@ export default function Main() {
 					newTodo={newTodo}
 					setNewTodo={setNewTodo}
 				/>
+				<button
+					className="btn_toggle"
+					onClick={() => toggleTheme()}
+				>
+					{themeMode === 'light' ? '🌚' : '🌞'}
+				</button>
 			</S.Wrapper>
 		</>
 	);
