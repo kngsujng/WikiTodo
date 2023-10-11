@@ -8,10 +8,12 @@ export function ThemeModeProvider({ children }) {
 	const [themeMode, setThemeMode] = useState('light');
 	// const themeObject = themeMode === 'light' ? lightTheme : darkTheme;
 	const toggleTheme = () => {
-		setThemeMode((prevMode) => (prevMode === 'light' ? 'dark' : 'light'));
+		const newTheme = themeMode === 'light' ? 'dark' : 'light';
+		localStorage.setItem('theme', newTheme);
+		setThemeMode(newTheme);
 	};
 	return (
-		<ThemeModeContext.Provider value={{ themeMode, toggleTheme }}>
+		<ThemeModeContext.Provider value={{ themeMode, setThemeMode, toggleTheme }}>
 			<StyledProvider theme={themeMode === 'light' ? lightTheme : darkTheme}>
 				{children}
 			</StyledProvider>

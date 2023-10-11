@@ -8,10 +8,11 @@ import { ThemeModeContext } from './../../Context/ThemeModeProvider';
 const filters = ['all', 'progressing', 'completed'];
 
 export default function Main() {
-	const { themeMode, toggleTheme } = useContext(ThemeModeContext);
+	const { themeMode, setThemeMode, toggleTheme } = useContext(ThemeModeContext);
 	const [filter, setFilter] = useState(filters[0]);
 	const [todoList, setTodoList] = useState([]);
 	const [newTodo, setNewTodo] = useState('');
+
 	useEffect(() => {
 		if (!localStorage.getItem('todoList')) {
 			localStorage.setItem('todoList', JSON.stringify([]));
@@ -20,7 +21,15 @@ export default function Main() {
 			const data = JSON.parse(localStorage.getItem('todoList'));
 			setTodoList(data);
 		}
+		if (!localStorage.getItem('theme')) {
+			localStorage.setItem('theme', themeMode);
+		} else {
+			// 새로고침해도 로컬스토리지 데이터 보이기 위해선, 저장해야 함 ! (핵심)
+			const storedTheme = localStorage.getItem('theme');
+			setThemeMode(storedTheme);
+		}
 	}, []);
+
 	return (
 		<>
 			<S.Wrapper>
