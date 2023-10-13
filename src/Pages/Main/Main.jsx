@@ -21,6 +21,8 @@ export default function Main() {
 			const data = JSON.parse(localStorage.getItem('todoList'));
 			setTodoList(data);
 		}
+	}, []);
+	useEffect(() => {
 		if (!localStorage.getItem('theme')) {
 			localStorage.setItem('theme', themeMode);
 		} else {
@@ -28,7 +30,7 @@ export default function Main() {
 			const storedTheme = localStorage.getItem('theme');
 			setThemeMode(storedTheme);
 		}
-	}, []);
+	}, [themeMode, setThemeMode]);
 
 	return (
 		<>
