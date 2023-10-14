@@ -22,13 +22,26 @@ export const NavWrapper = styled.header`
 		font-size: 1.5rem;
 		line-height: 100%;
 	}
-	button {
+	/* button {
 		color: ${({ theme }) => theme.txtColor};
 		&:hover {
 			padding: 5px;
 			border-radius: 5px;
 			background-color: ${({ theme }) => theme.hoverColor};
 			font-weight: 600;
+		}
+	} */
+	button {
+		&.btn_toggle {
+			width: 2.2rem;
+			height: 1.4rem;
+			border-radius: 10px;
+			line-height: 1.4rem;
+			font-size: 1.3rem;
+			&:hover {
+				background-color: ${({ theme }) => theme.disabledBtnColor};
+				box-shadow: ${({ theme }) => theme.boxShadow};
+			}
 		}
 	}
 `;
