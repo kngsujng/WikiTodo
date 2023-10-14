@@ -14,6 +14,7 @@ const GlobalStyle = createGlobalStyle`
         color: ${({ theme }) => theme.txtColor};
     }
     button{
+        padding: 0;
         background-color: ${({ theme }) => theme.defaultBtnColor};
         border : none;
         cursor : pointer;
