@@ -4,7 +4,7 @@ import * as S from './Header.style';
 export default function Header({ filters, filter, onFilterChange }) {
 	return (
 		<S.Wrapper>
-			<h1>Todo List</h1>
+			<h2>Todo List</h2>
 			<ul>
 				{filters.map((f, i) => (
 					<li key={i}>

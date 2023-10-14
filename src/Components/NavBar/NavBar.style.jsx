@@ -1,0 +1,34 @@
+import styled from 'styled-components';
+
+export const NavWrapper = styled.header`
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	position: fixed;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 3rem;
+	padding: 0 20px;
+	background-color: ${({ theme }) => theme.mainBgColor};
+	color: ${({ theme }) => theme.txtColor};
+	div {
+		display: flex;
+		align-items: center;
+		gap: 0.3rem;
+	}
+	h1 {
+		font-weight: 700;
+		font-size: 1.5rem;
+		line-height: 100%;
+	}
+	button {
+		color: ${({ theme }) => theme.txtColor};
+		&:hover {
+			padding: 5px;
+			border-radius: 5px;
+			background-color: ${({ theme }) => theme.hoverColor};
+			font-weight: 600;
+		}
+	}
+`;

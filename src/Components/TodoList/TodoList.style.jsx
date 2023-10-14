@@ -1,9 +1,8 @@
 import { styled } from 'styled-components';
 
 export const Wrapper = styled.section`
-	margin-bottom: 20px;
 	width: 75%;
-	height: 60%;
+	height: 100%;
 	display: flex;
 	flex-direction: column;
 	ul {

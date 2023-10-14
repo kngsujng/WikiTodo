@@ -7,7 +7,7 @@ export const Wrapper = styled.section`
 	display: flex;
 	justify-content: space-between;
 	align-items: center;
-	h1 {
+	h2 {
 		color: ${({ theme }) => theme.txtColor};
 		font-weight: 600;
 		font-size: 22px;
