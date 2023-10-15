@@ -11,6 +11,7 @@ export const NavWrapper = styled.header`
 	height: 3rem;
 	padding: 0 20px;
 	background-color: ${({ theme }) => theme.mainBgColor};
+	box-shadow: ${({ theme }) => theme.navBarShadow};
 	color: ${({ theme }) => theme.txtColor};
 	div {
 		display: flex;
@@ -34,11 +35,11 @@ export const NavWrapper = styled.header`
 	}
 	button {
 		&.btn_toggle {
+			margin: 2px;
 			width: 2.2rem;
-			height: 1.4rem;
 			border-radius: 10px;
 			text-align: center;
-			font-size: 1.3rem;
+			font-size: 1.4rem;
 			&:hover {
 				background-color: ${({ theme }) => theme.hoverColor};
 				box-shadow: ${({ theme }) => theme.boxShadow};

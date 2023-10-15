@@ -3,6 +3,7 @@ import { ThemeModeContext } from './../../Context/ThemeModeProvider';
 import * as S from './NavBar.style';
 import { LuListTodo } from 'react-icons/lu';
 import { login, logout, ouUserStateChange } from '../../Api/firebase';
+import User from '../User/User';
 
 export default function NavBar() {
 	const { themeMode, setThemeMode, toggleTheme } = useContext(ThemeModeContext);
@@ -34,6 +35,7 @@ export default function NavBar() {
 					>
 						{themeMode === 'light' ? '🌚' : '🌞'}
 					</button>
+					{user && <User user={user} />}
 					{!user && (
 						<button
 							className="btn_login"
