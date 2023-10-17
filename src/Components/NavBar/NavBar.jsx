@@ -4,10 +4,12 @@ import * as S from './NavBar.style';
 import { LuListTodo } from 'react-icons/lu';
 import { login, logout, ouUserStateChange } from '../../Api/firebase';
 import User from '../User/User';
+import { useNavigate } from 'react-router-dom';
 
 export default function NavBar() {
 	const { themeMode, setThemeMode, toggleTheme } = useContext(ThemeModeContext);
 	const [user, setUser] = useState();
+	const navigate = useNavigate();
 	useEffect(() => {
 		ouUserStateChange(setUser);
 	}, []);
@@ -26,7 +28,13 @@ export default function NavBar() {
 			<S.NavWrapper>
 				<div>
 					<LuListTodo style={{ fontSize: '1.5rem' }} />
-					<h1>Wiki-Todo</h1>
+					<h1
+						onClick={() => {
+							navigate('/');
+						}}
+					>
+						Wiki-Todo
+					</h1>
 				</div>
 				<div>
 					<button

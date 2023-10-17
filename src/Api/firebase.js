@@ -4,6 +4,8 @@ import {
 	signInWithPopup,
 	signOut,
 	GoogleAuthProvider,
+	signInWithEmailAndPassword,
+	createUserWithEmailAndPassword,
 	onAuthStateChanged,
 } from 'firebase/auth';
 
@@ -19,9 +21,30 @@ const app = initializeApp(firebaseConfig);
 const auth = getAuth();
 const provider = new GoogleAuthProvider();
 
+// Google 로그인
 export function login() {
 	signInWithPopup(auth, provider).catch(console.error);
 }
+
+// Email 회원가입
+export async function signupEmail(email, pwd) {
+	return await createUserWithEmailAndPassword(auth, email, pwd)
+		.then((userCredential) => {
+			console.log(userCredential);
+		})
+		.catch((error) => {
+			console.log(error);
+		});
+}
+
+// Email 로그인
+// export async function signinEmail(email, password) {
+// 	return await signInWithEmailAndPassword(auth, email, password)
+// 		.then((userCredential) => {
+// 			console.log(userCredential);
+// 		})
+// 		.catch((err) => console.log(err));
+// }
 
 export function logout() {
 	signOut(auth).catch(console.error);

@@ -22,6 +22,7 @@ export const NavWrapper = styled.header`
 		font-weight: 700;
 		font-size: 1.5rem;
 		line-height: 100%;
+		cursor: pointer;
 	}
 	button.btn_login {
 		padding: 7px;
@@ -30,6 +31,7 @@ export const NavWrapper = styled.header`
 			padding: 5px;
 			border-radius: 5px;
 			background-color: ${({ theme }) => theme.hoverColor};
+			box-shadow: ${({ theme }) => theme.boxShadow};
 			font-weight: 600;
 		}
 	}
