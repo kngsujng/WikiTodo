@@ -47,7 +47,8 @@ export default function NavBar() {
 					{!user && (
 						<button
 							className="btn_login"
-							onClick={login}
+							// onClick={login}
+							onClick={() => navigate('/login')}
 						>
 							Login
 						</button>
@@ -55,7 +56,9 @@ export default function NavBar() {
 					{user && (
 						<button
 							className="btn_login"
-							onClick={logout}
+							onClick={() => {
+								logout();
+							}}
 						>
 							Logout
 						</button>

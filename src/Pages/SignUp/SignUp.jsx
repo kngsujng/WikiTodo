@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { FaEye, FaEyeSlash } from 'react-icons/fa';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import * as S from './SignUp.style';
 import { signupEmail } from '../../Api/firebase';
 
@@ -15,10 +15,11 @@ export default function SignUp() {
 	const [isVisibleConfirmPwd, setIsVisibleConfirmPwd] = useState(false);
 	const [isDisabled, setIsDisabled] = useState(true);
 
+	const navigate = useNavigate();
+
 	function handleInputEmail(e) {
 		const emailPattern =
 			/^[A-Za-z0-9_\\.\\-]+@[A-Za-z0-9\\-]+\.[A-za-z0-9\\-]+/;
-
 		if (emailPattern.test(e.target.value) === false)
 			setEmailError('✔︎ 이메일 형식이 올바르지 않습니다.');
 		else setEmailError('');
@@ -46,13 +47,14 @@ export default function SignUp() {
 
 	const handleSignupBtn = async (e) => {
 		e.preventDefault();
-		try {
-			const userCredential = await signupEmail(email, pwd);
-			console.log(userCredential);
-			// 회원가입이 성공했을 때 할 작업 추가
-		} catch (error) {
-			console.log(error);
-			// 에러 처리
+		const result = await signupEmail(email, pwd);
+		if (result === 'auth/email-already-in-use') {
+			setEmailError(
+				'✔︎ 이미 사용중인 이메일 주소입니다. 다른 이메일 주소를 사용해주세요.'
+			);
+		} else {
+			setEmailError('');
+			navigate('/');
 		}
 	};
 
@@ -91,7 +93,7 @@ export default function SignUp() {
 					<header>
 						<h1>Join us !</h1>
 					</header>
-					<form action="#">
+					<form>
 						<label htmlFor="inp_email">Email</label>
 						<input
 							required
@@ -99,7 +101,6 @@ export default function SignUp() {
 							id="inp_email"
 							value={email}
 							onChange={handleInputEmail}
-							style={emailError ? { borderBottom: '2px solid #ff3f3f' } : null}
 						/>
 						<p className="errorTxt">{emailError}</p>
 						<>
@@ -111,18 +112,15 @@ export default function SignUp() {
 									id="inp_pwd"
 									value={pwd}
 									onChange={handleInputPwd}
-									style={
-										pwdError ? { borderBottom: '2px solid #ff3f3f' } : null
-									}
 								/>
 								<button
 									type="button"
 									onClick={() => setIsVisiblePwd((prev) => !prev)}
 								>
 									{isVisiblePwd ? (
-										<FaEyeSlash style={{ width: '20px' }} />
+										<FaEyeSlash size="18px" />
 									) : (
-										<FaEye style={{ width: '20px' }} />
+										<FaEye size="18px" />
 									)}
 								</button>
 							</S.InpPwdWrapper>
@@ -137,20 +135,15 @@ export default function SignUp() {
 									id="inp_pwdCheck"
 									value={confirmPwd}
 									onChange={handleInputConfirmPwd}
-									style={
-										confirmPwdError
-											? { borderBottom: '2px solid #ff3f3f' }
-											: null
-									}
 								/>
 								<button
 									type="button"
 									onClick={() => setIsVisibleConfirmPwd((prev) => !prev)}
 								>
 									{isVisibleConfirmPwd ? (
-										<FaEyeSlash style={{ width: '20px' }} />
+										<FaEyeSlash size="18px" />
 									) : (
-										<FaEye style={{ width: '20px' }} />
+										<FaEye size="18px" />
 									)}
 								</button>
 							</S.InpPwdWrapper>

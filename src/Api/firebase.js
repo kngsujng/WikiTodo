@@ -32,9 +32,7 @@ export async function signupEmail(email, pwd) {
 		.then((userCredential) => {
 			console.log(userCredential);
 		})
-		.catch((error) => {
-			console.log(error);
-		});
+		.catch((error) => error.code);
 }
 
 // Email 로그인
