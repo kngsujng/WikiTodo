@@ -13,8 +13,9 @@ export const Container = styled.section`
 	align-items: center;
 	border-radius: 10px;
 	background-color: ${({ theme }) => theme.mainBgColor};
+	box-shadow: ${({ theme }) => theme.boxShadow};
 	h1 {
-		margin-bottom: 40px;
+		margin-bottom: 50px;
 		font-size: 1.6rem;
 		font-weight: 700;
 	}
@@ -65,7 +66,11 @@ export const BtnWrapper = styled.section`
 		font-size: 1rem;
 		font-weight: 600;
 		&:disabled {
-			${({ theme }) => theme.disabledBtnColor};
+			cursor: default;
+			background-color: ${({ theme }) => theme.disabledBtnColor};
+		}
+		&:not(disabled) {
+			background-color: ${({ theme }) => theme.activeBtnColor};
 		}
 	}
 `;
@@ -92,6 +97,11 @@ export const LinkWrapper = styled.section`
 	a {
 		margin-right: auto;
 		font-weight: 600;
+		&:hover {
+			color: ${({ theme }) => theme.activeBtnColor};
+			font-weight: 700;
+			text-decoration: underline;
+		}
 	}
 	p {
 		margin-right: 5px;

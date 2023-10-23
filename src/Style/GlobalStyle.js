@@ -3,6 +3,14 @@ import reset from 'styled-reset';
 
 const GlobalStyle = createGlobalStyle`
     ${reset}
+    .screen-out{
+      overflow: hidden; 
+      position: absolute; 
+      width: 0; 
+      height: 0; 
+      line-height: 0; 
+      text-indent: -9999px;
+    }
     * {
     box-sizing: border-box;
     }

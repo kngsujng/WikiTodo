@@ -1,36 +1,17 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import * as S from './Login.style';
+import { FcGoogle } from 'react-icons/fc';
 
 export default function Login() {
+	const [isDisabled, setIsDisabled] = useState(true);
 	const navigate = useNavigate();
-	// const [inpVal, setInpVal] = useState('');
-	// const [warning, setWarning] = useState(false);
-
-	// 숫자가 아닐 때 경고창 띄우기
-	// 아무것도 입력하지 않았을 때 경고창 띄우지 않기
-	// useEffect(() => {
-	//   if (inpVal === '') {
-	//     setWarning(false);
-	//   } else if (isNaN(Number(inpVal))) {
-	//     setWarning(true);
-	//   } else {
-	//     setWarning(false);
-	//   }
-	// }, [inpVal]);
 	return (
 		<>
 			<S.Container>
-				{/* <input
-          onChange={e => setInpVal(e.target.value)}
-          type='text'
-          placeholder='useEffect 공부를 위한 input : 숫자만 입력하세요'
-          value={inpVal}
-        /> */}
-				{/* {warning && <p>숫자만 입력하세욧!!</p>} */}
 				<S.LoginFormWrapper>
 					<header>
-						<h1>Welcome Back</h1>
+						<h1>Welcome!</h1>
 						<p>Please enter your details.</p>
 					</header>
 					<form>
@@ -57,8 +38,16 @@ export default function Login() {
 							<h2 className="screen-out">
 								이메일을 통한 로그인 버튼과 구글계정을 통한 로그인 버튼
 							</h2>
-							<button onClick={() => navigate('/')}>Sign in</button>
-							{/* <button>Sign in with Google</button> */}
+							<button
+								className="emailLogin"
+								disabled={isDisabled}
+							>
+								Sign in
+							</button>
+							<button className="googleLogin">
+								<FcGoogle />
+								Sign in with Google
+							</button>
 						</S.BtnWrapper>
 					</form>
 					<S.LinkWrapper>
