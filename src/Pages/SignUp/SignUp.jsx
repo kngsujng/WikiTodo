@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from 'react';
 import { FaEye, FaEyeSlash } from 'react-icons/fa';
 import { Link, useNavigate } from 'react-router-dom';
-import * as S from './SignUp.style';
+import * as S from './Signup.style';
 import { signupEmail } from '../../Api/firebase';
 
-export default function SignUp() {
+export default function Signup() {
 	const [email, setEmail] = useState('');
 	const [pwd, setPwd] = useState('');
 	const [confirmPwd, setConfirmPwd] = useState('');
@@ -27,12 +27,10 @@ export default function SignUp() {
 	}
 
 	function handleInputPwd(e) {
-		const pwdPattern =
-			/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@#$%^&+=!]).{8,16}$/;
-
+		const pwdPattern = /^(?=.*[a-zA-Z])(?=.*[!@#$%^*+=-])(?=.*[0-9]).{8,15}$/;
 		if (pwdPattern.test(e.target.value) === false)
 			setPwdError(
-				'✔︎ 8~16자의 영문 대/소문자, 숫자, 특수문자를 사용해 주세요.'
+				'✔︎ 영문, 숫자, 특수기호를 조합하여 8자리 이상 입력해주세요.'
 			);
 		else setPwdError('');
 		setPwd(e.target.value);

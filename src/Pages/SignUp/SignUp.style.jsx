@@ -47,12 +47,6 @@ export const Container = styled.section`
 				border-bottom: 2px solid #1c7caa;
 			}
 		}
-		input {
-			border-bottom: ${(props) =>
-				props.emailError || props.pwdError || props.confirmPwdError
-					? '2px solid #ff3f3f'
-					: 'none'};
-		}
 	}
 `;
 export const BtnWrapper = styled.section`

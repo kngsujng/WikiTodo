@@ -33,7 +33,7 @@ export const Container = styled.section`
 		}
 		input[type='text'],
 		input[type='password'] {
-			margin: 5px 0 20px;
+			margin: 5px 0;
 			padding: 10px 0;
 			border: none;
 			background-color: transparent;
@@ -46,11 +46,11 @@ export const Container = styled.section`
 				border-bottom: 2px solid #1c7caa;
 			}
 		}
-		input {
-			border-bottom: ${(props) =>
-				props.emailError || props.pwdError || props.confirmPwdError
-					? '2px solid #ff3f3f'
-					: 'none'};
+		p.errorTxt {
+			margin-top: 0;
+			height: 20px;
+			font-size: 0.8rem;
+			color: ${({ theme }) => theme.errorMsg};
 		}
 	}
 	input[type='checkbox'] {
