@@ -1,7 +1,13 @@
-import React from 'react';
+import React, { useState } from 'react';
 import * as S from './Header.style';
 
 export default function Header({ filters, filter, onFilterChange }) {
+	const [selectedFilter, setSelectedFilter] = useState(filter);
+	const handleFilterBtn = (f) => {
+		onFilterChange(f);
+		setSelectedFilter(f);
+	};
+
 	return (
 		<S.Wrapper>
 			<h2>Todo List</h2>
@@ -9,9 +15,9 @@ export default function Header({ filters, filter, onFilterChange }) {
 				{filters.map((f, i) => (
 					<li key={i}>
 						<button
-							onClick={() => {
-								onFilterChange(f);
-							}}
+							className={f === selectedFilter ? 'active' : ''}
+							autoFocus={f === selectedFilter}
+							onClick={() => handleFilterBtn(f)}
 						>
 							{f}
 						</button>
