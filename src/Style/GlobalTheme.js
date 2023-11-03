@@ -11,8 +11,9 @@ export const lightTheme = {
 	todoListColor: '#f5f9fe',
 	hoverColor: '#c9e2ff',
 	filterColor: '#00a2e5',
-	boxShadow:
-		'rgba(9, 30, 66, 0.25) 0px 4px 8px -2px, rgba(9, 30, 66, 0.08) 0px 0px 0px 1px',
+	boxShadow: '0px 4px 4px 0px #00000040',
+	navBarShadow: 'rgba(0, 0, 0, 0.1) 0px 1px 2px 0px',
+	errorMsg: '#ff3f3f',
 };
 
 export const darkTheme = {
@@ -28,8 +29,8 @@ export const darkTheme = {
 	todoListColor: '#282C34',
 	hoverColor: '#1734E0',
 	filterColor: 'skyblue',
-	boxShadow:
-		'rgba(1, 30, 66, 0.25) 0px 4px 8px -2px, rgba(9, 30, 66, 0.08) 0px 0px 0px 1px',
+	boxShadow: '0 20px 25px -5px #000, 0 8px 10px -6px #000',
+	navBarShadow: 'rgba(255, 255, 255, 0.1) 0px 1px 2px 0px',
 };
 
 export const GlobalTheme = {

@@ -10,7 +10,7 @@ export const Wrapper = styled.section`
 		border-top: 2px solid ${({ theme }) => theme.inpColor};
 	}
 	li {
-		font-size: 0.9rem;
+		font-size: 1rem;
 		width: 100%;
 		margin-bottom: 0.5rem;
 		padding: 1rem;
@@ -63,7 +63,7 @@ export const Wrapper = styled.section`
 	button.btn_edit,
 	button.btn_editConfirm,
 	button.btn_editCancel {
-		font-size: 0.9rem;
+		font-size: 1rem;
 		transition: all 150ms ease-out;
 		&:hover {
 			transform: rotate(15deg) scale(1.2);
@@ -71,7 +71,7 @@ export const Wrapper = styled.section`
 		}
 	}
 	button.btn_edit {
-		font-size: 1rem;
+		font-size: 1.1rem;
 	}
 	button.btn_editConfirm,
 	button.btn_editCancel {

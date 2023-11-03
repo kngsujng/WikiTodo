@@ -12,5 +12,5 @@ export const Wrapper = styled.section`
 	height: 80vh;
 	background-color: ${({ theme }) => theme.mainBgColor};
 	border-radius: 10px;
-	box-shadow: 0px 4px 4px 0px #00000040;
+	box-shadow: ${({ theme }) => theme.boxShadow};
 `;

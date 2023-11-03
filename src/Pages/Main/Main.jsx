@@ -3,6 +3,7 @@ import TodoList from '../../Components/TodoList/TodoList';
 import AddTodo from '../../Components/AddTodo/AddTodo';
 import * as S from './Main.style';
 import Header from '../../Components/Header/Header';
+import Layout from '../../Components/Layout/Layout';
 
 const filters = ['all', 'progressing', 'completed'];
 
@@ -23,24 +24,26 @@ export default function Main() {
 
 	return (
 		<>
-			<S.Wrapper>
-				<Header
-					filters={filters}
-					filter={filter}
-					onFilterChange={setFilter}
-				/>
-				<TodoList
-					filter={filter}
-					todoList={todoList}
-					setTodoList={setTodoList}
-				/>
-				<AddTodo
-					todoList={todoList}
-					setTodoList={setTodoList}
-					newTodo={newTodo}
-					setNewTodo={setNewTodo}
-				/>
-			</S.Wrapper>
+			<Layout>
+				<S.Wrapper>
+					<Header
+						filters={filters}
+						filter={filter}
+						onFilterChange={setFilter}
+					/>
+					<TodoList
+						filter={filter}
+						todoList={todoList}
+						setTodoList={setTodoList}
+					/>
+					<AddTodo
+						todoList={todoList}
+						setTodoList={setTodoList}
+						newTodo={newTodo}
+						setNewTodo={setNewTodo}
+					/>
+				</S.Wrapper>
+			</Layout>
 		</>
 	);
 }

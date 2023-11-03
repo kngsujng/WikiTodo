@@ -1,10 +1,19 @@
-import React, { useContext, useEffect } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { ThemeModeContext } from './../../Context/ThemeModeProvider';
 import * as S from './NavBar.style';
 import { LuListTodo } from 'react-icons/lu';
+import { logout, ouUserStateChange } from '../../Api/firebase';
+import User from '../User/User';
+import { useNavigate } from 'react-router-dom';
 
 export default function NavBar() {
 	const { themeMode, setThemeMode, toggleTheme } = useContext(ThemeModeContext);
+	const [user, setUser] = useState();
+	const navigate = useNavigate();
+	useEffect(() => {
+		ouUserStateChange(setUser);
+	}, []);
+
 	useEffect(() => {
 		if (!localStorage.getItem('theme')) {
 			localStorage.setItem('theme', themeMode);
@@ -19,15 +28,41 @@ export default function NavBar() {
 			<S.NavWrapper>
 				<div>
 					<LuListTodo style={{ fontSize: '1.5rem' }} />
-					<h1>Wiki-Todo</h1>
+					<h1
+						onClick={() => {
+							navigate('/');
+						}}
+					>
+						Wiki-Todo
+					</h1>
 				</div>
-				<button
-					className="btn_toggle"
-					onClick={() => toggleTheme()}
-				>
-					{themeMode === 'light' ? '🌚' : '🌞'}
-				</button>
-				{/* <button className="btn_logout">Logout</button> */}
+				<div>
+					<button
+						className="btn_toggle"
+						onClick={() => toggleTheme()}
+					>
+						{themeMode === 'light' ? '🌚' : '🌞'}
+					</button>
+					{user && <User user={user} />}
+					{!user && (
+						<button
+							className="btn_login"
+							onClick={() => navigate('/login')}
+						>
+							Login
+						</button>
+					)}
+					{user && (
+						<button
+							className="btn_login"
+							onClick={() => {
+								logout();
+							}}
+						>
+							Logout
+						</button>
+					)}
+				</div>
 			</S.NavWrapper>
 		</>
 	);

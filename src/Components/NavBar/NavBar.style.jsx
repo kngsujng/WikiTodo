@@ -11,6 +11,7 @@ export const NavWrapper = styled.header`
 	height: 3rem;
 	padding: 0 20px;
 	background-color: ${({ theme }) => theme.mainBgColor};
+	box-shadow: ${({ theme }) => theme.navBarShadow};
 	color: ${({ theme }) => theme.txtColor};
 	div {
 		display: flex;
@@ -21,25 +22,28 @@ export const NavWrapper = styled.header`
 		font-weight: 700;
 		font-size: 1.5rem;
 		line-height: 100%;
+		cursor: pointer;
 	}
-	/* button {
+	button.btn_login {
+		padding: 7px;
 		color: ${({ theme }) => theme.txtColor};
 		&:hover {
 			padding: 5px;
 			border-radius: 5px;
 			background-color: ${({ theme }) => theme.hoverColor};
+			box-shadow: ${({ theme }) => theme.boxShadow};
 			font-weight: 600;
 		}
-	} */
+	}
 	button {
 		&.btn_toggle {
+			margin: 2px;
 			width: 2.2rem;
-			height: 1.4rem;
 			border-radius: 10px;
-			line-height: 1.4rem;
-			font-size: 1.3rem;
+			text-align: center;
+			font-size: 1.4rem;
 			&:hover {
-				background-color: ${({ theme }) => theme.disabledBtnColor};
+				background-color: ${({ theme }) => theme.hoverColor};
 				box-shadow: ${({ theme }) => theme.boxShadow};
 			}
 		}
