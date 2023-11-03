@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { FaEye, FaEyeSlash } from 'react-icons/fa';
 import { Link, useNavigate } from 'react-router-dom';
-import * as S from './Signup.style';
+import * as S from './SignUp.style';
 import { signupEmail } from '../../Api/firebase';
 
 export default function Signup() {
