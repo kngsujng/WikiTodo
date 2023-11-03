@@ -3,7 +3,6 @@ import TodoList from '../../Components/TodoList/TodoList';
 import AddTodo from '../../Components/AddTodo/AddTodo';
 import * as S from './Main.style';
 import Header from '../../Components/Header/Header';
-import NavBar from '../../Components/NavBar/NavBar';
 import Layout from '../../Components/Layout/Layout';
 
 const filters = ['all', 'progressing', 'completed'];
