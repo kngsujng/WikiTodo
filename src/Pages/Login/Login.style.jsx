@@ -47,7 +47,7 @@ export const Container = styled.section`
 			}
 		}
 		p.errorTxt {
-			margin-top: 0;
+			/* margin-top: 10px; */
 			height: 20px;
 			font-size: 0.8rem;
 			color: ${({ theme }) => theme.errorMsg};
@@ -67,7 +67,7 @@ export const Container = styled.section`
 export const BtnWrapper = styled.section`
 	button {
 		width: 100%;
-		margin: 30px auto 5px;
+		margin: 20px auto 5px;
 		padding: 10px;
 		border-radius: 5px;
 		background-color: #000000;

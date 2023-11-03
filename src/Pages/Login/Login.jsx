@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import * as S from './Login.style';
 import { FcGoogle } from 'react-icons/fc';
-import { login } from '../../Api/firebase';
+import { login, signinEmail } from '../../Api/firebase';
 
 export default function Login() {
 	const [loginInfo, setLoginInfo] = useState({
@@ -12,6 +12,7 @@ export default function Login() {
 	const [loginError, setLoginError] = useState({
 		email: '',
 		pwd: '',
+		etc: '',
 	});
 	const [isBtnActive, setIsBtnActive] = useState(false);
 	const [isRequired, setIsRequired] = useState(true);
@@ -35,7 +36,7 @@ export default function Login() {
 			const pwdPattern = /^(?=.*[a-zA-Z])(?=.*[!@#$%^*+=-])(?=.*[0-9]).{8,15}$/;
 			const errorMsg = pwdPattern.test(value)
 				? ''
-				: '✔︎ 비밀번호 형식이 올바르지 않습니다.';
+				: '✔︎ 영문, 숫자, 특수기호를 조합하여 8자리 이상 입력해주세요.';
 			setLoginError((prev) => value && { ...prev, [name]: errorMsg });
 		}
 	};
@@ -45,6 +46,24 @@ export default function Login() {
 		setIsRequired(false);
 		await login();
 		navigate('/');
+	};
+
+	const handleEmailLoginBtn = async (e) => {
+		e.preventDefault();
+		const result = await signinEmail(loginInfo.email, loginInfo.pwd);
+		if (result === 'auth/invalid-login-credentials') {
+			setLoginError((prev) => ({
+				...prev,
+				etc: '✔︎ 아이디 또는 비밀번호를 잘못 입력했습니다. \n입력하신 내용을 다시 확인해주세요.',
+			}));
+			setTimeout(() => {
+				setLoginError({ email: '', pwd: '', etc: '' });
+			}, 4000);
+			setLoginInfo({ email: '', pwd: '' });
+		} else {
+			console.log('성공적으로 이메일 로그인함');
+			navigate('/');
+		}
 	};
 
 	useEffect(() => {
@@ -98,6 +117,7 @@ export default function Login() {
 							/>
 							<label htmlFor="saveInfo">Remember for 30 days</label>
 						</div>
+						{loginError.etc && <p className="errorTxt">{loginError.etc}</p>}
 						<S.BtnWrapper>
 							<h2 className="screen-out">
 								이메일을 통한 로그인 버튼과 구글계정을 통한 로그인 버튼
@@ -105,6 +125,7 @@ export default function Login() {
 							<button
 								className="emailLogin"
 								disabled={!isBtnActive}
+								onClick={handleEmailLoginBtn}
 							>
 								Sign in
 							</button>

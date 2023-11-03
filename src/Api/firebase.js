@@ -6,6 +6,7 @@ import {
 	GoogleAuthProvider,
 	createUserWithEmailAndPassword,
 	onAuthStateChanged,
+	signInWithEmailAndPassword,
 } from 'firebase/auth';
 
 const firebaseConfig = {
@@ -17,7 +18,7 @@ const firebaseConfig = {
 
 // Initialize Firebase
 const app = initializeApp(firebaseConfig);
-const auth = getAuth();
+const auth = getAuth(app);
 const provider = new GoogleAuthProvider();
 
 // Google 로그인
@@ -35,13 +36,13 @@ export async function signupEmail(email, pwd) {
 }
 
 // Email 로그인
-// export async function signinEmail(email, password) {
-// 	return await signInWithEmailAndPassword(auth, email, password)
-// 		.then((userCredential) => {
-// 			console.log(userCredential);
-// 		})
-// 		.catch((err) => console.log(err));
-// }
+export async function signinEmail(email, password) {
+	return await signInWithEmailAndPassword(auth, email, password)
+		.then((userCredential) => {
+			console.log(userCredential);
+		})
+		.catch((error) => error.code);
+}
 
 export function logout() {
 	signOut(auth).catch(console.error);
