@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import * as S from './Login.style';
 import { FcGoogle } from 'react-icons/fc';
+import { login } from '../../Api/firebase';
 
 export default function Login() {
 	const [loginInfo, setLoginInfo] = useState({
@@ -13,6 +14,7 @@ export default function Login() {
 		pwd: '',
 	});
 	const [isBtnActive, setIsBtnActive] = useState(false);
+	const [isRequired, setIsRequired] = useState(true);
 	const navigate = useNavigate();
 
 	const handleInputHandle = (e) => {
@@ -36,6 +38,13 @@ export default function Login() {
 				: '✔︎ 비밀번호 형식이 올바르지 않습니다.';
 			setLoginError((prev) => value && { ...prev, [name]: errorMsg });
 		}
+	};
+
+	const handleGoogleLoginBtn = async (e) => {
+		e.preventDefault();
+		setIsRequired(false);
+		await login();
+		navigate('/');
 	};
 
 	useEffect(() => {
@@ -62,7 +71,7 @@ export default function Login() {
 					<form>
 						<label htmlFor="inp_email">Email</label>
 						<input
-							required
+							required={isRequired}
 							type="text"
 							placeholder="Enter your email"
 							id="inp_email"
@@ -73,7 +82,7 @@ export default function Login() {
 						<p className="errorTxt">{loginError.email}</p>
 						<label htmlFor="inp_pwd">Password</label>
 						<input
-							required
+							required={isRequired}
 							type="password"
 							placeholder="Enter your password"
 							id="inp_pwd"
@@ -99,7 +108,10 @@ export default function Login() {
 							>
 								Sign in
 							</button>
-							<button className="googleLogin">
+							<button
+								className="googleLogin"
+								onClick={handleGoogleLoginBtn}
+							>
 								<FcGoogle />
 								Sign in with Google
 							</button>
