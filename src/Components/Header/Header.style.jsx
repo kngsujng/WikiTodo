@@ -24,7 +24,9 @@ export const Wrapper = styled.section`
 			padding: 0 0 4px 0;
 			font-size: 15px;
 			color: ${({ theme }) => theme.txtColor};
-			&:hover {
+			&:hover,
+			&.active {
+				outline: none;
 				padding: 0 0 2px 0;
 				border-bottom: 2px solid ${({ theme }) => theme.filterColor};
 				color: ${({ theme }) => theme.filterColor};
