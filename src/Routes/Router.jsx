@@ -3,6 +3,7 @@ import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import Main from './../Pages/Main/Main';
 import Signup from '../Pages/SignUp/SignUp';
 import Login from './../Pages/Login/Login';
+import NewTodo from '../Pages/NewTodo/NewTodo';
 
 export function Router() {
 	return (
@@ -20,6 +21,10 @@ export function Router() {
 				<Route
 					path="/login"
 					element={<Login />}
+				/>
+				<Route
+					path="/new"
+					element={<NewTodo />}
 				/>
 			</Routes>
 		</BrowserRouter>

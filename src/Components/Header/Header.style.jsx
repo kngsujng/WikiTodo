@@ -4,9 +4,11 @@ export const Wrapper = styled.section`
 	width: 75%;
 	height: 4%;
 	margin: 10px 0;
+	padding: 2% 0 4%;
 	display: flex;
 	justify-content: space-between;
 	align-items: center;
+	border-bottom: 2px solid ${({ theme }) => theme.inpColor};
 	h2 {
 		color: ${({ theme }) => theme.txtColor};
 		font-weight: 600;

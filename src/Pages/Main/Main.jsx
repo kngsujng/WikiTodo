@@ -1,16 +1,18 @@
 import React, { useEffect, useState } from 'react';
-import TodoList from '../../Components/TodoList/TodoList';
-import AddTodo from '../../Components/AddTodo/AddTodo';
 import * as S from './Main.style';
+import TodoList from '../../Components/TodoList/TodoList';
 import Header from '../../Components/Header/Header';
 import Layout from '../../Components/Layout/Layout';
+import Button from '../../Components/Button/Button';
+import { AiOutlinePlus } from 'react-icons/ai';
+import { useNavigate } from 'react-router-dom';
 
 const filters = ['all', 'progressing', 'completed'];
 
 export default function Main() {
+	const navigate = useNavigate();
 	const [filter, setFilter] = useState(filters[0]);
 	const [todoList, setTodoList] = useState([]);
-	const [newTodo, setNewTodo] = useState('');
 
 	useEffect(() => {
 		if (!localStorage.getItem('todoList')) {
@@ -30,17 +32,23 @@ export default function Main() {
 						filters={filters}
 						filter={filter}
 						onFilterChange={setFilter}
-					/>
+					>
+						Todo List
+					</Header>
 					<TodoList
 						filter={filter}
 						todoList={todoList}
 						setTodoList={setTodoList}
 					/>
-					<AddTodo
-						todoList={todoList}
-						setTodoList={setTodoList}
-						newTodo={newTodo}
-						setNewTodo={setNewTodo}
+					<Button
+						text={
+							<AiOutlinePlus
+								size="30"
+								color="#fff"
+							/>
+						}
+						handleClick={() => navigate('/new')}
+						isDisabled={false}
 					/>
 				</S.Wrapper>
 			</Layout>

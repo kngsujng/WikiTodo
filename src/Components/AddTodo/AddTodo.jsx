@@ -10,7 +10,7 @@ export default function AddTodo({
 	const [disabled, setDisabled] = useState(false);
 
 	useEffect(() => {
-		if (newTodo.trim() !== '') {
+		if (newTodo && newTodo.trim() !== '') {
 			setDisabled(false);
 		} else {
 			setDisabled(true);

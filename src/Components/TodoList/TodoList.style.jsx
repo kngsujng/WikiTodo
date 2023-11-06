@@ -6,9 +6,6 @@ export const Wrapper = styled.section`
 	overflow: auto;
 	display: flex;
 	flex-direction: column;
-	ul {
-		border-top: 2px solid ${({ theme }) => theme.inpColor};
-	}
 	li {
 		font-size: 1rem;
 		width: 100%;
