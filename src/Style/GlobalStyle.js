@@ -27,11 +27,15 @@ const GlobalStyle = createGlobalStyle`
         border : none;
         cursor : pointer;
     }
-    input{
+    input, textarea, select{
+        border-radius: 5px;
         background-color: ${({ theme }) => theme.inpColor};
         &::placeholder{
             color: ${({ theme }) => theme.placeholderColor};
         }
+    }
+    input[type=checkbox], label{
+      cursor: pointer;
     }
 `;
 

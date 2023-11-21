@@ -11,6 +11,10 @@ export const GotoNewpageBtn = styled.button`
 `;
 
 export const AddTodoBtn = styled.button`
+	position: absolute;
+	top: 90%;
+	left: 50%;
+	transform: translate(-50%, -50%);
 	width: 50%;
 	margin: 0 auto;
 	padding: 10px;
