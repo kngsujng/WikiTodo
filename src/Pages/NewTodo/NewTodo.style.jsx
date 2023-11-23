@@ -13,6 +13,7 @@ export const Wrapper = styled.section`
 	background-color: ${({ theme }) => theme.mainBgColor};
 	border-radius: 10px;
 	box-shadow: ${({ theme }) => theme.boxShadow};
+	color: ${({ theme }) => theme.txtColor};
 	form {
 		position: relative;
 		display: flex;
@@ -25,19 +26,18 @@ export const Wrapper = styled.section`
 	select {
 		width: 40%;
 		padding: 5px;
-		color: ${({ theme }) => theme.txtColor};
 		cursor: pointer;
+		color: ${({ theme }) => theme.txtColor};
 	}
 	input[type='text'] {
 		padding: 13px;
 		border: 1px solid gray;
 		width: 100%;
+		color: ${({ theme }) => theme.txtColor};
 	}
 	textarea {
 		padding: 13px;
 		resize: none;
-	}
-	label {
 		color: ${({ theme }) => theme.txtColor};
 	}
 `;
