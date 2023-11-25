@@ -27,7 +27,7 @@ export default function NavBar() {
 		<>
 			<S.NavWrapper>
 				<div>
-					<LuListTodo style={{ fontSize: '1.5rem' }} />
+					<LuListTodo size="1.5rem" />
 					<h1
 						onClick={() => {
 							navigate('/');

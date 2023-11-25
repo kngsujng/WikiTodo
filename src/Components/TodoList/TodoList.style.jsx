@@ -1,8 +1,8 @@
 import { styled } from 'styled-components';
 
 export const Wrapper = styled.section`
-	width: 75%;
-	height: 100%;
+	width: 80%;
+	height: 90%;
 	overflow: auto;
 	display: flex;
 	flex-direction: column;
@@ -38,30 +38,29 @@ export const Wrapper = styled.section`
 		&.contents {
 			width: 100%;
 		}
-		&.contents-firstLine {
+		&.contents-secondLine {
 			display: flex;
-			gap: 15px;
+			align-items: center;
+			gap: 5px;
 		}
 	}
 	input[type='checkbox'] {
 		margin: 0 10px 0 0;
 	}
 	p.date {
-		margin-top: 5px;
 		color: ${({ theme }) => theme.dateColor};
-		font-size: 14px;
+		font-size: 13px;
 	}
 	button {
 		font-size: 1rem;
 		&.btn_delete {
-			margin-left: 4px;
 			transition: all 150ms ease-out;
-			/* &:hover {
-				transform: rotate(15deg) scale(1.2);
-			} */
 		}
 		&.btn_important {
 			transition: all 150ms ease-out;
+		}
+		&.btn_gotoDetail {
+			margin: 0 4px;
 		}
 		&:hover {
 			color: ${({ theme }) => theme.activeBtnColor};
@@ -95,9 +94,9 @@ export const Category = styled.span`
 
 export const Title = styled.label`
 	display: inline-block;
-	max-width: 70%;
+	max-width: 85%;
 	font-size: 16px;
-	font-weight: 600;
+	font-weight: 500;
 	overflow: hidden;
 	text-overflow: ellipsis;
 	white-space: nowrap;

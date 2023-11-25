@@ -1,8 +1,11 @@
+import { useNavigate } from 'react-router-dom';
 import * as S from './TodoList.style';
 
 import { FaRegTrashAlt, FaStar, FaRegStar } from 'react-icons/fa';
+import { BiMessageDetail } from 'react-icons/bi';
 
 export default function TodoList({ filter, todoList, setTodoList }) {
+	const navigate = useNavigate();
 	const filtered = getFilteredItems(todoList, filter);
 	const toggleStatus = (id, statusType) => {
 		const oldTodos = JSON.parse(localStorage.getItem('todoList'));
@@ -46,18 +49,18 @@ export default function TodoList({ filter, todoList, setTodoList }) {
 										onChange={() => toggleStatus(v.id, 'completed')}
 									/>
 									<div className="contents">
-										<div className="contents-firstLine">
-											<S.Title
-												htmlFor={v.id}
-												isCompleted={v.isCompleted}
-											>
-												{v.title}
-											</S.Title>
+										<S.Title
+											htmlFor={v.id}
+											isCompleted={v.isCompleted}
+										>
+											{v.title}
+										</S.Title>
+										<div className="contents-secondLine">
+											<p className="date">{v.date}</p>
 											<S.Category category={v.category}>
 												{v.category}
 											</S.Category>
 										</div>
-										<p className="date">{v.date}</p>
 									</div>
 								</div>
 								<div className="rightcss">
@@ -66,6 +69,12 @@ export default function TodoList({ filter, todoList, setTodoList }) {
 										onClick={() => toggleStatus(v.id, 'important')}
 									>
 										{v.isImportant ? <FaStar /> : <FaRegStar />}
+									</button>
+									<button
+										className="btn_gotoDetail"
+										onClick={() => navigate(`/detail/${v.id}`)}
+									>
+										<BiMessageDetail />
 									</button>
 									<button
 										className="btn_delete"

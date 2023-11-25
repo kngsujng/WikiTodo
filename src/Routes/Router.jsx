@@ -26,6 +26,10 @@ export function Router() {
 					path="/new"
 					element={<NewTodo />}
 				/>
+				<Route
+					path="/detail/:id"
+					element={<NewTodo />}
+				/>
 			</Routes>
 		</BrowserRouter>
 	);
