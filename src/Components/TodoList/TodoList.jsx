@@ -72,7 +72,11 @@ export default function TodoList({ filter, todoList, setTodoList }) {
 									</button>
 									<button
 										className="btn_gotoDetail"
-										onClick={() => navigate(`/detail/${v.id}`)}
+										onClick={() =>
+											navigate(`/detail/${v.id}`, {
+												state: { todoList },
+											})
+										}
 									>
 										<BiMessageDetail />
 									</button>
