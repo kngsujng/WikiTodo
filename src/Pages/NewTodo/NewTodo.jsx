@@ -3,7 +3,7 @@ import { v4 as uuid } from 'uuid';
 import * as S from './NewTodo.style';
 import Layout from '../../Components/Layout/Layout';
 import Header from '../../Components/Header/Header';
-import Button from '../../Components/Button/Button';
+import Form from '../../Components/Form/Form';
 
 export default function NewTodo() {
 	const [newTodo, setNewTodo] = useState({
@@ -28,7 +28,7 @@ export default function NewTodo() {
 		setNewTodo((prev) => ({ ...prev, [name]: value }));
 	};
 
-	const addTodoItem = (e) => {
+	const handleSubmit = (e) => {
 		e.preventDefault();
 		if (newTodo !== '') {
 			// 로컬 스토리지에 데이터를 추가하고 업데이트된 데이터를 가져오기
@@ -74,64 +74,12 @@ export default function NewTodo() {
 			<Layout>
 				<S.Wrapper>
 					<Header>New Wiki-Todo</Header>
-					<form onSubmit={addTodoItem}>
-						<p>{newTodo.date}</p>
-						<select
-							name="category"
-							required
-							onChange={handleNewTodo}
-							value={newTodo.category}
-						>
-							<option defaultValue="카테고리 (필수)">카테고리 (필수)</option>
-							<option value="work">👩🏻‍💻 업무</option>
-							<option value="study">📚 공부</option>
-							<option value="exercise">👟 운동</option>
-							<option value="plan">🤝 약속</option>
-							<option value="etc">🎵 기타</option>
-						</select>
-						<label
-							htmlFor="newTodo_title"
-							className="screen-out"
-						></label>
-						<input
-							type="text"
-							required
-							name="title"
-							id="newTodo_title"
-							placeholder="제목을 입력하세요. (필수)"
-							value={newTodo.title ?? ''}
-							onChange={handleNewTodo}
-						/>
-						<label
-							htmlFor="newTodo_detail"
-							className="screen-out"
-						>
-							Create your WikiTodo
-						</label>
-						<textarea
-							name="detail"
-							id="newTodo_detail"
-							cols="30"
-							rows="10"
-							placeholder="내용을 입력하세요. (선택)"
-							value={newTodo.detail ?? ''}
-							onChange={handleNewTodo}
-						/>
-						<div>
-							<input
-								name="isImportant"
-								type="checkbox"
-								id="inp_check"
-								checked={newTodo.isImportant}
-								onChange={handleNewTodo}
-							/>
-							<label htmlFor="inp_check"> Important 🚨</label>
-						</div>
-						<Button
-							text={'Add Now'}
-							isDisabled={disabled}
-						/>
-					</form>
+					<Form
+						newTodo={newTodo}
+						handleNewTodo={handleNewTodo}
+						handleSubmit={handleSubmit}
+						disabled={disabled}
+					/>
 				</S.Wrapper>
 			</Layout>
 		</>
