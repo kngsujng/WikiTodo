@@ -17,6 +17,7 @@ export const Wrapper = styled.section`
 		background-color: ${({ theme }) => theme.todoListColor};
 		border-radius: 15px;
 		color: ${({ theme }) => theme.txtColor};
+		cursor: pointer;
 		&:first-child {
 			margin-top: 0.5rem;
 		}
@@ -31,14 +32,14 @@ export const Wrapper = styled.section`
 			align-items: center;
 			width: 100%;
 		}
-		&.leftcss {
+		&.leftcss,
+		&.rightcss {
 			display: flex;
-			width: 85%;
 		}
 		&.contents {
 			width: 100%;
 		}
-		&.contents-secondLine {
+		&.contents-line {
 			display: flex;
 			align-items: center;
 			gap: 5px;
@@ -52,10 +53,9 @@ export const Wrapper = styled.section`
 		font-size: 13px;
 	}
 	button {
-		font-size: 1rem;
-		&.btn_delete {
-			transition: all 150ms ease-out;
-		}
+		font-size: 1.1rem;
+		&.btn_delete,
+		&.btn_completed,
 		&.btn_important {
 			transition: all 150ms ease-out;
 		}
@@ -92,14 +92,26 @@ export const Category = styled.span`
 	font-size: 12px;
 `;
 
-export const Title = styled.label`
+export const Title = styled.label.attrs(({ htmlFor }) => ({
+	htmlFor,
+}))`
 	display: inline-block;
 	max-width: 85%;
 	font-size: 16px;
+	line-height: 20px;
 	font-weight: 500;
 	overflow: hidden;
 	text-overflow: ellipsis;
 	white-space: nowrap;
-	color: ${({ isCompleted }) => isCompleted && '#bdbdbd'};
-	text-decoration: ${({ isCompleted }) => isCompleted && 'line-through'};
+	color: ${({ completed }) => completed === 'true' && '#bdbdbd'};
+	text-decoration: ${({ completed }) => completed === 'true' && 'line-through'};
+`;
+
+export const Detail = styled.p`
+	max-width: 85%;
+	font-size: 14px;
+	line-height: 18px;
+	overflow: hidden;
+	white-space: nowrap;
+	text-overflow: ellipsis;
 `;

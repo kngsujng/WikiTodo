@@ -76,7 +76,7 @@ export default function Form({
 		);
 	}
 
-	if (pathname.startsWith('/detail/')) {
+	if (pathname.startsWith('/edit/')) {
 		const { date, category, title, detail, isImportant } = todoItem;
 		return (
 			<S.FormWrapper onSubmit={handleSubmit}>

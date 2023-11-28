@@ -15,7 +15,17 @@ export default function Button({ text, isDisabled, handleClick }) {
 			</S.GotoNewpageBtn>
 		);
 	}
-	if (pathname === '/new' || pathname.startsWith('/detail/')) {
+	if (pathname === '/new') {
+		return (
+			<S.AddTodoBtn
+				disabled={isDisabled}
+				onClick={handleClick}
+			>
+				{text}
+			</S.AddTodoBtn>
+		);
+	}
+	if (pathname.startsWith('/edit/')) {
 		return (
 			<S.AddTodoBtn
 				disabled={isDisabled}

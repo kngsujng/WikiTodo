@@ -4,7 +4,8 @@ import Main from './../Pages/Main/Main';
 import Signup from '../Pages/SignUp/SignUp';
 import Login from './../Pages/Login/Login';
 import NewTodo from '../Pages/NewTodo/NewTodo';
-import Detail from '../Pages/Detail/Detail';
+import Edit from '../Pages/Edit/Edit';
+// import Detail from '../Pages/Detail/Detail';
 
 export function Router() {
 	return (
@@ -28,8 +29,8 @@ export function Router() {
 					element={<NewTodo />}
 				/>
 				<Route
-					path="/detail/:id"
-					element={<Detail />}
+					path="/edit/:id"
+					element={<Edit />}
 				/>
 			</Routes>
 		</BrowserRouter>

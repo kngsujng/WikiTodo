@@ -2,7 +2,8 @@ import { useNavigate } from 'react-router-dom';
 import * as S from './TodoList.style';
 
 import { FaRegTrashAlt, FaStar, FaRegStar } from 'react-icons/fa';
-import { BiMessageDetail } from 'react-icons/bi';
+import { FaRegSquare, FaRegSquareCheck } from 'react-icons/fa6';
+import { BiSolidEdit } from 'react-icons/bi';
 
 export default function TodoList({ filter, todoList, setTodoList }) {
 	const navigate = useNavigate();
@@ -39,23 +40,39 @@ export default function TodoList({ filter, todoList, setTodoList }) {
 			<S.Wrapper>
 				<ul>
 					{filtered.map((v) => (
-						<li key={v.id}>
+						<li
+							key={v.id}
+							// onClick={() =>
+							// 	navigate(`/detail/${v.id}`, {
+							// 		state: { todoList },
+							// 	})
+							// }
+						>
 							<div className="todoItemWrap">
-								<div className="leftcss">
-									<input
+								<div className="leftcss contents">
+									{/* <input
 										id={v.id}
 										type="checkbox"
 										checked={v.isCompleted}
 										onChange={() => toggleStatus(v.id, 'completed')}
-									/>
+									/> */}
 									<div className="contents">
-										<S.Title
-											htmlFor={v.id}
-											isCompleted={v.isCompleted}
-										>
-											{v.title}
-										</S.Title>
-										<div className="contents-secondLine">
+										<div className="contents-line">
+											<S.Title
+												htmlFor={v.id}
+												completed={v.isCompleted.toString()}
+											>
+												{v.title}
+											</S.Title>
+											<button
+												className="btn_important"
+												onClick={() => toggleStatus(v.id, 'important')}
+											>
+												{v.isImportant ? <FaStar /> : <FaRegStar />}
+											</button>
+										</div>
+										<S.Detail>{v.detail}</S.Detail>
+										<div className="contents-line">
 											<p className="date">{v.date}</p>
 											<S.Category category={v.category}>
 												{v.category}
@@ -65,20 +82,20 @@ export default function TodoList({ filter, todoList, setTodoList }) {
 								</div>
 								<div className="rightcss">
 									<button
-										className="btn_important"
-										onClick={() => toggleStatus(v.id, 'important')}
+										className="btn_completed"
+										onClick={() => toggleStatus(v.id, 'completed')}
 									>
-										{v.isImportant ? <FaStar /> : <FaRegStar />}
+										{v.isCompleted ? <FaRegSquareCheck /> : <FaRegSquare />}
 									</button>
 									<button
 										className="btn_gotoDetail"
 										onClick={() =>
-											navigate(`/detail/${v.id}`, {
+											navigate(`/edit/${v.id}`, {
 												state: { todoList },
 											})
 										}
 									>
-										<BiMessageDetail />
+										<BiSolidEdit />
 									</button>
 									<button
 										className="btn_delete"
