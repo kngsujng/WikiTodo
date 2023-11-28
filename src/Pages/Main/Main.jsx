@@ -25,33 +25,29 @@ export default function Main() {
 	}, []);
 
 	return (
-		<>
-			<Layout>
-				<S.Wrapper>
-					<Header
-						filters={filters}
-						filter={filter}
-						onFilterChange={setFilter}
-					>
-						Todo List
-					</Header>
-					<TodoList
-						filter={filter}
-						todoList={todoList}
-						setTodoList={setTodoList}
+		<Layout>
+			<Header
+				filters={filters}
+				filter={filter}
+				onFilterChange={setFilter}
+			>
+				Todo List
+			</Header>
+			<TodoList
+				filter={filter}
+				todoList={todoList}
+				setTodoList={setTodoList}
+			/>
+			<Button
+				text={
+					<AiOutlinePlus
+						size="30"
+						color="#fff"
 					/>
-					<Button
-						text={
-							<AiOutlinePlus
-								size="30"
-								color="#fff"
-							/>
-						}
-						handleClick={() => navigate('/new')}
-						isDisabled={false}
-					/>
-				</S.Wrapper>
-			</Layout>
-		</>
+				}
+				handleClick={() => navigate('/new')}
+				isDisabled={false}
+			/>
+		</Layout>
 	);
 }

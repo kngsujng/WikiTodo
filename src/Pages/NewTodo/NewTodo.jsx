@@ -70,18 +70,14 @@ export default function NewTodo() {
 	}, [newTodo]);
 
 	return (
-		<>
-			<Layout>
-				<S.Wrapper>
-					<Header>New Wiki-Todo</Header>
-					<Form
-						newTodo={newTodo}
-						handleNewTodo={handleNewTodo}
-						handleSubmit={handleSubmit}
-						disabled={disabled}
-					/>
-				</S.Wrapper>
-			</Layout>
-		</>
+		<Layout>
+			<Header>New Wiki-Todo</Header>
+			<Form
+				newTodo={newTodo}
+				handleNewTodo={handleNewTodo}
+				handleSubmit={handleSubmit}
+				disabled={disabled}
+			/>
+		</Layout>
 	);
 }
