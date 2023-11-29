@@ -42,64 +42,64 @@ export default function TodoList({ filter, todoList, setTodoList }) {
 					{filtered.map((v) => (
 						<li
 							key={v.id}
-							// onClick={() =>
-							// 	navigate(`/detail/${v.id}`, {
-							// 		state: { todoList },
-							// 	})
-							// }
+							onClick={() =>
+								navigate(`/detail/${v.id}`, {
+									state: { todoList },
+								})
+							}
 						>
 							<div className="todoItemWrap">
-								<div className="leftcss contents">
-									{/* <input
-										id={v.id}
-										type="checkbox"
-										checked={v.isCompleted}
-										onChange={() => toggleStatus(v.id, 'completed')}
-									/> */}
-									<div className="contents">
-										<div className="contents-line">
-											<S.Title
-												htmlFor={v.id}
-												completed={v.isCompleted.toString()}
-											>
-												{v.title}
-											</S.Title>
-											<button
-												className="btn_important"
-												onClick={() => toggleStatus(v.id, 'important')}
-											>
-												{v.isImportant ? <FaStar /> : <FaRegStar />}
-											</button>
-										</div>
-										<S.Detail>{v.detail}</S.Detail>
-										<div className="contents-line">
-											<p className="date">{v.date}</p>
-											<S.Category category={v.category}>
-												{v.category}
-											</S.Category>
-										</div>
+								<div className="leftcss">
+									<div className="contents-line">
+										<S.Title
+											htmlFor={v.id}
+											completed={v.isCompleted.toString()}
+										>
+											{v.title}
+										</S.Title>
+										<button
+											className="btn_important"
+											onClick={(e) => {
+												e.stopPropagation();
+												toggleStatus(v.id, 'important');
+											}}
+										>
+											{v.isImportant ? <FaStar /> : <FaRegStar />}
+										</button>
+									</div>
+									<S.Detail>{v.detail}</S.Detail>
+									<div className="contents-line">
+										<p className="date">{v.date}</p>
+										<S.Category category={v.category}>{v.category}</S.Category>
 									</div>
 								</div>
 								<div className="rightcss">
 									<button
 										className="btn_completed"
-										onClick={() => toggleStatus(v.id, 'completed')}
+										onClick={(e) => {
+											e.stopPropagation();
+											toggleStatus(v.id, 'completed');
+										}}
 									>
 										{v.isCompleted ? <FaRegSquareCheck /> : <FaRegSquare />}
 									</button>
 									<button
 										className="btn_gotoDetail"
-										onClick={() =>
+										onClick={(e) => {
+											e.stopPropagation();
 											navigate(`/edit/${v.id}`, {
 												state: { todoList },
-											})
-										}
+											});
+										}}
 									>
 										<BiSolidEdit />
 									</button>
 									<button
 										className="btn_delete"
-										onClick={() => handleDelete(v.id)}
+										onClick={(e) => {
+											e.stopPropagation();
+											handleDelete(v.id);
+										}}
 									>
 										<FaRegTrashAlt />
 									</button>

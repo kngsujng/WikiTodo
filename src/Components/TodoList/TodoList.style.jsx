@@ -32,21 +32,14 @@ export const Wrapper = styled.section`
 			align-items: center;
 			width: 100%;
 		}
-		&.leftcss,
-		&.rightcss {
-			display: flex;
-		}
-		&.contents {
-			width: 100%;
+		&.leftcss {
+			width: 80%;
 		}
 		&.contents-line {
 			display: flex;
 			align-items: center;
 			gap: 5px;
 		}
-	}
-	input[type='checkbox'] {
-		margin: 0 10px 0 0;
 	}
 	p.date {
 		color: ${({ theme }) => theme.dateColor};
