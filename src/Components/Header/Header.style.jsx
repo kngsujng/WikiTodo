@@ -8,7 +8,7 @@ export const Wrapper = styled.section`
 	display: flex;
 	justify-content: space-between;
 	align-items: center;
-	border-bottom: 2px solid #f1f1f1;
+	border-bottom: 2px solid ${({ theme }) => theme.borderColor};
 	h2 {
 		color: ${({ theme }) => theme.txtColor};
 		font-weight: 600;

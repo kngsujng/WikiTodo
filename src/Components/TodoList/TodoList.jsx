@@ -64,7 +64,11 @@ export default function TodoList({ filter, todoList, setTodoList }) {
 												toggleStatus(v.id, 'important');
 											}}
 										>
-											{v.isImportant ? <FaStar /> : <FaRegStar />}
+											{v.isImportant ? (
+												<FaStar color="#FFBD51" />
+											) : (
+												<FaRegStar />
+											)}
 										</button>
 									</div>
 									<S.Detail>{v.detail}</S.Detail>

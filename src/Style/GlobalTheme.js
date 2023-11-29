@@ -2,6 +2,7 @@ export const lightTheme = {
 	bodyBgColor: '#F5F5F6',
 	mainBgColor: '#fff',
 	txtColor: '#000',
+	grayTxtColor: '#bdbdbd',
 	dateColor: '#727272',
 	defaultBtnColor: 'transparent',
 	activeBtnColor: '#3182f6',
@@ -16,12 +17,14 @@ export const lightTheme = {
 	boxShadow: '0px 4px 4px 0px #00000040',
 	navBarShadow: 'rgba(0, 0, 0, 0.1) 0px 1px 2px 0px',
 	errorMsg: '#ff3f3f',
+	borderColor: '#f1f1f1',
 };
 
 export const darkTheme = {
 	bodyBgColor: '#000',
-	mainBgColor: '#18171C',
+	mainBgColor: '#20202C',
 	txtColor: '#fff',
+	grayTxtColor: '#8A94A0',
 	defaultBtnColor: 'transparent',
 	activeBtnColor: '#0081FF',
 	disabledBtnColor: '#2C2C37',
@@ -33,6 +36,7 @@ export const darkTheme = {
 	filterColor: 'skyblue',
 	boxShadow: '0 20px 25px -5px #000, 0 8px 10px -6px #000',
 	navBarShadow: 'rgba(255, 255, 255, 0.1) 0px 1px 2px 0px',
+	borderColor: '#f1f1f1',
 };
 
 export const GlobalTheme = {
