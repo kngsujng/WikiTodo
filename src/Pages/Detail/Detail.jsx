@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import * as S from './Detail.style';
 import { FaStar, FaRegStar } from 'react-icons/fa';
-import { FaRegSquare, FaRegSquareCheck } from 'react-icons/fa6';
+import { FaRegSquare, FaSquareCheck } from 'react-icons/fa6';
 import { BiSolidEdit } from 'react-icons/bi';
 import { useLocation, useNavigate, useParams } from 'react-router-dom';
 import Layout from '../../Components/Layout/Layout';
@@ -19,7 +19,7 @@ export default function Detail() {
 			<Header>Your WikiTodo</Header>
 			<S.Container>
 				<S.Date>{todoItem.date}</S.Date>
-				<S.Category category={todoItem.category}>
+				<S.Category $category={todoItem.category}>
 					{todoItem.category}
 				</S.Category>
 				<div className="contents-line">
@@ -46,8 +46,8 @@ export default function Detail() {
 					<span>
 						{todoItem.isImportant ? <FaStar color="#FFBD51" /> : <FaRegStar />}
 					</span>
-					<span>
-						{todoItem.isCompleted ? <FaRegSquareCheck /> : <FaRegSquare />}
+					<span className="icon_completed">
+						{todoItem.isCompleted ? <FaSquareCheck /> : <FaRegSquare />}
 					</span>
 				</S.IsWrapper>
 			</S.Container>

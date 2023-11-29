@@ -39,7 +39,7 @@ export const Category = styled.p`
 	display: inline-block;
 	padding: 3px 8px;
 	border-radius: 5px;
-	background-color: ${({ category }) => getCategoryBackgroundColor(category)};
+	background-color: ${({ $category }) => getCategoryBackgroundColor($category)};
 	font-size: 14px;
 `;
 
@@ -73,5 +73,8 @@ export const IsWrapper = styled.div`
 		display: inline-block;
 		margin: 15px 0 0 10px;
 		font-size: 1.3rem;
+		&.icon_completed {
+			color: ${({ theme }) => theme.activeBtnColor};
+		}
 	}
 `;

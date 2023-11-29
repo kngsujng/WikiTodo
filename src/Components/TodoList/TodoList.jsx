@@ -2,7 +2,8 @@ import { useNavigate } from 'react-router-dom';
 import * as S from './TodoList.style';
 
 import { FaRegTrashAlt, FaStar, FaRegStar } from 'react-icons/fa';
-import { FaRegSquare, FaRegSquareCheck } from 'react-icons/fa6';
+import { FaRegSquare, FaSquareCheck } from 'react-icons/fa6';
+// import { FcCheckmark } from 'react-icons/fc';
 import { BiSolidEdit } from 'react-icons/bi';
 
 export default function TodoList({ filter, todoList, setTodoList }) {
@@ -53,7 +54,7 @@ export default function TodoList({ filter, todoList, setTodoList }) {
 									<div className="contents-line">
 										<S.Title
 											htmlFor={v.id}
-											completed={v.isCompleted.toString()}
+											$completed={v.isCompleted.toString()}
 										>
 											{v.title}
 										</S.Title>
@@ -71,13 +72,22 @@ export default function TodoList({ filter, todoList, setTodoList }) {
 											)}
 										</button>
 									</div>
-									<S.Detail>{v.detail}</S.Detail>
+									<S.Detail $completed={v.isCompleted.toString()}>
+										{v.detail}
+									</S.Detail>
 									<div className="contents-line">
-										<p className="date">{v.date}</p>
-										<S.Category category={v.category}>{v.category}</S.Category>
+										<S.Date $completed={v.isCompleted.toString()}>
+											{v.date}
+										</S.Date>
+										<S.Category
+											$category={v.category}
+											$completed={v.isCompleted.toString()}
+										>
+											{v.category}
+										</S.Category>
 									</div>
 								</div>
-								<div className="rightcss">
+								<S.BtnWrapper $completed={v.isCompleted.toString()}>
 									<button
 										className="btn_completed"
 										onClick={(e) => {
@@ -85,7 +95,7 @@ export default function TodoList({ filter, todoList, setTodoList }) {
 											toggleStatus(v.id, 'completed');
 										}}
 									>
-										{v.isCompleted ? <FaRegSquareCheck /> : <FaRegSquare />}
+										{v.isCompleted ? <FaSquareCheck /> : <FaRegSquare />}
 									</button>
 									<button
 										className="btn_gotoDetail"
@@ -107,7 +117,7 @@ export default function TodoList({ filter, todoList, setTodoList }) {
 									>
 										<FaRegTrashAlt />
 									</button>
-								</div>
+								</S.BtnWrapper>
 							</div>
 						</li>
 					))}
