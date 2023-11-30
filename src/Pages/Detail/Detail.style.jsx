@@ -26,6 +26,10 @@ export const Container = styled.section`
 		gap: 15px;
 		button {
 			font-size: 1.3rem;
+			color: ${({ theme }) => theme.txtColor};
+			&:hover {
+				color: ${({ theme }) => theme.activeBtnColor};
+			}
 		}
 	}
 `;
@@ -56,7 +60,7 @@ export const Detail = styled.div`
 	border-bottom: 2px solid ${({ theme }) => theme.borderColor};
 	height: 60%;
 	white-space: pre;
-	overflow: scroll;
+	overflow-y: auto;
 	p {
 		position: absolute;
 		top: 45%;
@@ -74,7 +78,8 @@ export const IsWrapper = styled.div`
 		margin: 15px 0 0 10px;
 		font-size: 1.3rem;
 		&.icon_completed {
-			color: ${({ theme }) => theme.activeBtnColor};
+			color: ${({ theme, $completed }) =>
+				$completed === 'true' ? theme.activeBtnColor : theme.txtColor};
 		}
 	}
 `;

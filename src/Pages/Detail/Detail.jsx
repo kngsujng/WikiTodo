@@ -14,16 +14,15 @@ export default function Detail() {
 		state: { todoList },
 	} = useLocation();
 	const [todoItem] = useState(todoList.find((v) => v.id === id));
+	const { date, category, title, detail, isCompleted, isImportant } = todoItem;
 	return (
 		<Layout>
 			<Header>Your WikiTodo</Header>
 			<S.Container>
-				<S.Date>{todoItem.date}</S.Date>
-				<S.Category $category={todoItem.category}>
-					{todoItem.category}
-				</S.Category>
+				<S.Date>{date}</S.Date>
+				<S.Category $category={category}>{category}</S.Category>
 				<div className="contents-line">
-					<S.Title>{todoItem.title}</S.Title>
+					<S.Title>{title}</S.Title>
 					<button
 						onClick={() => {
 							navigate(`/edit/${id}`, {
@@ -34,20 +33,20 @@ export default function Detail() {
 						<BiSolidEdit />
 					</button>
 				</div>
-				{todoItem.detail ? (
-					<S.Detail>{todoItem.detail}</S.Detail>
+				{detail ? (
+					<S.Detail>{detail}</S.Detail>
 				) : (
 					<S.Detail>
 						<p>세부 내용이 없습니다.</p>
 					</S.Detail>
 				)}
 
-				<S.IsWrapper>
+				<S.IsWrapper $completed={isCompleted.toString()}>
 					<span>
-						{todoItem.isImportant ? <FaStar color="#FFBD51" /> : <FaRegStar />}
+						{isImportant ? <FaStar color="#FFBD51" /> : <FaRegStar />}
 					</span>
 					<span className="icon_completed">
-						{todoItem.isCompleted ? <FaSquareCheck /> : <FaRegSquare />}
+						{isCompleted ? <FaSquareCheck /> : <FaRegSquare />}
 					</span>
 				</S.IsWrapper>
 			</S.Container>

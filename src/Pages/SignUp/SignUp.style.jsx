@@ -18,6 +18,7 @@ export const Container = styled.section`
 		margin-bottom: 50px;
 		font-size: 1.6rem;
 		font-weight: 700;
+		color: ${({ theme }) => theme.titleColor};
 	}
 	p {
 		&.errorTxt {
@@ -30,6 +31,7 @@ export const Container = styled.section`
 		display: flex;
 		flex-direction: column;
 		label {
+			color: ${({ theme }) => theme.titleColor};
 			font-weight: 600;
 		}
 		input[type='text'],
@@ -39,6 +41,8 @@ export const Container = styled.section`
 			border: none;
 			background-color: transparent;
 			border-bottom: 2px solid #f0f2f3;
+			color: ${({ theme }) => theme.txtColor};
+
 			&::placeholder {
 				color: #c6c7c8da;
 			}
@@ -83,6 +87,7 @@ export const InpPwdWrapper = styled.div`
 	button {
 		position: absolute;
 		right: 0;
+		color: ${({ theme }) => theme.txtColor};
 	}
 `;
 export const LinkWrapper = styled.section`
@@ -91,6 +96,7 @@ export const LinkWrapper = styled.section`
 	a {
 		margin-right: auto;
 		font-weight: 600;
+		color: ${({ theme }) => theme.titleColor};
 		&:hover {
 			color: ${({ theme }) => theme.activeBtnColor};
 			font-weight: 700;
@@ -98,6 +104,7 @@ export const LinkWrapper = styled.section`
 		}
 	}
 	p {
+		color: ${({ theme }) => theme.txtColor};
 		margin-right: 5px;
 	}
 `;

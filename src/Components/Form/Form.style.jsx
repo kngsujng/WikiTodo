@@ -23,6 +23,8 @@ export const FormWrapper = styled.form`
 	textarea {
 		padding: 13px;
 		resize: none;
-		color: ${({ theme }) => theme.txtColor};
+		&::placeholder {
+			color: ${({ theme }) => theme.grayTxtColor};
+		}
 	}
 `;

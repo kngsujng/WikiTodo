@@ -98,7 +98,7 @@ export default function TodoList({ filter, todoList, setTodoList }) {
 										{v.isCompleted ? <FaSquareCheck /> : <FaRegSquare />}
 									</button>
 									<button
-										className="btn_gotoDetail"
+										className="btn_gotoEdit"
 										onClick={(e) => {
 											e.stopPropagation();
 											navigate(`/edit/${v.id}`, {

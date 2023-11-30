@@ -20,6 +20,7 @@ export const Container = styled.section`
 			margin-bottom: 10px;
 			font-size: 1.6rem;
 			font-weight: 700;
+			color: ${({ theme }) => theme.titleColor};
 		}
 		p {
 			color: grey;
@@ -29,6 +30,7 @@ export const Container = styled.section`
 		display: flex;
 		flex-direction: column;
 		label {
+			color: ${({ theme }) => theme.titleColor};
 			font-weight: 600;
 		}
 		input[type='text'],
@@ -38,8 +40,9 @@ export const Container = styled.section`
 			border: none;
 			background-color: transparent;
 			border-bottom: 2px solid #f0f2f3;
+			color: ${({ theme }) => theme.txtColor};
 			&::placeholder {
-				color: #c6c7c8da;
+				color: ${({ theme }) => theme.grayTxtColor};
 			}
 			&:focus {
 				outline: none;
@@ -47,7 +50,6 @@ export const Container = styled.section`
 			}
 		}
 		p.errorTxt {
-			/* margin-top: 10px; */
 			height: 20px;
 			font-size: 0.8rem;
 			color: ${({ theme }) => theme.errorMsg};
@@ -109,6 +111,7 @@ export const LinkWrapper = styled.section`
 	a {
 		margin-right: auto;
 		font-weight: 600;
+		color: ${({ theme }) => theme.titleColor};
 		&:hover {
 			color: ${({ theme }) => theme.activeBtnColor};
 			font-weight: 700;
@@ -117,5 +120,6 @@ export const LinkWrapper = styled.section`
 	}
 	p {
 		margin-right: 5px;
+		color: ${({ theme }) => theme.txtColor};
 	}
 `;

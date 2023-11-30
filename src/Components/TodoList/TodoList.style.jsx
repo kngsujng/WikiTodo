@@ -56,6 +56,14 @@ export const Wrapper = styled.section`
 			display: flex;
 			align-items: center;
 			gap: 5px;
+			button.btn_important {
+				font-size: 1rem;
+				transition: all 150ms ease-out;
+				color: ${({ theme }) => theme.txtColor};
+				&:hover {
+					color: ${({ theme }) => theme.activeBtnColor};
+				}
+			}
 		}
 	}
 `;
@@ -64,7 +72,7 @@ export const Category = styled.span`
 	padding: 3px 8px;
 	border-radius: 10px;
 	background-color: ${({ $category }) => getCategoryBackgroundColor($category)};
-	opacity: ${({ $completed }) => ($completed === 'true' ? 0.6 : 1)};
+	opacity: ${({ $completed }) => ($completed === 'true' ? 0.5 : 1)};
 	font-size: 12px;
 	color: ${({ $completed, theme }) =>
 		$completed === 'true' ? theme.placeholderColor : theme.txtColor};
@@ -108,16 +116,16 @@ export const BtnWrapper = styled.div`
 	button {
 		color: ${({ theme }) => theme.txtColor};
 		font-size: 1.1rem;
-		&.btn_delete,
 		&.btn_completed,
-		&.btn_important {
+		&.btn_gotoEdit,
+		&.btn_delete {
 			transition: all 150ms ease-out;
 		}
 		&.btn_completed {
 			color: ${({ $completed, theme }) =>
 				$completed === 'true' ? theme.completedColor : theme.txtColor};
 		}
-		&.btn_gotoDetail {
+		&.btn_gotoEdit {
 			margin: 0 4px;
 		}
 		&:hover {

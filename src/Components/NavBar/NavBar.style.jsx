@@ -12,7 +12,7 @@ export const NavWrapper = styled.header`
 	padding: 0 20px;
 	background-color: ${({ theme }) => theme.mainBgColor};
 	box-shadow: ${({ theme }) => theme.navBarShadow};
-	color: ${({ theme }) => theme.txtColor};
+	color: ${({ theme }) => theme.titleColor};
 	div {
 		display: flex;
 		align-items: center;
@@ -26,13 +26,13 @@ export const NavWrapper = styled.header`
 	}
 	button.btn_login {
 		padding: 7px;
-		color: ${({ theme }) => theme.txtColor};
+		color: ${({ theme }) => theme.titleColor};
 		&:hover {
-			padding: 5px;
+			padding: 7px;
 			border-radius: 5px;
 			background-color: ${({ theme }) => theme.hoverColor};
 			box-shadow: ${({ theme }) => theme.boxShadow};
-			font-weight: 600;
+			transition: all 150ms ease-out;
 		}
 	}
 	button {

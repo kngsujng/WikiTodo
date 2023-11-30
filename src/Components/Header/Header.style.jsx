@@ -10,7 +10,7 @@ export const Wrapper = styled.section`
 	align-items: center;
 	border-bottom: 2px solid ${({ theme }) => theme.borderColor};
 	h2 {
-		color: ${({ theme }) => theme.txtColor};
+		color: ${({ theme }) => theme.titleColor};
 		font-weight: 600;
 		font-size: 22px;
 	}
@@ -25,7 +25,7 @@ export const Wrapper = styled.section`
 		button {
 			padding: 0 0 4px 0;
 			font-size: 15px;
-			color: ${({ theme }) => theme.txtColor};
+			color: ${({ theme }) => theme.titleColor};
 			&:hover,
 			&.active {
 				outline: none;
