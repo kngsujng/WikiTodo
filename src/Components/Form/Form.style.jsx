@@ -1,13 +1,12 @@
 import { styled } from 'styled-components';
 
 export const FormWrapper = styled.form`
-	position: relative;
 	display: flex;
 	flex-direction: column;
 	gap: 20px;
 	width: 75%;
 	height: 100%;
-	margin: 10px 0;
+	margin: 30px 0;
 	select {
 		width: 40%;
 		padding: 5px;
