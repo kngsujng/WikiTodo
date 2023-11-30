@@ -26,10 +26,14 @@ export default function Detail() {
 	const handleSubmit = (e) => {
 		e.preventDefault();
 		if (todoItem !== '') {
-			// 로컬 스토리지에 데이터를 추가하고 업데이트된 데이터를 가져오기
-			const updatedList = [...todoList, todoItem];
+			const updatedList = todoList.map((oldTodo) => {
+				if (oldTodo.id === id) {
+					return todoItem;
+				} else {
+					return oldTodo;
+				}
+			});
 			localStorage.setItem('todoList', JSON.stringify(updatedList));
-			setTodoItem(updatedList); // todoList 업데이트
 			navigate('/');
 		}
 	};
