@@ -22,7 +22,7 @@ const auth = getAuth(app);
 const provider = new GoogleAuthProvider();
 
 // Google 로그인
-export async function login() {
+export async function googleLogin() {
 	return signInWithPopup(auth, provider).catch(console.error);
 }
 
@@ -36,7 +36,7 @@ export async function signupEmail(email, pwd) {
 }
 
 // Email 로그인
-export async function signinEmail(email, password) {
+export async function emailLogin(email, password) {
 	return await signInWithEmailAndPassword(auth, email, password)
 		.then((userCredential) => {
 			console.log(userCredential);
@@ -48,7 +48,7 @@ export function logout() {
 	signOut(auth).catch(console.error);
 }
 
-export function ouUserStateChange(callback) {
+export function getUserInfo(callback) {
 	onAuthStateChanged(auth, (user) => {
 		// 콜백함수 전달
 		callback(user);

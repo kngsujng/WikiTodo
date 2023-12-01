@@ -48,7 +48,7 @@ export default function Signup() {
 		const result = await signupEmail(email, pwd);
 		if (result === 'auth/email-already-in-use') {
 			setEmailError(
-				'✔︎ 이미 사용중인 이메일 주소입니다. 다른 이메일 주소를 사용해주세요.'
+				'✔︎ 이미 사용중인 이메일 주소입니다. 다른 이메일을 사용해주세요.'
 			);
 		} else {
 			setEmailError('');

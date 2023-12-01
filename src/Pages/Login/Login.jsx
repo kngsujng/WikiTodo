@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import * as S from './Login.style';
 import { FcGoogle } from 'react-icons/fc';
-import { login, signinEmail } from '../../Api/firebase';
+import { googleLogin, emailLogin } from '../../Api/firebase';
 
 export default function Login() {
 	const [loginInfo, setLoginInfo] = useState({
@@ -44,13 +44,13 @@ export default function Login() {
 	const handleGoogleLoginBtn = async (e) => {
 		e.preventDefault();
 		setIsRequired(false);
-		await login();
+		await googleLogin();
 		navigate('/');
 	};
 
 	const handleEmailLoginBtn = async (e) => {
 		e.preventDefault();
-		const result = await signinEmail(loginInfo.email, loginInfo.pwd);
+		const result = await emailLogin(loginInfo.email, loginInfo.pwd);
 		if (result === 'auth/invalid-login-credentials') {
 			setLoginError((prev) => ({
 				...prev,

@@ -1,18 +1,15 @@
-import React, { useContext, useEffect, useState } from 'react';
+import React, { useContext, useEffect } from 'react';
 import { ThemeModeContext } from './../../Context/ThemeModeProvider';
 import * as S from './NavBar.style';
 import { LuListTodo } from 'react-icons/lu';
-import { logout, ouUserStateChange } from '../../Api/firebase';
 import User from '../User/User';
 import { useNavigate } from 'react-router-dom';
+import { useAuthContext } from '../../Context/AuthContext';
 
 export default function NavBar() {
 	const { themeMode, setThemeMode, toggleTheme } = useContext(ThemeModeContext);
-	const [user, setUser] = useState();
+	const { user, logout } = useAuthContext();
 	const navigate = useNavigate();
-	useEffect(() => {
-		ouUserStateChange(setUser);
-	}, []);
 
 	useEffect(() => {
 		if (!localStorage.getItem('theme')) {
