@@ -1,10 +1,12 @@
 import React, { useContext, useEffect } from 'react';
 import { ThemeModeContext } from './../../Context/ThemeModeProvider';
 import * as S from './NavBar.style';
+import { FiSun, FiMoon } from 'react-icons/fi';
 import { LuListTodo } from 'react-icons/lu';
 import User from '../User/User';
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { useAuthContext } from '../../Context/AuthContext';
+import ScrapStatus from '../ScrapStatus/ScrapStatus';
 
 export default function NavBar() {
 	const { themeMode, setThemeMode, toggleTheme } = useContext(ThemeModeContext);
@@ -33,13 +35,18 @@ export default function NavBar() {
 						Wiki-Todo
 					</h1>
 				</div>
-				<div>
+				<div className="btn_wrapper">
 					<button
 						className="btn_toggle"
 						onClick={() => toggleTheme()}
 					>
-						{themeMode === 'light' ? '🌚' : '🌞'}
+						{themeMode === 'light' ? <FiMoon /> : <FiSun />}
 					</button>
+					{!user && (
+						<Link to="/scrap">
+							<ScrapStatus />
+						</Link>
+					)}
 					{user && <User user={user} />}
 					{!user && (
 						<button

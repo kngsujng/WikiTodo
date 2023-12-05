@@ -6,6 +6,7 @@ import Login from './../Pages/Login/Login';
 import NewTodo from '../Pages/NewTodo/NewTodo';
 import Edit from '../Pages/Edit/Edit';
 import Detail from '../Pages/Detail/Detail';
+import Scrap from '../Pages/Scrap/Scrap';
 
 export function Router() {
 	return (
@@ -35,6 +36,10 @@ export function Router() {
 				<Route
 					path="/detail/:id"
 					element={<Detail />}
+				/>
+				<Route
+					path="/scrap"
+					element={<Scrap />}
 				/>
 			</Routes>
 		</BrowserRouter>
