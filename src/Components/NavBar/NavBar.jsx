@@ -29,7 +29,7 @@ export default function NavBar() {
 					<LuListTodo size="1.5rem" />
 					<h1
 						onClick={() => {
-							navigate('/');
+							navigate('/main');
 						}}
 					>
 						Wiki-Todo

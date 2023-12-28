@@ -7,6 +7,7 @@ import NewTodo from '../Pages/NewTodo/NewTodo';
 import Edit from '../Pages/Edit/Edit';
 import Detail from '../Pages/Detail/Detail';
 import Scrap from '../Pages/Scrap/Scrap';
+import Start from '../Pages/Start/Start';
 
 export function Router() {
 	return (
@@ -15,6 +16,11 @@ export function Router() {
 				<Route
 					index
 					path="/"
+					element={<Start />}
+				/>
+				<Route
+					index
+					path="/main"
 					element={<Main />}
 				/>
 				<Route

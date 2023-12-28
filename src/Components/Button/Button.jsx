@@ -5,7 +5,7 @@ import { useLocation } from 'react-router-dom';
 export default function Button({ text, isDisabled, handleClick }) {
 	const { pathname } = useLocation();
 
-	if (pathname === '/') {
+	if (pathname === '/main') {
 		return (
 			<S.GotoNewpageBtn
 				disabled={isDisabled}
@@ -15,24 +15,14 @@ export default function Button({ text, isDisabled, handleClick }) {
 			</S.GotoNewpageBtn>
 		);
 	}
-	if (pathname === '/new') {
+	if (pathname === '/new' || pathname.startsWith('/edit/')) {
 		return (
-			<S.AddTodoBtn
+			<S.TodoFormBtn
 				disabled={isDisabled}
 				onClick={handleClick}
 			>
 				{text}
-			</S.AddTodoBtn>
-		);
-	}
-	if (pathname.startsWith('/edit/')) {
-		return (
-			<S.AddTodoBtn
-				disabled={isDisabled}
-				onClick={handleClick}
-			>
-				{text}
-			</S.AddTodoBtn>
+			</S.TodoFormBtn>
 		);
 	}
 }

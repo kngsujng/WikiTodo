@@ -10,7 +10,7 @@ export const GotoNewpageBtn = styled.button`
 	box-shadow: ${({ theme }) => theme.boxShadow};
 `;
 
-export const AddTodoBtn = styled.button`
+export const TodoFormBtn = styled.button`
 	position: absolute;
 	top: 90%;
 	left: 50%;

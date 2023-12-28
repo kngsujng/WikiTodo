@@ -18,7 +18,7 @@ export default function Edit() {
 			todo: todoItem,
 			id,
 		});
-		navigate('/');
+		navigate('/main');
 	};
 
 	return (

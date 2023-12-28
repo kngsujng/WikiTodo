@@ -6,9 +6,7 @@ export default function Layout({ children }) {
 	return (
 		<>
 			<NavBar />
-			<S.Container>
-				<S.Wrapper>{children}</S.Wrapper>
-			</S.Container>
+			<S.Wrapper>{children}</S.Wrapper>
 		</>
 	);
 }
