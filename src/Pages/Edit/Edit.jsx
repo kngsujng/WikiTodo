@@ -1,51 +1,34 @@
 import React, { useState } from 'react';
-import { useLocation, useNavigate, useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import Layout from '../../Components/Layout/Layout';
 import Header from '../../Components/Header/Header';
 import Form from '../../Components/Form/Form';
+import { useTodos } from '../../Context/TodoContext';
 
-export default function Detail() {
+export default function Edit() {
 	const { id } = useParams();
 	const navigate = useNavigate();
-	const {
-		state: { todoList },
-	} = useLocation();
+	const [todoList, dispatch] = useTodos();
 	const [todoItem, setTodoItem] = useState(todoList.find((v) => v.id === id));
-	const [disabled, setDisabled] = useState(false);
 
-	const handleUpdateTodo = (e) => {
-		const { name, value } = e.target;
-		if (name === 'isImportant') {
-			setTodoItem((prev) => ({ ...prev, isImportant: !prev.isImportant }));
-			return;
-		}
-		// 입력 폼에서 변경이 발생한 'name'의 값에 따라 객체의 속성 이름을 동적으로 결정한다.
-		setTodoItem((prev) => ({ ...prev, [name]: value }));
-	};
-
-	const handleSubmit = (e) => {
+	const onSubmit = (e) => {
 		e.preventDefault();
-		if (todoItem !== '') {
-			const updatedList = todoList.map((oldTodo) => {
-				if (oldTodo.id === id) {
-					return todoItem;
-				} else {
-					return oldTodo;
-				}
-			});
-			localStorage.setItem('todoList', JSON.stringify(updatedList));
-			navigate('/');
-		}
+		dispatch({
+			type: 'UPDATE',
+			todo: todoItem,
+			id,
+		});
+		navigate('/');
 	};
 
 	return (
 		<Layout>
 			<Header>New Wiki-Todo</Header>
 			<Form
-				handleUpdateTodo={handleUpdateTodo}
-				handleSubmit={handleSubmit}
+				onSubmit={onSubmit}
 				todoItem={todoItem}
-				disabled={disabled}
+				setTodoItem={setTodoItem}
+				buttonText={'Edit Todo'}
 			/>
 		</Layout>
 	);

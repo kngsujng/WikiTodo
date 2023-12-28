@@ -1,7 +1,9 @@
 import * as S from './TodoList.style';
 import TodoItem from '../TodoItem/TodoItem';
+import { useTodos } from '../../Context/TodoContext';
 
-export default function TodoList({ filter, todoList, setTodoList }) {
+export default function TodoList({ filter }) {
+	const [todoList] = useTodos();
 	const filtered = getFilteredItems(todoList, filter);
 	return (
 		<>
@@ -11,8 +13,6 @@ export default function TodoList({ filter, todoList, setTodoList }) {
 						<TodoItem
 							key={todo.id}
 							todo={todo}
-							todoList={todoList}
-							setTodoList={setTodoList}
 						/>
 					))}
 				</ul>

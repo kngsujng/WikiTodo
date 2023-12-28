@@ -4,34 +4,18 @@ import { useNavigate } from 'react-router-dom';
 import { FaRegTrashAlt, FaStar, FaRegStar } from 'react-icons/fa';
 import { FaRegSquare, FaSquareCheck } from 'react-icons/fa6';
 import { BiSolidEdit } from 'react-icons/bi';
+import { useTodos } from '../../Context/TodoContext';
 
-export default function TodoItem({ todo, todoList, setTodoList }) {
+export default function TodoItem({ todo }) {
+	const [todoList, dispatch] = useTodos();
 	const { id, date, category, title, detail, isCompleted, isImportant } = todo;
 	const navigate = useNavigate();
+
 	const toggleStatus = (id, statusType) => {
-		const oldTodos = JSON.parse(localStorage.getItem('todoList'));
-		const todoToUpdate = oldTodos.find((oldTodo) => oldTodo.id === id);
-		if (statusType === 'completed') {
-			todoToUpdate.isCompleted = !todoToUpdate.isCompleted;
-		}
-		if (statusType === 'important') {
-			todoToUpdate.isImportant = !todoToUpdate.isImportant;
-		}
-		const newTodos = oldTodos.map((todo) => {
-			if (todo.id === id) {
-				return todoToUpdate;
-			} else {
-				return todo;
-			}
-		});
-		localStorage.setItem('todoList', JSON.stringify(newTodos));
-		setTodoList(newTodos);
+		dispatch({ type: 'TOGGLE', id, statusType });
 	};
 	const handleDelete = (id) => {
-		const todos = JSON.parse(localStorage.getItem('todoList'));
-		const newTodos = todos.filter((todo) => todo.id !== id);
-		localStorage.setItem('todoList', JSON.stringify(newTodos));
-		setTodoList(newTodos);
+		dispatch({ type: 'DELETE', id });
 	};
 	return (
 		<S.Wrapper
