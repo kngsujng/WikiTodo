@@ -65,10 +65,10 @@ export const Category = styled.span`
 	padding: 3px 8px;
 	border-radius: 10px;
 	background-color: ${({ $category }) => getCategoryBackgroundColor($category)};
-	opacity: ${({ $completed }) => ($completed === 'true' ? 0.5 : 1)};
+	opacity: ${({ $completed }) => ($completed ? 0.5 : 1)};
 	font-size: 12px;
 	color: ${({ $completed, theme }) =>
-		$completed === 'true' ? theme.placeholderColor : theme.txtColor};
+		$completed ? theme.placeholderColor : theme.txtColor};
 `;
 
 export const Title = styled.p`
@@ -81,9 +81,8 @@ export const Title = styled.p`
 	text-overflow: ellipsis;
 	white-space: nowrap;
 	color: ${({ $completed, theme }) =>
-		$completed === 'true' ? theme.grayTxtColor : theme.txtColor};
-	text-decoration: ${({ $completed }) =>
-		$completed === 'true' && 'line-through'};
+		$completed ? theme.grayTxtColor : theme.txtColor};
+	text-decoration: ${({ $completed }) => $completed && 'line-through'};
 `;
 
 export const Detail = styled.p`
@@ -94,14 +93,13 @@ export const Detail = styled.p`
 	white-space: nowrap;
 	text-overflow: ellipsis;
 	color: ${({ $completed, theme }) =>
-		$completed === 'true' ? theme.grayTxtColor : theme.txtColor};
-	text-decoration: ${({ $completed }) =>
-		$completed === 'true' && 'line-through'};
+		$completed ? theme.grayTxtColor : theme.txtColor};
+	text-decoration: ${({ $completed }) => $completed && 'line-through'};
 `;
 
 export const Date = styled.p`
 	color: ${({ $completed, theme }) =>
-		$completed === 'true' ? theme.grayTxtColor : theme.dateColor};
+		$completed ? theme.grayTxtColor : theme.dateColor};
 	font-size: 13px;
 `;
 
@@ -116,7 +114,7 @@ export const BtnWrapper = styled.div`
 		}
 		&.btn_completed {
 			color: ${({ $completed, theme }) =>
-				$completed === 'true' ? theme.completedColor : theme.txtColor};
+				$completed ? theme.completedColor : theme.txtColor};
 		}
 		&.btn_gotoEdit {
 			margin: 0 4px;

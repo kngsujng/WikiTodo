@@ -47,7 +47,7 @@ export default function TodoItem({ todo, todoList, setTodoList }) {
 					<div className="contents-line">
 						<S.Title
 							htmlFor={id}
-							$completed={isCompleted.toString()}
+							$completed={isCompleted}
 						>
 							{title}
 						</S.Title>
@@ -61,18 +61,18 @@ export default function TodoItem({ todo, todoList, setTodoList }) {
 							{isImportant ? <FaStar color="#FFBD51" /> : <FaRegStar />}
 						</button>
 					</div>
-					<S.Detail $completed={isCompleted.toString()}>{detail}</S.Detail>
+					<S.Detail $completed={isCompleted}>{detail}</S.Detail>
 					<div className="contents-line">
-						<S.Date $completed={isCompleted.toString()}>{date}</S.Date>
+						<S.Date $completed={isCompleted}>{date}</S.Date>
 						<S.Category
 							$category={category}
-							$completed={isCompleted.toString()}
+							$completed={isCompleted}
 						>
 							{category}
 						</S.Category>
 					</div>
 				</div>
-				<S.BtnWrapper $completed={isCompleted.toString()}>
+				<S.BtnWrapper $completed={isCompleted}>
 					<button
 						className="btn_completed"
 						onClick={(e) => {

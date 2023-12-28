@@ -41,7 +41,7 @@ export default function Detail() {
 					</S.Detail>
 				)}
 
-				<S.IsWrapper $completed={isCompleted.toString()}>
+				<S.IsWrapper $completed={isCompleted}>
 					<span>
 						{isImportant ? <FaStar color="#FFBD51" /> : <FaRegStar />}
 					</span>
