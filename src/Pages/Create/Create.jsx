@@ -1,11 +1,11 @@
 import Layout from '../../Components/Layout/Layout';
-import Header from '../../Components/Header/Header';
-import Form from '../../Components/Form/Form';
+import TodoHead from '../../Components/TodoHead/TodoHead';
+import TodoForm from '../../Components/TodoForm/TodoForm';
 import { v4 as uuid } from 'uuid';
 import { useTodos } from '../../Context/TodoContext';
 import { useEffect, useState } from 'react';
 
-export default function NewTodo() {
+export default function Create() {
 	const [, dispatch] = useTodos();
 	const [disabled, setDisabled] = useState(false);
 	const [todoItem, setTodoItem] = useState({
@@ -49,8 +49,8 @@ export default function NewTodo() {
 
 	return (
 		<Layout>
-			<Header>New Wiki-Todo</Header>
-			<Form
+			<TodoHead>New Wiki-Todo</TodoHead>
+			<TodoForm
 				todoItem={todoItem}
 				setTodoItem={setTodoItem}
 				onSubmit={onSubmit}

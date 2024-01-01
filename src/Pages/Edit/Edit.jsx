@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import Layout from '../../Components/Layout/Layout';
-import Header from '../../Components/Header/Header';
-import Form from '../../Components/Form/Form';
+import TodoHead from '../../Components/TodoHead/TodoHead';
+import TodoForm from '../../Components/TodoForm/TodoForm';
 import { useTodos } from '../../Context/TodoContext';
 
 export default function Edit() {
@@ -23,8 +23,8 @@ export default function Edit() {
 
 	return (
 		<Layout>
-			<Header>New Wiki-Todo</Header>
-			<Form
+			<TodoHead>New Wiki-Todo</TodoHead>
+			<TodoForm
 				onSubmit={onSubmit}
 				todoItem={todoItem}
 				setTodoItem={setTodoItem}

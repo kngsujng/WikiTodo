@@ -5,7 +5,7 @@ import { FaRegSquare, FaSquareCheck } from 'react-icons/fa6';
 import { BiSolidEdit } from 'react-icons/bi';
 import { useLocation, useNavigate, useParams } from 'react-router-dom';
 import Layout from '../../Components/Layout/Layout';
-import Header from '../../Components/Header/Header';
+import TodoHead from '../../Components/TodoHead/TodoHead';
 
 export default function Detail() {
 	const { id } = useParams();
@@ -17,7 +17,7 @@ export default function Detail() {
 	const { date, category, title, detail, isCompleted, isImportant } = todoItem;
 	return (
 		<Layout>
-			<Header>Your WikiTodo</Header>
+			<TodoHead>Your WikiTodo</TodoHead>
 			<S.Container>
 				<S.Date>{date}</S.Date>
 				<S.Category $category={category}>{category}</S.Category>

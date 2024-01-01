@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
-import * as S from './Main.style';
 import TodoList from '../../Components/TodoList/TodoList';
-import Header from '../../Components/Header/Header';
+import TodoHead from '../../Components/TodoHead/TodoHead';
 import Layout from '../../Components/Layout/Layout';
 import Button from '../../Components/Button/Button';
 import { AiOutlinePlus } from 'react-icons/ai';
@@ -15,13 +14,13 @@ export default function Main() {
 
 	return (
 		<Layout>
-			<Header
+			<TodoHead
 				filters={filters}
 				filter={filter}
 				onFilterChange={setFilter}
 			>
 				Todo List
-			</Header>
+			</TodoHead>
 			<TodoList filter={filter} />
 			<Button
 				text={

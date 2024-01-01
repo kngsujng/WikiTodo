@@ -1,7 +1,12 @@
 import React, { useState } from 'react';
-import * as S from './Header.style';
+import * as S from './TodoHead.style';
 
-export default function Header({ children, filters, filter, onFilterChange }) {
+export default function TodoHead({
+	children,
+	filters,
+	filter,
+	onFilterChange,
+}) {
 	const [selectedFilter, setSelectedFilter] = useState(filter);
 	const handleFilterBtn = (f) => {
 		onFilterChange(f);

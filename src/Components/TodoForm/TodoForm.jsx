@@ -1,7 +1,7 @@
-import * as S from './Form.style';
+import * as S from './TodoForm.style';
 import Button from '../Button/Button';
 
-export default function Form({
+export default function TodoForm({
 	todoItem,
 	setTodoItem,
 	onSubmit,

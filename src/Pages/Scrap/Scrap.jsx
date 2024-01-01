@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import * as S from './Scrap.style';
 import Layout from '../../Components/Layout/Layout';
-import Header from '../../Components/Header/Header';
+import TodoHead from '../../Components/TodoHead/TodoHead';
 import TodoItem from '../../Components/TodoItem/TodoItem';
 
 export default function Scrap() {
@@ -24,7 +24,7 @@ export default function Scrap() {
 	}, []);
 	return (
 		<Layout>
-			<Header>⭐️ Important Todo List</Header>
+			<TodoHead>⭐️ Important Todo List</TodoHead>
 			<S.Wrapper>
 				<S.SelectWrapper>
 					<S.Select
