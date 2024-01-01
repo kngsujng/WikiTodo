@@ -58,9 +58,10 @@ export default function NavBar() {
 					)}
 					{user && (
 						<button
-							className="btn_login"
+							className="btn_logout"
 							onClick={() => {
 								logout();
+								navigate('/');
 							}}
 						>
 							Logout

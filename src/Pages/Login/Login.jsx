@@ -45,7 +45,7 @@ export default function Login() {
 		e.preventDefault();
 		setIsRequired(false);
 		await googleLogin();
-		navigate('/');
+		navigate('/main');
 	};
 
 	const handleEmailLoginBtn = async (e) => {
@@ -62,7 +62,7 @@ export default function Login() {
 			setLoginInfo({ email: '', pwd: '' });
 		} else {
 			console.log('성공적으로 이메일 로그인함');
-			navigate('/');
+			navigate('/main');
 		}
 	};
 
@@ -84,15 +84,14 @@ export default function Login() {
 			<S.Container>
 				<S.LoginFormWrapper>
 					<header>
-						<h1>Welcome!</h1>
-						<p>Please enter your details.</p>
+						<h1>로그인</h1>
+						<p>지금 바로 위키투두를 시작하세요 !</p>
 					</header>
 					<form>
 						<label htmlFor="inp_email">Email</label>
 						<input
 							required={isRequired}
 							type="text"
-							placeholder="Enter your email"
 							id="inp_email"
 							name="email"
 							value={loginInfo.email ?? ''}
@@ -103,7 +102,6 @@ export default function Login() {
 						<input
 							required={isRequired}
 							type="password"
-							placeholder="Enter your password"
 							id="inp_pwd"
 							name="pwd"
 							value={loginInfo.pwd ?? ''}
@@ -115,7 +113,7 @@ export default function Login() {
 								type="checkbox"
 								id="saveInfo"
 							/>
-							<label htmlFor="saveInfo">Remember for 30 days</label>
+							<label htmlFor="saveInfo">로그인 상태 유지</label>
 						</div>
 						{loginError.etc && <p className="errorTxt">{loginError.etc}</p>}
 						<S.BtnWrapper>
@@ -127,20 +125,20 @@ export default function Login() {
 								disabled={!isBtnActive}
 								onClick={handleEmailLoginBtn}
 							>
-								Sign in
+								로그인
 							</button>
 							<button
 								className="googleLogin"
 								onClick={handleGoogleLoginBtn}
 							>
 								<FcGoogle />
-								Sign in with Google
+								구글로 시작하기
 							</button>
 						</S.BtnWrapper>
 					</form>
 					<S.LinkWrapper>
-						<p>Don't have an account?</p>
-						<Link to="/signup">Sign up for free</Link>
+						<p>계정이 없으신가요?</p>
+						<Link to="/signup">회원가입 바로가기</Link>
 					</S.LinkWrapper>
 				</S.LoginFormWrapper>
 			</S.Container>

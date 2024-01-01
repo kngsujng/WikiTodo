@@ -36,7 +36,8 @@ export const NavWrapper = styled.header`
 		&.btn_toggle {
 			font-size: inherit;
 		}
-		&.btn_login {
+		&.btn_login,
+		&.btn_logout {
 			width: 100%;
 			margin-left: 10px;
 			padding: 8px;

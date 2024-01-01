@@ -52,7 +52,7 @@ export default function Signup() {
 			);
 		} else {
 			setEmailError('');
-			navigate('/');
+			navigate('/main');
 		}
 	};
 
@@ -89,7 +89,7 @@ export default function Signup() {
 			<S.Container>
 				<S.SignUpFormWrapper>
 					<header>
-						<h1>Join us !</h1>
+						<h1>회원가입</h1>
 					</header>
 					<form>
 						<label htmlFor="inp_email">Email</label>
@@ -152,13 +152,13 @@ export default function Signup() {
 								disabled={isDisabled}
 								onClick={handleSignupBtn}
 							>
-								Sign up
+								회원가입
 							</button>
 						</S.BtnWrapper>
 					</form>
 					<S.LinkWrapper>
-						<p>Already have any account?</p>
-						<Link to="/login">Sign in</Link>
+						<p>계정이 이미 있으신가요?</p>
+						<Link to="/login">로그인 바로가기</Link>
 					</S.LinkWrapper>
 				</S.SignUpFormWrapper>
 			</S.Container>

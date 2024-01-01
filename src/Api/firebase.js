@@ -50,7 +50,6 @@ export function logout() {
 
 export function getUserInfo(callback) {
 	onAuthStateChanged(auth, (user) => {
-		// 콜백함수 전달
 		callback(user);
 	});
 }
