@@ -8,7 +8,16 @@ import {
 	onAuthStateChanged,
 	signInWithEmailAndPassword,
 } from 'firebase/auth';
-import { get, getDatabase, ref, remove, set } from 'firebase/database';
+import {
+	child,
+	get,
+	getDatabase,
+	push,
+	ref,
+	remove,
+	set,
+	update,
+} from 'firebase/database';
 
 const firebaseConfig = {
 	apiKey: process.env.REACT_APP_FIREBASE_API_KEY,
@@ -72,6 +81,13 @@ export async function getTodos() {
 			return [];
 		})
 		.catch(console.error);
+}
+
+export function editTodo(todoItem) {
+	const { id } = todoItem;
+	const updates = {};
+	updates['/todoList/' + id] = todoItem;
+	return update(ref(database), updates);
 }
 
 // function removeAllTodos(){

@@ -4,8 +4,11 @@ import Layout from '../../Components/Layout/Layout';
 import TodoHead from '../../Components/TodoHead/TodoHead';
 import TodoForm from '../../Components/TodoForm/TodoForm';
 import { useTodos } from '../../Context/TodoContext';
+import { useAuthContext } from '../../Context/AuthContext';
+import { editTodo } from '../../Api/firebase';
 
 export default function Edit() {
+	const { user } = useAuthContext();
 	const { id } = useParams();
 	const navigate = useNavigate();
 	const { todos, dispatch } = useTodos();
@@ -13,11 +16,14 @@ export default function Edit() {
 
 	const onSubmit = (e) => {
 		e.preventDefault();
-		dispatch({
-			type: 'UPDATE',
-			todo: todoItem,
-			id,
-		});
+		if (user) {
+			editTodo(todoItem);
+			dispatch({
+				type: 'UPDATE',
+				todo: todoItem,
+				id,
+			});
+		}
 		navigate('/main');
 	};
 
