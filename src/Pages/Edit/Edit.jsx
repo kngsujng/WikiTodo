@@ -16,13 +16,14 @@ export default function Edit() {
 
 	const onSubmit = (e) => {
 		e.preventDefault();
+		dispatch({
+			type: 'UPDATE',
+			todo: todoItem,
+			id,
+			user,
+		});
 		if (user) {
 			editTodo(todoItem);
-			dispatch({
-				type: 'UPDATE',
-				todo: todoItem,
-				id,
-			});
 		}
 		navigate('/main');
 	};

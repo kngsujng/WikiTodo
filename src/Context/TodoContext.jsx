@@ -26,12 +26,25 @@ function todoReducer(state, action) {
 				return state.concat(action.todo);
 			}
 		case 'UPDATE':
-			return state.map((todo) => {
-				if (action.id === todo.id) {
-					return action.todo;
-				}
-				return todo;
-			});
+			if (!action.user) {
+				const localTodos = JSON.parse(localStorage.getItem('todoList')) || [];
+				const updatedLocalTodos = localTodos.map((todo) => {
+					if (todo.id === action.id) {
+						return action.todo;
+					} else {
+						return todo;
+					}
+				});
+				localStorage.setItem('todoList', JSON.stringify(updatedLocalTodos));
+				return updatedLocalTodos;
+			} else {
+				return state.map((todo) => {
+					if (action.id === todo.id) {
+						return action.todo;
+					}
+					return todo;
+				});
+			}
 		case 'TOGGLE':
 			return state.map((todo) => {
 				if (action.id === todo.id) {
