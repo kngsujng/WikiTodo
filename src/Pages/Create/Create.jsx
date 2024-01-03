@@ -23,12 +23,13 @@ export default function Create() {
 
 	const onSubmit = (e) => {
 		e.preventDefault();
+		dispatch({
+			type: 'CREATE',
+			todo: todoItem,
+			user,
+		});
 		if (user) {
 			addNewTodo(todoItem);
-			dispatch({
-				type: 'CREATE',
-				todo: todoItem,
-			});
 		}
 		setTodoItem((prev) => ({
 			...prev,

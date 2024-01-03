@@ -10,7 +10,21 @@ function todoReducer(state, action) {
 		case 'SET':
 			return action.todos || [];
 		case 'CREATE':
-			return state.concat(action.todo);
+			if (!action.user) {
+				const localTodos = JSON.parse(localStorage.getItem('todoList')) || [];
+				const updatedLocalTodos = [action.todo, ...localTodos];
+				const isDuplicate = localTodos.some(
+					(todo) => todo.id === action.todo.id
+				);
+				if (!isDuplicate) {
+					localStorage.setItem('todoList', JSON.stringify(updatedLocalTodos));
+					return updatedLocalTodos;
+				} else {
+					return localTodos;
+				}
+			} else {
+				return state.concat(action.todo);
+			}
 		case 'UPDATE':
 			return state.map((todo) => {
 				if (action.id === todo.id) {
@@ -47,15 +61,17 @@ const TodoContext = createContext();
 
 // context API + reducer 사용
 export function TodoProvider({ children }) {
-	const [todos, dispatch] = useReducer(todoReducer, []);
 	const { user } = useAuthContext();
+	const [todos, dispatch] = useReducer(todoReducer, []);
 	useEffect(() => {
 		const fetchData = async () => {
 			try {
 				if (user) {
 					const firebaseTodos = await getTodos();
 					dispatch({ type: 'SET', todos: firebaseTodos });
-					console.log('마운팅됨');
+				} else {
+					const localTodos = JSON.parse(localStorage.getItem('todoList')) || [];
+					dispatch({ type: 'SET', todos: localTodos });
 				}
 			} catch (error) {
 				console.error('Error fetching todos:', error);
