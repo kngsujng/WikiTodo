@@ -64,7 +64,16 @@ function todoReducer(state, action) {
 				return todo;
 			});
 		case 'DELETE':
-			return state.filter((todo) => todo.id !== action.id);
+			if (!action.user) {
+				const localTodos = JSON.parse(localStorage.getItem('todoList')) || [];
+				const updatedLocalTodos = localTodos.filter(
+					(todo) => todo.id !== action.id
+				);
+				localStorage.setItem('todoList', JSON.stringify(updatedLocalTodos));
+				return updatedLocalTodos;
+			} else {
+				return state.filter((todo) => todo.id !== action.id);
+			}
 		default:
 			throw new Error(`Unhandled action type: ${action.type}`);
 	}

@@ -22,9 +22,9 @@ export default function TodoItem({ id }) {
 		dispatch({ type: 'TOGGLE', id, statusType });
 	};
 	const handleDelete = (id) => {
+		dispatch({ type: 'DELETE', id, user });
 		if (user) {
 			deleteTodo(todo);
-			dispatch({ type: 'DELETE', id });
 		}
 	};
 	return (
