@@ -4,9 +4,12 @@ import TodoForm from '../../Components/TodoForm/TodoForm';
 import { v4 as uuid } from 'uuid';
 import { useTodos } from '../../Context/TodoContext';
 import { useEffect, useState } from 'react';
+import { addNewTodo } from '../../Api/firebase';
+import { useAuthContext } from '../../Context/AuthContext';
 
 export default function Create() {
-	const [, dispatch] = useTodos();
+	const { user } = useAuthContext();
+	const { dispatch } = useTodos();
 	const [disabled, setDisabled] = useState(false);
 	const [todoItem, setTodoItem] = useState({
 		id: uuid(),
@@ -20,13 +23,15 @@ export default function Create() {
 
 	const onSubmit = (e) => {
 		e.preventDefault();
-		dispatch({
-			type: 'CREATE',
-			todo: todoItem,
-		});
+		if (user) {
+			addNewTodo(todoItem);
+			dispatch({
+				type: 'CREATE',
+				todo: todoItem,
+			});
+		}
 		setTodoItem((prev) => ({
 			...prev,
-			id: uuid(),
 			category: '',
 			title: '',
 			detail: '',

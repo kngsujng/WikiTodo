@@ -42,7 +42,7 @@ export default function NavBar() {
 					>
 						{themeMode === 'light' ? <FiMoon /> : <FiSun />}
 					</button>
-					{!user && (
+					{user && (
 						<Link to="/scrap">
 							<ScrapStatus />
 						</Link>

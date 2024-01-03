@@ -8,6 +8,7 @@ import {
 	onAuthStateChanged,
 	signInWithEmailAndPassword,
 } from 'firebase/auth';
+import { get, getDatabase, ref, remove, set } from 'firebase/database';
 
 const firebaseConfig = {
 	apiKey: process.env.REACT_APP_FIREBASE_API_KEY,
@@ -20,6 +21,7 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig);
 const auth = getAuth(app);
 const provider = new GoogleAuthProvider();
+const database = getDatabase();
 
 // Google 로그인
 export async function googleLogin() {
@@ -53,3 +55,25 @@ export function getUserInfo(callback) {
 		callback(user);
 	});
 }
+
+export async function addNewTodo(todoItem) {
+	const { id } = todoItem;
+	set(ref(database, `todoList/${id}`), {
+		...todoItem,
+	});
+}
+
+export async function getTodos() {
+	return get(ref(database, 'todoList'))
+		.then((snapshot) => {
+			if (snapshot.exists()) {
+				return Object.values(snapshot.val());
+			}
+			return [];
+		})
+		.catch(console.error);
+}
+
+// function removeAllTodos(){
+//   return remove(ref(database, 'todoList'));
+// }

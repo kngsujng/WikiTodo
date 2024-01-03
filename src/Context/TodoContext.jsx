@@ -1,12 +1,14 @@
 import { createContext, useContext, useEffect, useReducer } from 'react';
+import { getTodos } from '../Api/firebase';
+import { useAuthContext } from './AuthContext';
 
 const initialTodos = [];
 
 // reducer 함수 생성
 function todoReducer(state, action) {
-	// action 객체 : type, todo
-	// state에 todo-list 들어갈 것
 	switch (action.type) {
+		case 'SET':
+			return action.todos || [];
 		case 'CREATE':
 			return state.concat(action.todo);
 		case 'UPDATE':
@@ -41,20 +43,33 @@ function todoReducer(state, action) {
 	}
 }
 
-// const { id, date, category, title, detail, isCompleted, isImportant } = todo;
-
 const TodoContext = createContext();
 
 // context API + reducer 사용
 export function TodoProvider({ children }) {
-	const storedTodos =
-		JSON.parse(localStorage.getItem('todoList')) || initialTodos;
-	const todos = useReducer(todoReducer, storedTodos);
+	const [todos, dispatch] = useReducer(todoReducer, []);
+	const { user } = useAuthContext();
 	useEffect(() => {
-		localStorage.setItem('todoList', JSON.stringify(todos[0]));
-	}, [todos]);
+		const fetchData = async () => {
+			try {
+				if (user) {
+					const firebaseTodos = await getTodos();
+					dispatch({ type: 'SET', todos: firebaseTodos });
+					console.log('마운팅됨');
+				}
+			} catch (error) {
+				console.error('Error fetching todos:', error);
+			}
+		};
 
-	return <TodoContext.Provider value={todos}>{children}</TodoContext.Provider>;
+		fetchData();
+	}, [user]);
+
+	return (
+		<TodoContext.Provider value={{ todos, dispatch }}>
+			{children}
+		</TodoContext.Provider>
+	);
 }
 
 // 커스텀 Hooks

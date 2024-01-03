@@ -6,10 +6,14 @@ import { FaRegSquare, FaSquareCheck } from 'react-icons/fa6';
 import { BiSolidEdit } from 'react-icons/bi';
 import { useTodos } from '../../Context/TodoContext';
 
-export default function TodoItem({ todo }) {
-	const [todoList, dispatch] = useTodos();
-	const { id, date, category, title, detail, isCompleted, isImportant } = todo;
+export default function TodoItem({ id }) {
+	const { todos, dispatch } = useTodos();
+	const todo = todos.find((v) => v.id === id);
 	const navigate = useNavigate();
+	if (!todo) {
+		return null;
+	}
+	const { date, category, title, detail, isCompleted, isImportant } = todo;
 
 	const toggleStatus = (id, statusType) => {
 		dispatch({ type: 'TOGGLE', id, statusType });
@@ -22,7 +26,7 @@ export default function TodoItem({ todo }) {
 			key={id}
 			onClick={() =>
 				navigate(`/detail/${id}`, {
-					state: { todoList },
+					state: { todos },
 				})
 			}
 		>
@@ -71,7 +75,7 @@ export default function TodoItem({ todo }) {
 						onClick={(e) => {
 							e.stopPropagation();
 							navigate(`/edit/${id}`, {
-								state: { todoList },
+								state: { todos },
 							});
 						}}
 					>

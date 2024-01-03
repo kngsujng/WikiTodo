@@ -8,8 +8,8 @@ import { useTodos } from '../../Context/TodoContext';
 export default function Edit() {
 	const { id } = useParams();
 	const navigate = useNavigate();
-	const [todoList, dispatch] = useTodos();
-	const [todoItem, setTodoItem] = useState(todoList.find((v) => v.id === id));
+	const { todos, dispatch } = useTodos();
+	const [todoItem, setTodoItem] = useState(todos.find((v) => v.id === id));
 
 	const onSubmit = (e) => {
 		e.preventDefault();
