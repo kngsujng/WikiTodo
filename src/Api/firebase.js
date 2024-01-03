@@ -85,9 +85,14 @@ export async function getTodos() {
 
 export function editTodo(todoItem) {
 	const { id } = todoItem;
-	const updates = {};
-	updates['/todoList/' + id] = todoItem;
-	return update(ref(database), updates);
+	const todoToUpdate = {};
+	todoToUpdate['/todoList/' + id] = todoItem;
+	return update(ref(database), todoToUpdate);
+}
+
+export function deleteTodo(todoItem) {
+	const { id } = todoItem;
+	return remove(ref(database, `todoList/${id}`));
 }
 
 // function removeAllTodos(){

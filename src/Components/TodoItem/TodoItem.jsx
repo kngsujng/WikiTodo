@@ -5,8 +5,11 @@ import { FaRegTrashAlt, FaStar, FaRegStar } from 'react-icons/fa';
 import { FaRegSquare, FaSquareCheck } from 'react-icons/fa6';
 import { BiSolidEdit } from 'react-icons/bi';
 import { useTodos } from '../../Context/TodoContext';
+import { useAuthContext } from '../../Context/AuthContext';
+import { deleteTodo } from '../../Api/firebase';
 
 export default function TodoItem({ id }) {
+	const { user } = useAuthContext();
 	const { todos, dispatch } = useTodos();
 	const todo = todos.find((v) => v.id === id);
 	const navigate = useNavigate();
@@ -19,7 +22,10 @@ export default function TodoItem({ id }) {
 		dispatch({ type: 'TOGGLE', id, statusType });
 	};
 	const handleDelete = (id) => {
-		dispatch({ type: 'DELETE', id });
+		if (user) {
+			deleteTodo(todo);
+			dispatch({ type: 'DELETE', id });
+		}
 	};
 	return (
 		<S.Wrapper
