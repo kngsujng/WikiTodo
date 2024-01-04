@@ -1,5 +1,5 @@
 import { createContext, useContext, useEffect, useReducer } from 'react';
-import { editTodo, getTodos } from '../Api/firebase';
+import { addNewTodo, deleteTodo, editTodo, getTodos } from '../Api/firebase';
 import { useAuthContext } from './AuthContext';
 
 const initialTodos = [];
@@ -12,10 +12,10 @@ function todoReducer(state, action) {
 			return action.todos || [];
 		case 'CREATE':
 			if (!action.user) {
-				const updatedLocalTodos = [action.todo, ...localTodos];
 				const isDuplicate = localTodos.some(
 					(todo) => todo.id === action.todo.id
 				);
+				const updatedLocalTodos = [action.todo, ...localTodos];
 				if (!isDuplicate) {
 					localStorage.setItem('todoList', JSON.stringify(updatedLocalTodos));
 					return updatedLocalTodos;
@@ -23,7 +23,8 @@ function todoReducer(state, action) {
 					return localTodos;
 				}
 			} else {
-				return state.concat(action.todo);
+				addNewTodo(action.todo);
+				return [action.todo, ...state];
 			}
 		case 'UPDATE':
 			if (!action.user) {
@@ -39,6 +40,7 @@ function todoReducer(state, action) {
 			} else {
 				return state.map((todo) => {
 					if (action.id === todo.id) {
+						editTodo(action.todo);
 						return action.todo;
 					}
 					return todo;
@@ -96,6 +98,7 @@ function todoReducer(state, action) {
 				localStorage.setItem('todoList', JSON.stringify(updatedLocalTodos));
 				return updatedLocalTodos;
 			} else {
+				deleteTodo(action.todo);
 				return state.filter((todo) => todo.id !== action.id);
 			}
 		default:

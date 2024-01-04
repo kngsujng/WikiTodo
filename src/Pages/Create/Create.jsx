@@ -4,7 +4,6 @@ import TodoForm from '../../Components/TodoForm/TodoForm';
 import { v4 as uuid } from 'uuid';
 import { useTodos } from '../../Context/TodoContext';
 import { useEffect, useState } from 'react';
-import { addNewTodo } from '../../Api/firebase';
 import { useAuthContext } from '../../Context/AuthContext';
 
 export default function Create() {
@@ -28,11 +27,9 @@ export default function Create() {
 			todo: todoItem,
 			user,
 		});
-		if (user) {
-			addNewTodo(todoItem);
-		}
 		setTodoItem((prev) => ({
 			...prev,
+			id: uuid(),
 			category: '',
 			title: '',
 			detail: '',

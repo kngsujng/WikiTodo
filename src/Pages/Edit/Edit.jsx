@@ -5,7 +5,6 @@ import TodoHead from '../../Components/TodoHead/TodoHead';
 import TodoForm from '../../Components/TodoForm/TodoForm';
 import { useTodos } from '../../Context/TodoContext';
 import { useAuthContext } from '../../Context/AuthContext';
-import { editTodo } from '../../Api/firebase';
 
 export default function Edit() {
 	const { user } = useAuthContext();
@@ -22,9 +21,6 @@ export default function Edit() {
 			id,
 			user,
 		});
-		if (user) {
-			editTodo(todoItem);
-		}
 		navigate('/main');
 	};
 
