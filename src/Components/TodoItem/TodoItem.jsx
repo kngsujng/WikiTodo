@@ -19,7 +19,7 @@ export default function TodoItem({ id }) {
 	const { date, category, title, detail, isCompleted, isImportant } = todo;
 
 	const toggleStatus = (id, statusType) => {
-		dispatch({ type: 'TOGGLE', id, statusType });
+		dispatch({ type: 'TOGGLE', id, statusType, user });
 	};
 	const handleDelete = (id) => {
 		dispatch({ type: 'DELETE', id, user });

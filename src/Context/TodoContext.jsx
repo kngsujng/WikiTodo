@@ -1,17 +1,17 @@
 import { createContext, useContext, useEffect, useReducer } from 'react';
-import { getTodos } from '../Api/firebase';
+import { editTodo, getTodos } from '../Api/firebase';
 import { useAuthContext } from './AuthContext';
 
 const initialTodos = [];
 
 // reducer 함수 생성
 function todoReducer(state, action) {
+	const localTodos = JSON.parse(localStorage.getItem('todoList')) || [];
 	switch (action.type) {
 		case 'SET':
 			return action.todos || [];
 		case 'CREATE':
 			if (!action.user) {
-				const localTodos = JSON.parse(localStorage.getItem('todoList')) || [];
 				const updatedLocalTodos = [action.todo, ...localTodos];
 				const isDuplicate = localTodos.some(
 					(todo) => todo.id === action.todo.id
@@ -27,7 +27,6 @@ function todoReducer(state, action) {
 			}
 		case 'UPDATE':
 			if (!action.user) {
-				const localTodos = JSON.parse(localStorage.getItem('todoList')) || [];
 				const updatedLocalTodos = localTodos.map((todo) => {
 					if (todo.id === action.id) {
 						return action.todo;
@@ -46,26 +45,51 @@ function todoReducer(state, action) {
 				});
 			}
 		case 'TOGGLE':
-			return state.map((todo) => {
-				if (action.id === todo.id) {
-					if (action.statusType === 'completed') {
-						return {
-							...todo,
-							isCompleted: !todo.isCompleted,
-						};
+			if (!action.user) {
+				const updatedTodos = state.map((todo) => {
+					if (action.id === todo.id) {
+						if (action.statusType === 'completed') {
+							return {
+								...todo,
+								isCompleted: !todo.isCompleted,
+							};
+						}
+						if (action.statusType === 'important') {
+							return {
+								...todo,
+								isImportant: !todo.isImportant,
+							};
+						}
 					}
-					if (action.statusType === 'important') {
-						return {
-							...todo,
-							isImportant: !todo.isImportant,
-						};
+					return todo;
+				});
+				localStorage.setItem('todoList', JSON.stringify(updatedTodos));
+				return updatedTodos;
+			} else {
+				return state.map((todo) => {
+					if (action.id === todo.id) {
+						if (action.statusType === 'completed') {
+							const toggledTodo = {
+								...todo,
+								isCompleted: !todo.isCompleted,
+							};
+							editTodo(toggledTodo);
+							return toggledTodo;
+						}
+						if (action.statusType === 'important') {
+							const toggledTodo = {
+								...todo,
+								isImportant: !todo.isImportant,
+							};
+							editTodo(toggledTodo);
+							return toggledTodo;
+						}
 					}
-				}
-				return todo;
-			});
+					return todo;
+				});
+			}
 		case 'DELETE':
 			if (!action.user) {
-				const localTodos = JSON.parse(localStorage.getItem('todoList')) || [];
 				const updatedLocalTodos = localTodos.filter(
 					(todo) => todo.id !== action.id
 				);
