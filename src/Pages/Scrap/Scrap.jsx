@@ -1,27 +1,39 @@
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import * as S from './Scrap.style';
 import Layout from '../../Components/Layout/Layout';
 import TodoHead from '../../Components/TodoHead/TodoHead';
 import TodoItem from '../../Components/TodoItem/TodoItem';
+import Loading from '../../Components/Loading/Loading';
+import { useTodos } from '../../Context/TodoContext';
 
 export default function Scrap() {
-	const [todoList, setTodoList] = useState([]);
+	const { todos, isLoading } = useTodos();
+	const [sortedTodos, setSortedTodos] = useState([]);
+	const [isVisible, setIsVisible] = useState(false);
+
+	useEffect(() => {
+		setSortedTodos(todos.filter((todo) => todo.isImportant));
+	}, [todos]);
+
 	const handleSortScrap = (e) => {
 		const { value } = e.target;
-		console.log(value);
+		setSortedTodos(sortByOption(todos, value));
+		if (value === 'by_caregory') {
+			setIsVisible(true);
+		} else {
+			setIsVisible(false);
+		}
 	};
+
 	const handleSortScrapByCategory = (e) => {
 		const { value } = e.target;
-		console.log(value);
+		setSortedTodos(
+			value === 'all'
+				? filterImportantTodos(todos)
+				: filterByCategory(filterImportantTodos(todos), value)
+		);
 	};
-	useEffect(() => {
-		if (!localStorage.getItem('todoList')) {
-			localStorage.setItem('todoList', JSON.stringify([]));
-		} else {
-			const data = JSON.parse(localStorage.getItem('todoList'));
-			setTodoList(data);
-		}
-	}, []);
+
 	return (
 		<Layout>
 			<TodoHead>⭐️ Important Todo List</TodoHead>
@@ -32,52 +44,60 @@ export default function Scrap() {
 						name="sortByOption"
 						onChange={handleSortScrap}
 					>
+						<option defaultValue="sort">정렬 기준</option>
 						<option value="by_latestDate">최신 날짜순</option>
 						<option value="by_caregory">카테고리별</option>
 						<option value="by_isCompleted">완료 여부</option>
 					</S.Select>
-					<S.Select
-						id="sortByCategory"
-						name="sortByCategory"
-						onChange={handleSortScrapByCategory}
-					>
-						<option value="work">👩🏻‍💻 업무</option>
-						<option value="study">📚 공부</option>
-						<option value="exercise">👟 운동</option>
-						<option value="plan">🤝 약속</option>
-						<option value="etc">🎵 기타</option>
-					</S.Select>
+					{isVisible && (
+						<S.Select
+							id="sortByCategory"
+							name="sortByCategory"
+							onChange={handleSortScrapByCategory}
+						>
+							<option value="all">---</option>
+							<option value="work">👩🏻‍💻 업무</option>
+							<option value="study">📚 공부</option>
+							<option value="exercise">👟 운동</option>
+							<option value="plan">🤝 약속</option>
+							<option value="etc">🎵 기타</option>
+						</S.Select>
+					)}
 				</S.SelectWrapper>
 				<ul>
-					{todoList.map((todo) => {
-						if (todo.isImportant) {
+					{isLoading ? (
+						<Loading useLayout={false} />
+					) : (
+						sortedTodos.map((todo) => {
 							return (
 								<TodoItem
 									key={todo.id}
-									todo={todo}
-									todoList={todoList}
-									setTodoList={setTodoList}
+									id={todo.id}
 								/>
 							);
-						}
-					})}
+						})
+					)}
 				</ul>
 			</S.Wrapper>
 		</Layout>
 	);
 }
 
-function sortByOption(todoList, sortOption) {
+const filterImportantTodos = (todoList) =>
+	todoList.filter((todo) => todo.isImportant);
+
+const sortByOption = (todoList, sortOption) => {
+	const importantTodos = filterImportantTodos(todoList);
+
 	switch (sortOption) {
 		case 'by_latestDate':
-			return todoList.sort((a, b) => a.date - b.date);
-		case 'by_caregory':
-			// return todoList.filter();
-			console.log('hi');
-			break;
+			return importantTodos.sort((a, b) => new Date(b.date) - new Date(a.date));
 		case 'by_isCompleted':
-			return todoList.sort((a, b) => a.isCompleted - b.isCompleted);
+			return importantTodos.sort((a, b) => b.isCompleted - a.isCompleted);
 		default:
-			return todoList.sort((a, b) => a.date - b.date);
+			return importantTodos;
 	}
-}
+};
+
+const filterByCategory = (todoList, category) =>
+	filterImportantTodos(todoList).filter((todo) => todo.category === category);
