@@ -8,16 +8,7 @@ import {
 	onAuthStateChanged,
 	signInWithEmailAndPassword,
 } from 'firebase/auth';
-import {
-	child,
-	get,
-	getDatabase,
-	push,
-	ref,
-	remove,
-	set,
-	update,
-} from 'firebase/database';
+import { get, getDatabase, ref, remove, set, update } from 'firebase/database';
 
 const firebaseConfig = {
 	apiKey: process.env.REACT_APP_FIREBASE_API_KEY,

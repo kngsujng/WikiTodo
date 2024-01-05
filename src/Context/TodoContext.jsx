@@ -1,4 +1,10 @@
-import { createContext, useContext, useEffect, useReducer } from 'react';
+import {
+	createContext,
+	useContext,
+	useEffect,
+	useReducer,
+	useState,
+} from 'react';
 import { addNewTodo, deleteTodo, editTodo, getTodos } from '../Api/firebase';
 import { useAuthContext } from './AuthContext';
 
@@ -111,19 +117,26 @@ const TodoContext = createContext();
 // context API + reducer 사용
 export function TodoProvider({ children }) {
 	const { user } = useAuthContext();
+	const [isLoading, setIsLoading] = useState(false);
 	const [todos, dispatch] = useReducer(todoReducer, []);
+
 	useEffect(() => {
+		setIsLoading(true);
 		const fetchData = async () => {
 			try {
-				if (user) {
-					const firebaseTodos = await getTodos();
+				if (user && 'uid' in user) {
+					const firebaseTodos = (await getTodos()) || [];
 					dispatch({ type: 'SET', todos: firebaseTodos });
-				} else {
-					const localTodos = JSON.parse(localStorage.getItem('todoList')) || [];
-					dispatch({ type: 'SET', todos: localTodos });
+				}
+				if (localStorage.getItem('user') === 'noAuth') {
+					const localStorageTodos =
+						JSON.parse(localStorage.getItem('todoList')) || [];
+					dispatch({ type: 'SET', todos: localStorageTodos });
 				}
 			} catch (error) {
 				console.error('Error fetching todos:', error);
+			} finally {
+				setIsLoading(false);
 			}
 		};
 
@@ -131,7 +144,7 @@ export function TodoProvider({ children }) {
 	}, [user]);
 
 	return (
-		<TodoContext.Provider value={{ todos, dispatch }}>
+		<TodoContext.Provider value={{ todos, dispatch, isLoading }}>
 			{children}
 		</TodoContext.Provider>
 	);

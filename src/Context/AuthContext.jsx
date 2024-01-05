@@ -7,6 +7,7 @@ export const AuthContext = createContext();
 
 export default function AuthContextProvider({ children }) {
 	const [user, setUser] = useState(null);
+
 	useEffect(() => {
 		getUserInfo((user) => setUser(user));
 	}, []);

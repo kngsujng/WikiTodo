@@ -45,6 +45,7 @@ export default function Login() {
 		e.preventDefault();
 		setIsRequired(false);
 		await googleLogin();
+		localStorage.setItem('user', null);
 		navigate('/main');
 	};
 
@@ -61,7 +62,7 @@ export default function Login() {
 			}, 4000);
 			setLoginInfo({ email: '', pwd: '' });
 		} else {
-			console.log('성공적으로 이메일 로그인함');
+			localStorage.setItem('user', null);
 			navigate('/main');
 		}
 	};
