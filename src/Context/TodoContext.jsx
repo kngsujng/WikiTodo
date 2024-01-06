@@ -8,8 +8,6 @@ import {
 import { addNewTodo, deleteTodo, editTodo, getTodos } from '../Api/firebase';
 import { useAuthContext } from './AuthContext';
 
-const initialTodos = [];
-
 // reducer 함수 생성
 function todoReducer(state, action) {
 	const localTodos = JSON.parse(localStorage.getItem('todoList')) || [];

@@ -1,4 +1,3 @@
-import React, { useState } from 'react';
 import * as S from './Detail.style';
 import { FaStar, FaRegStar } from 'react-icons/fa';
 import { FaRegSquare, FaSquareCheck } from 'react-icons/fa6';
