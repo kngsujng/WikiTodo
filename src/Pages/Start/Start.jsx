@@ -8,6 +8,7 @@ export default function Start() {
 	const noAuth = () => {
 		localStorage.setItem('user', 'noAuth');
 		navigate('/main');
+		window.location.reload();
 	};
 	return (
 		<S.Wrapper>
