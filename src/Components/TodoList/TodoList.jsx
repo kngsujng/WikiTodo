@@ -1,6 +1,7 @@
 import * as S from './TodoList.style';
 import TodoItem from '../TodoItem/TodoItem';
 import { useTodos } from '../../Context/TodoContext';
+import NoTodoItem from '../NoTodoItem/NoTodoItem';
 
 export default function TodoList({ filter }) {
 	const { todos } = useTodos();
@@ -9,13 +10,16 @@ export default function TodoList({ filter }) {
 		<>
 			<S.Wrapper>
 				<ul>
-					{todos &&
+					{filtered.length > 0 ? (
 						filtered.map((todo) => (
 							<TodoItem
 								key={todo.id}
 								id={todo.id}
 							/>
-						))}
+						))
+					) : (
+						<NoTodoItem />
+					)}
 				</ul>
 			</S.Wrapper>
 		</>

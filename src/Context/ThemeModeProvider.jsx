@@ -1,4 +1,4 @@
-import { createContext, useState } from 'react';
+import { createContext, useContext, useState } from 'react';
 import { darkTheme, lightTheme } from '../Style/GlobalTheme';
 import { ThemeProvider as StyledProvider } from 'styled-components';
 
@@ -18,4 +18,8 @@ export function ThemeModeProvider({ children }) {
 			</StyledProvider>
 		</ThemeModeContext.Provider>
 	);
+}
+
+export function useThemeContext() {
+	return useContext(ThemeModeContext);
 }

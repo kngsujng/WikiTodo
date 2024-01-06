@@ -5,6 +5,7 @@ import TodoHead from '../../Components/TodoHead/TodoHead';
 import TodoItem from '../../Components/TodoItem/TodoItem';
 import Loading from '../../Components/Loading/Loading';
 import { useTodos } from '../../Context/TodoContext';
+import NoTodoItem from '../../Components/NoTodoItem/NoTodoItem';
 
 export default function Scrap() {
 	const { todos, isLoading } = useTodos();
@@ -67,15 +68,15 @@ export default function Scrap() {
 				<ul>
 					{isLoading ? (
 						<Loading useLayout={false} />
+					) : sortedTodos.length > 0 ? (
+						sortedTodos.map((todo) => (
+							<TodoItem
+								key={todo.id}
+								id={todo.id}
+							/>
+						))
 					) : (
-						sortedTodos.map((todo) => {
-							return (
-								<TodoItem
-									key={todo.id}
-									id={todo.id}
-								/>
-							);
-						})
+						<NoTodoItem />
 					)}
 				</ul>
 			</S.Wrapper>
