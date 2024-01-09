@@ -21,6 +21,7 @@ export const lightTheme = {
 	errorMsg: '#ff3f3f',
 	borderColor: '#f1f1f1',
 	completedColor: '#1B64D9',
+	notificationColor: '#00ADFF',
 };
 
 export const darkTheme = {
@@ -45,6 +46,7 @@ export const darkTheme = {
 	errorMsg: '#ff3f3f',
 	borderColor: '#f1f1f1',
 	completedColor: '#3A81F3',
+	notificationColor: '#0064FF',
 };
 
 export const GlobalTheme = {

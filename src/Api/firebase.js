@@ -84,3 +84,22 @@ export function deleteTodo(userId, todoItem) {
 // function removeAllTodos(){
 //   return remove(ref(database, 'todoList'));
 // }
+
+export async function getScrap(userId) {
+	return get(ref(database, `scrap/${userId}`)) //
+		.then((snapshot) => {
+			const items = snapshot.val() || {};
+			const importantItems = Object.values(items).filter(
+				(item) => item.isImportant
+			);
+			return importantItems;
+		});
+}
+
+export async function addOrUpdateToScrap(userId, todoItem) {
+	return set(ref(database, `scrap/${userId}/${todoItem.id}`), todoItem);
+}
+
+export async function removeFromScrap(userId, todoId) {
+	return remove(ref(database, `scrap/${userId}/${todoId}`));
+}
