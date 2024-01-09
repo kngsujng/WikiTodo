@@ -7,7 +7,7 @@ import { useEffect, useState } from 'react';
 import { useAuthContext } from '../../Context/AuthContext';
 
 export default function Create() {
-	const { user } = useAuthContext();
+	const { user, uid } = useAuthContext();
 	const { dispatch } = useTodos();
 	const [disabled, setDisabled] = useState(false);
 	const [todoItem, setTodoItem] = useState({
@@ -26,6 +26,7 @@ export default function Create() {
 			type: 'CREATE',
 			todo: todoItem,
 			user,
+			uid,
 		});
 		setTodoItem((prev) => ({
 			...prev,

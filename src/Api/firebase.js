@@ -30,20 +30,16 @@ export async function googleLogin() {
 
 // Email 회원가입
 export async function signupEmail(email, pwd) {
-	return await createUserWithEmailAndPassword(auth, email, pwd)
-		.then((userCredential) => {
-			console.log(userCredential);
-		})
-		.catch((error) => error.code);
+	return await createUserWithEmailAndPassword(auth, email, pwd).catch(
+		(error) => error.code
+	);
 }
 
 // Email 로그인
 export async function emailLogin(email, password) {
-	return await signInWithEmailAndPassword(auth, email, password)
-		.then((userCredential) => {
-			console.log(userCredential);
-		})
-		.catch((error) => error.code);
+	return await signInWithEmailAndPassword(auth, email, password).catch(
+		(error) => error.code
+	);
 }
 
 export function logout() {
@@ -56,15 +52,14 @@ export function getUserInfo(callback) {
 	});
 }
 
-export async function addNewTodo(todoItem) {
-	const { id } = todoItem;
-	set(ref(database, `todoList/${id}`), {
+export async function addNewTodo(userId, todoItem) {
+	set(ref(database, `todoList/${userId}/${todoItem.id}`), {
 		...todoItem,
 	});
 }
 
-export async function getTodos() {
-	return get(ref(database, 'todoList'))
+export async function getTodos(userId) {
+	return get(ref(database, `todoList/${userId}`))
 		.then((snapshot) => {
 			if (snapshot.exists()) {
 				return Object.values(snapshot.val());
@@ -74,16 +69,16 @@ export async function getTodos() {
 		.catch(console.error);
 }
 
-export function editTodo(todoItem) {
-	const { id } = todoItem;
+export function editTodo(userId, todoItem) {
+	const { id: todoId } = todoItem;
 	const todoToUpdate = {};
-	todoToUpdate['/todoList/' + id] = todoItem;
+	todoToUpdate[`/todoList/${userId}/${todoId}`] = todoItem;
 	return update(ref(database), todoToUpdate);
 }
 
-export function deleteTodo(todoItem) {
-	const { id } = todoItem;
-	return remove(ref(database, `todoList/${id}`));
+export function deleteTodo(userId, todoItem) {
+	const { id: todoId } = todoItem;
+	return remove(ref(database, `todoList/${userId}/${todoId}`));
 }
 
 // function removeAllTodos(){

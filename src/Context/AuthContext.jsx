@@ -14,7 +14,14 @@ export default function AuthContextProvider({ children }) {
 
 	return (
 		<AuthContext.Provider
-			value={{ user, setUser, googleLogin, emailLogin, logout }}
+			value={{
+				user,
+				uid: user && user.uid,
+				setUser,
+				googleLogin,
+				emailLogin,
+				logout,
+			}}
 		>
 			{children}
 		</AuthContext.Provider>

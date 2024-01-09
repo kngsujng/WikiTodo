@@ -27,7 +27,7 @@ function todoReducer(state, action) {
 					return localTodos;
 				}
 			} else {
-				addNewTodo(action.todo);
+				addNewTodo(action.uid, action.todo);
 				return [action.todo, ...state];
 			}
 		case 'UPDATE':
@@ -44,7 +44,7 @@ function todoReducer(state, action) {
 			} else {
 				return state.map((todo) => {
 					if (action.id === todo.id) {
-						editTodo(action.todo);
+						editTodo(action.uid, action.todo);
 						return action.todo;
 					}
 					return todo;
@@ -79,7 +79,7 @@ function todoReducer(state, action) {
 								...todo,
 								isCompleted: !todo.isCompleted,
 							};
-							editTodo(toggledTodo);
+							editTodo(action.uid, toggledTodo);
 							return toggledTodo;
 						}
 						if (action.statusType === 'important') {
@@ -87,7 +87,7 @@ function todoReducer(state, action) {
 								...todo,
 								isImportant: !todo.isImportant,
 							};
-							editTodo(toggledTodo);
+							editTodo(action.uid, toggledTodo);
 							return toggledTodo;
 						}
 					}
@@ -102,7 +102,7 @@ function todoReducer(state, action) {
 				localStorage.setItem('todoList', JSON.stringify(updatedLocalTodos));
 				return updatedLocalTodos;
 			} else {
-				deleteTodo(action.todo);
+				deleteTodo(action.uid, action.todo);
 				return state.filter((todo) => todo.id !== action.id);
 			}
 		default:
@@ -114,16 +114,17 @@ const TodoContext = createContext();
 
 // context API + reducer 사용
 export function TodoProvider({ children }) {
-	const { user } = useAuthContext();
+	const { user, uid } = useAuthContext();
 	const [isLoading, setIsLoading] = useState(false);
 	const [todos, dispatch] = useReducer(todoReducer, []);
 
 	useEffect(() => {
+		console.log(uid);
 		setIsLoading(true);
 		const fetchData = async () => {
 			try {
 				if (user && 'uid' in user) {
-					const firebaseTodos = (await getTodos()) || [];
+					const firebaseTodos = (await getTodos(uid)) || [];
 					dispatch({ type: 'SET', todos: firebaseTodos });
 				}
 				if (localStorage.getItem('user') === 'noAuth') {
@@ -139,7 +140,7 @@ export function TodoProvider({ children }) {
 		};
 
 		fetchData();
-	}, [user]);
+	}, [user, uid]);
 
 	return (
 		<TodoContext.Provider value={{ todos, dispatch, isLoading }}>

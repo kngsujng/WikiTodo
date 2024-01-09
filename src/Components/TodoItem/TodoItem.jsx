@@ -8,7 +8,7 @@ import { useTodos } from '../../Context/TodoContext';
 import { useAuthContext } from '../../Context/AuthContext';
 
 export default function TodoItem({ id }) {
-	const { user } = useAuthContext();
+	const { user, uid } = useAuthContext();
 	const { todos, dispatch } = useTodos();
 	const todo = todos.find((v) => v.id === id);
 	const navigate = useNavigate();
@@ -18,10 +18,10 @@ export default function TodoItem({ id }) {
 	const { date, category, title, detail, isCompleted, isImportant } = todo;
 
 	const toggleStatus = (id, statusType) => {
-		dispatch({ type: 'TOGGLE', id, statusType, user });
+		dispatch({ type: 'TOGGLE', id, statusType, user, uid });
 	};
 	const handleDelete = (id) => {
-		dispatch({ type: 'DELETE', id, user, todo });
+		dispatch({ type: 'DELETE', id, user, uid, todo });
 	};
 	return (
 		<S.Wrapper

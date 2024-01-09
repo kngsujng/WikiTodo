@@ -7,7 +7,7 @@ import { useTodos } from '../../Context/TodoContext';
 import { useAuthContext } from '../../Context/AuthContext';
 
 export default function Edit() {
-	const { user } = useAuthContext();
+	const { user, uid } = useAuthContext();
 	const { id } = useParams();
 	const navigate = useNavigate();
 	const { todos, dispatch } = useTodos();
@@ -20,6 +20,7 @@ export default function Edit() {
 			todo: todoItem,
 			id,
 			user,
+			uid,
 		});
 		navigate('/main');
 	};

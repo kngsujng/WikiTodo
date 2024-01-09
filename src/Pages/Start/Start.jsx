@@ -1,3 +1,4 @@
+import { logout } from '../../Api/firebase';
 import * as S from './Start.styled';
 import { useNavigate } from 'react-router-dom';
 export default function Start() {
@@ -7,6 +8,7 @@ export default function Start() {
 	};
 	const noAuth = () => {
 		localStorage.setItem('user', 'noAuth');
+		logout();
 		navigate('/main');
 		window.location.reload();
 	};
