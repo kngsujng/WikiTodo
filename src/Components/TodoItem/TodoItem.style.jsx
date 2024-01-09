@@ -68,7 +68,7 @@ export const Category = styled.span`
 	opacity: ${({ $completed }) => ($completed ? 0.5 : 1)};
 	font-size: 12px;
 	color: ${({ $completed, theme }) =>
-		$completed ? theme.placeholderColor : theme.txtColor};
+		$completed ? theme.placeholderColor : theme.dateColor};
 `;
 
 export const Title = styled.p`
