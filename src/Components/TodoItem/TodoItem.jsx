@@ -6,9 +6,11 @@ import { FaRegSquare, FaSquareCheck } from 'react-icons/fa6';
 import { BiSolidEdit } from 'react-icons/bi';
 import { useTodos } from '../../Context/TodoContext';
 import { useAuthContext } from '../../Context/AuthContext';
+import useScrap from '../../Hooks/useScrap';
 
 export default function TodoItem({ id }) {
 	const { user, uid } = useAuthContext();
+	const { addOrUpdateItem, removeItem } = useScrap();
 	const { todos, dispatch } = useTodos();
 	const todo = todos.find((v) => v.id === id);
 	const navigate = useNavigate();
@@ -19,6 +21,13 @@ export default function TodoItem({ id }) {
 
 	const toggleStatus = (id, statusType) => {
 		dispatch({ type: 'TOGGLE', id, statusType, user, uid });
+		if (statusType === 'important') {
+			if (!todo.isImportant) {
+				addOrUpdateItem.mutate({ ...todo, isImportant: !todo.isImportant });
+			} else {
+				removeItem.mutate(id);
+			}
+		}
 	};
 	const handleDelete = (id) => {
 		dispatch({ type: 'DELETE', id, user, uid, todo });

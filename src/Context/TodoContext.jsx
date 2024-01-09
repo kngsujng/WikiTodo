@@ -5,14 +5,7 @@ import {
 	useReducer,
 	useState,
 } from 'react';
-import {
-	addNewTodo,
-	addOrUpdateToScrap,
-	deleteTodo,
-	editTodo,
-	getTodos,
-	removeFromScrap,
-} from '../Api/firebase';
+import { addNewTodo, deleteTodo, editTodo, getTodos } from '../Api/firebase';
 import { useAuthContext } from './AuthContext';
 
 // reducer 함수 생성
@@ -95,11 +88,6 @@ function todoReducer(state, action) {
 								isImportant: !todo.isImportant,
 							};
 							editTodo(action.uid, toggledTodo);
-							if (!toggledTodo.isImportant) {
-								removeFromScrap(action.uid, action.id);
-							} else {
-								addOrUpdateToScrap(action.uid, toggledTodo);
-							}
 							return toggledTodo;
 						}
 					}

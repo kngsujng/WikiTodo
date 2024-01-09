@@ -1,13 +1,12 @@
 import React from 'react';
-import { useQuery } from 'react-query';
 import * as S from './ScrapStatus.style';
+import useScrap from './../../Hooks/useScrap';
 import { FaRegStar } from 'react-icons/fa';
-import { getScrap } from '../../Api/firebase';
-import { useAuthContext } from '../../Context/AuthContext';
 
 export default function ScrapStatus() {
-	const { uid } = useAuthContext();
-	const { data: scrap } = useQuery(['scrap'], () => getScrap(uid));
+	const {
+		scrapQuery: { data: scrap },
+	} = useScrap();
 
 	return (
 		<S.ScrapStatusWrapper>
