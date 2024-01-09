@@ -8,6 +8,7 @@ import Edit from '../Pages/Edit/Edit';
 import Detail from '../Pages/Detail/Detail';
 import Scrap from '../Pages/Scrap/Scrap';
 import Start from '../Pages/Start/Start';
+import ProtectedRoute from '../Pages/ProtectedRoute/ProtectedRoute';
 
 export function Router() {
 	return (
@@ -45,7 +46,11 @@ export function Router() {
 				/>
 				<Route
 					path="/scrap"
-					element={<Scrap />}
+					element={
+						<ProtectedRoute>
+							<Scrap />
+						</ProtectedRoute>
+					}
 				/>
 			</Routes>
 		</BrowserRouter>
