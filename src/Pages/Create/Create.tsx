@@ -6,10 +6,12 @@ import { useTodos } from '../../Context/TodoContext';
 import { useEffect, useState } from 'react';
 import { useAuthContext } from '../../Context/AuthContext';
 import { TodoItem } from './../../Model/todo';
+import useScrap from '../../Hooks/useScrap';
 
 const Create: React.FC = () => {
 	const { user, uid } = useAuthContext();
 	const { dispatch } = useTodos();
+	const { addOrUpdateItem } = useScrap();
 	const [disabled, setDisabled] = useState<boolean>(false);
 	const [todoItem, setTodoItem] = useState<TodoItem>({
 		id: uuid(),
@@ -29,6 +31,12 @@ const Create: React.FC = () => {
 			user,
 			uid,
 		});
+		if (todoItem.isImportant) {
+			addOrUpdateItem.mutate({
+				...todoItem,
+				isImportant: true,
+			});
+		}
 		setTodoItem((prev) => ({
 			...prev,
 			id: uuid(),

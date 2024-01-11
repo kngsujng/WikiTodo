@@ -78,7 +78,7 @@ export async function getTodos(userId: UserId): Promise<TodoList | []> {
 }
 
 export function editTodo(userId: UserId, todoItem: TodoItem) {
-	const { id: todoId, ...rest } = todoItem;
+	const { id: todoId } = todoItem;
 	const todoToUpdate: Record<string, Partial<TodoItem>> = {};
 	todoToUpdate[`/todoList/${userId}/${todoId}`] = todoItem;
 	return update(ref(database), todoToUpdate);
@@ -108,9 +108,6 @@ export async function addOrUpdateToScrap(userId: UserId, todoItem: TodoItem) {
 	return set(ref(database, `scrap/${userId}/${todoItem.id}`), todoItem);
 }
 
-export async function removeFromScrap(
-	userId: UserId,
-	todoId: Pick<TodoItem, 'id'>
-) {
+export async function removeFromScrap(userId: UserId, todoId: string) {
 	return remove(ref(database, `scrap/${userId}/${todoId}`));
 }

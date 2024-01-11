@@ -10,7 +10,7 @@ import { TodoItem as TodoItemType, ToggleType } from '../../Model/todo';
 
 const TodoItem: React.FC<{ id: string }> = ({ id }) => {
 	const { user, uid } = useAuthContext();
-	// const { addOrUpdateItem, removeItem } = useScrap();
+	const { addOrUpdateItem, removeItem } = useScrap();
 	const { todos, dispatch } = useTodos();
 	const todo = todos.find((v: TodoItemType) => v.id === id);
 	const navigate = useNavigate();
@@ -26,18 +26,19 @@ const TodoItem: React.FC<{ id: string }> = ({ id }) => {
 		isImportant,
 	}: TodoItemType = todo;
 
-	const toggleStatus = (id: string, statusType: ToggleType) => {
+	const toggleStatus = (id: string, statusType: ToggleType): void => {
 		dispatch({ type: 'TOGGLE', id, statusType, user, uid });
 		if (statusType === 'important') {
 			if (!todo.isImportant) {
-				// addOrUpdateItem.mutate({ ...todo, isImportant: !todo.isImportant });
+				addOrUpdateItem.mutate({ ...todo, isImportant: !todo.isImportant });
 			} else {
-				// removeItem.mutate(id);
+				removeItem.mutate(id);
 			}
 		}
 	};
 	const handleDelete = (id: string) => {
 		dispatch({ type: 'DELETE', id, user, uid, todo });
+		removeItem.mutate(id);
 	};
 	return (
 		<S.Wrapper

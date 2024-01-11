@@ -7,24 +7,34 @@ import {
 	removeFromScrap,
 } from '../Api/firebase';
 import { useAuthContext } from '../Context/AuthContext';
+import { TodoItem } from '../Model/todo';
 
-export default function useScrap() {
+const useScrap = () => {
 	const { uid } = useAuthContext();
-	// const queryClient = useQueryClient();
+	const queryClient = useQueryClient();
 	// const scrapQuery = useQuery(['scrap', uid || ''], () => fetchScrap(uid), {
-	// 	// uid가 존재하는 경우에만 작동하도록
 	// 	enabled: !!uid,
 	// });
-	// const addOrUpdateItem = useMutation(
-	// 	(todoItem) => addOrUpdateToScrap(uid, todoItem),
-	// 	{
-	// 		onSuccess: () => queryClient.invalidateQueries(['scrap', uid]),
-	// 	}
-	// );
-	// const removeItem = useMutation((id) => removeFromScrap(uid, id), {
-	// 	onSuccess: () => {
-	// 		queryClient.invalidateQueries(['scrap', uid]);
-	// 	},
-	// });
-	// return { scrapQuery, addOrUpdateItem, removeItem };
-}
+	const scrapQuery = useQuery(['scrap', uid || ''], () => fetchScrap(uid), {
+		enabled: !!uid,
+	});
+
+	const addOrUpdateItem = useMutation<void, Error, TodoItem>(
+		(todoItem: TodoItem) => addOrUpdateToScrap(uid, todoItem),
+		{
+			onSuccess: () => queryClient.invalidateQueries(['scrap', uid]),
+		}
+	);
+
+	const removeItem = useMutation<void, Error, string>(
+		(id) => removeFromScrap(uid, id),
+		{
+			onSuccess: () => {
+				queryClient.invalidateQueries(['scrap', uid]);
+			},
+		}
+	);
+	return { scrapQuery, addOrUpdateItem, removeItem };
+};
+
+export default useScrap;
