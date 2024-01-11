@@ -1,6 +1,7 @@
 import styled from 'styled-components';
+import { Category as CategoryType } from '../../Model/todo';
 
-const getCategoryBackgroundColor = (category) => {
+const getCategoryBackgroundColor = (category: CategoryType) => {
 	switch (category) {
 		case 'work':
 			return '#C3BDF3';
@@ -39,7 +40,7 @@ export const Date = styled.p`
 	font-size: 18px;
 `;
 
-export const Category = styled.p`
+export const Category = styled.p<{ $category: CategoryType }>`
 	display: inline-block;
 	padding: 3px 8px;
 	border-radius: 5px;
@@ -71,7 +72,7 @@ export const Detail = styled.div`
 	}
 `;
 
-export const IsWrapper = styled.div`
+export const IsWrapper = styled.div<{ $completed: boolean }>`
 	text-align: right;
 	span {
 		display: inline-block;
@@ -79,7 +80,7 @@ export const IsWrapper = styled.div`
 		font-size: 1.3rem;
 		&.icon_completed {
 			color: ${({ theme, $completed }) =>
-				$completed === 'true' ? theme.activeBtnColor : theme.txtColor};
+				$completed ? theme.activeBtnColor : theme.txtColor};
 		}
 	}
 `;

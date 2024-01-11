@@ -6,19 +6,23 @@ import { useNavigate, useParams } from 'react-router-dom';
 import Layout from '../../Components/Layout/Layout';
 import TodoHead from '../../Components/TodoHead/TodoHead';
 import { useTodos } from '../../Context/TodoContext';
+import { TodoItem, Category } from '../../Model/todo';
 
 export default function Detail() {
 	const { id } = useParams();
 	const navigate = useNavigate();
 	const { todos } = useTodos();
-	const todoItem = todos.find((v) => v.id === id);
+	const todoItem: TodoItem = todos.find(
+		(v: TodoItem) => v.id === id
+	) as TodoItem;
 	const { date, category, title, detail, isCompleted, isImportant } = todoItem;
+
 	return (
 		<Layout>
 			<TodoHead>Your WikiTodo</TodoHead>
 			<S.Container>
 				<S.Date>{date}</S.Date>
-				<S.Category $category={category}>{category}</S.Category>
+				<S.Category $category={category as Category}>{category}</S.Category>
 				<div className="contents-line">
 					<S.Title>{title}</S.Title>
 					<button

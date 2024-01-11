@@ -5,22 +5,23 @@ import { v4 as uuid } from 'uuid';
 import { useTodos } from '../../Context/TodoContext';
 import { useEffect, useState } from 'react';
 import { useAuthContext } from '../../Context/AuthContext';
+import { TodoItem } from './../../Model/todo';
 
-export default function Create() {
+const Create: React.FC = () => {
 	const { user, uid } = useAuthContext();
 	const { dispatch } = useTodos();
-	const [disabled, setDisabled] = useState(false);
-	const [todoItem, setTodoItem] = useState({
+	const [disabled, setDisabled] = useState<boolean>(false);
+	const [todoItem, setTodoItem] = useState<TodoItem>({
 		id: uuid(),
 		date: new Date().toLocaleDateString(),
-		category: '',
+		category: '카테고리 (필수)',
 		title: '',
 		detail: '',
 		isImportant: false,
 		isCompleted: false,
 	});
 
-	const onSubmit = (e) => {
+	const onSubmit = (e: React.FormEvent<HTMLFormElement>) => {
 		e.preventDefault();
 		dispatch({
 			type: 'CREATE',
@@ -31,7 +32,7 @@ export default function Create() {
 		setTodoItem((prev) => ({
 			...prev,
 			id: uuid(),
-			category: '',
+			category: '카테고리 (필수)',
 			title: '',
 			detail: '',
 			isImportant: false,
@@ -41,7 +42,7 @@ export default function Create() {
 
 	useEffect(() => {
 		if (
-			todoItem.category !== '' &&
+			todoItem.category !== '카테고리 (필수)' &&
 			todoItem.title &&
 			todoItem.title.trim() !== ''
 		) {
@@ -63,4 +64,6 @@ export default function Create() {
 			/>
 		</Layout>
 	);
-}
+};
+
+export default Create;

@@ -1,8 +1,14 @@
-import React from 'react';
+import React, { ReactNode } from 'react';
 import * as S from './Button.style';
 import { useLocation } from 'react-router-dom';
 
-export default function Button({ text, isDisabled, handleClick }) {
+interface ButtonProps {
+	text: ReactNode;
+	isDisabled?: boolean;
+	handleClick?: () => void;
+}
+
+const Button: React.FC<ButtonProps> = ({ text, isDisabled, handleClick }) => {
 	const { pathname } = useLocation();
 
 	if (pathname === '/main') {
@@ -25,4 +31,6 @@ export default function Button({ text, isDisabled, handleClick }) {
 			</S.TodoFormBtn>
 		);
 	}
-}
+};
+
+export default Button;

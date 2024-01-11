@@ -18,7 +18,7 @@ export default function Login() {
 	const [isRequired, setIsRequired] = useState(true);
 	const navigate = useNavigate();
 
-	const handleInputHandle = (e) => {
+	const handleInputHandle = (e: React.ChangeEvent<HTMLInputElement>) => {
 		const { name, value } = e.target;
 		setLoginInfo((prev) => ({ ...prev, [name]: value }));
 
@@ -29,7 +29,7 @@ export default function Login() {
 			const errorMsg = emailPattern.test(value)
 				? ''
 				: '✔︎ 이메일 형식이 올바르지 않습니다.';
-			setLoginError((prev) => value && { ...prev, [name]: errorMsg });
+			setLoginError((prev) => ({ ...prev, [name]: errorMsg }));
 		}
 		// 비밀번호 로그인 유효성 검사
 		if (name === 'pwd') {
@@ -37,19 +37,22 @@ export default function Login() {
 			const errorMsg = pwdPattern.test(value)
 				? ''
 				: '✔︎ 영문, 숫자, 특수기호를 조합하여 8자리 이상 입력해주세요.';
-			setLoginError((prev) => value && { ...prev, [name]: errorMsg });
+			setLoginError((prev) => ({ ...prev, [name]: errorMsg }));
 		}
 	};
-
-	const handleGoogleLoginBtn = async (e) => {
+	const handleGoogleLoginBtn = async (
+		e: React.MouseEvent<HTMLButtonElement>
+	) => {
 		e.preventDefault();
 		setIsRequired(false);
 		await googleLogin();
-		localStorage.setItem('user', null);
+		localStorage.setItem('user', 'auth');
 		navigate('/main');
 	};
 
-	const handleEmailLoginBtn = async (e) => {
+	const handleEmailLoginBtn = async (
+		e: React.MouseEvent<HTMLButtonElement>
+	) => {
 		e.preventDefault();
 		const result = await emailLogin(loginInfo.email, loginInfo.pwd);
 		if (result === 'auth/invalid-login-credentials') {
@@ -62,7 +65,7 @@ export default function Login() {
 			}, 4000);
 			setLoginInfo({ email: '', pwd: '' });
 		} else {
-			localStorage.setItem('user', null);
+			localStorage.setItem('user', 'auth');
 			navigate('/main');
 		}
 	};

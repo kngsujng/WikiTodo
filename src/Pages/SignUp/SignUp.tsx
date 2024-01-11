@@ -17,7 +17,7 @@ export default function Signup() {
 
 	const navigate = useNavigate();
 
-	function handleInputEmail(e) {
+	function handleInputEmail(e: React.ChangeEvent<HTMLInputElement>) {
 		const emailPattern =
 			/^[A-Za-z0-9_\\.\\-]+@[A-Za-z0-9\\-]+\.[A-za-z0-9\\-]+/;
 		if (emailPattern.test(e.target.value) === false)
@@ -26,7 +26,7 @@ export default function Signup() {
 		setEmail(e.target.value);
 	}
 
-	function handleInputPwd(e) {
+	function handleInputPwd(e: React.ChangeEvent<HTMLInputElement>) {
 		const pwdPattern = /^(?=.*[a-zA-Z])(?=.*[!@#$%^*+=-])(?=.*[0-9]).{8,15}$/;
 		if (pwdPattern.test(e.target.value) === false)
 			setPwdError(
@@ -36,14 +36,14 @@ export default function Signup() {
 		setPwd(e.target.value);
 	}
 
-	function handleInputConfirmPwd(e) {
+	function handleInputConfirmPwd(e: React.ChangeEvent<HTMLInputElement>) {
 		if (pwd !== e.target.value)
 			setConfirmPwdError('✔︎ 비밀번호가 일치하지 않습니다.');
 		else setConfirmPwdError('');
 		setConfirmPwd(e.target.value);
 	}
 
-	const handleSignupBtn = async (e) => {
+	const handleSignupBtn = async (e: React.MouseEvent<HTMLButtonElement>) => {
 		e.preventDefault();
 		const result = await signupEmail(email, pwd);
 		if (result === 'auth/email-already-in-use') {

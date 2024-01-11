@@ -1,4 +1,3 @@
-import React from 'react';
 import * as S from './NoTodoItem.style';
 import { useThemeContext } from '../../Context/ThemeModeProvider';
 

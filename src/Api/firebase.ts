@@ -8,7 +8,17 @@ import {
 	onAuthStateChanged,
 	signInWithEmailAndPassword,
 } from 'firebase/auth';
-import { get, getDatabase, ref, remove, set, update } from 'firebase/database';
+import {
+	DataSnapshot,
+	get,
+	getDatabase,
+	ref,
+	remove,
+	set,
+	update,
+} from 'firebase/database';
+import { Email, Pwd, User, UserId } from '../Model/auth';
+import { TodoItem, TodoList } from '../Model/todo';
 
 const firebaseConfig = {
 	apiKey: process.env.REACT_APP_FIREBASE_API_KEY,
@@ -29,14 +39,14 @@ export async function googleLogin() {
 }
 
 // Email 회원가입
-export async function signupEmail(email, pwd) {
+export async function signupEmail(email: Email, pwd: Pwd) {
 	return await createUserWithEmailAndPassword(auth, email, pwd).catch(
 		(error) => error.code
 	);
 }
 
 // Email 로그인
-export async function emailLogin(email, password) {
+export async function emailLogin(email: Email, password: Pwd) {
 	return await signInWithEmailAndPassword(auth, email, password).catch(
 		(error) => error.code
 	);
@@ -46,37 +56,35 @@ export function logout() {
 	signOut(auth).catch(console.error);
 }
 
-export function getUserInfo(callback) {
+export function getUserInfo(callback: (user: User | null) => void) {
 	onAuthStateChanged(auth, (user) => {
 		callback(user);
 	});
 }
 
-export async function addNewTodo(userId, todoItem) {
+export async function addNewTodo(userId: UserId, todoItem: TodoItem) {
 	set(ref(database, `todoList/${userId}/${todoItem.id}`), {
 		...todoItem,
 	});
 }
 
-export async function getTodos(userId) {
-	return get(ref(database, `todoList/${userId}`))
-		.then((snapshot) => {
-			if (snapshot.exists()) {
-				return Object.values(snapshot.val());
-			}
-			return [];
-		})
-		.catch(console.error);
+export async function getTodos(userId: UserId): Promise<TodoList | []> {
+	return get(ref(database, `todoList/${userId}`)).then((snapshot) => {
+		if (snapshot.exists()) {
+			return Object.values(snapshot.val()) as TodoList;
+		}
+		return [];
+	});
 }
 
-export function editTodo(userId, todoItem) {
-	const { id: todoId } = todoItem;
-	const todoToUpdate = {};
+export function editTodo(userId: UserId, todoItem: TodoItem) {
+	const { id: todoId, ...rest } = todoItem;
+	const todoToUpdate: Record<string, Partial<TodoItem>> = {};
 	todoToUpdate[`/todoList/${userId}/${todoId}`] = todoItem;
 	return update(ref(database), todoToUpdate);
 }
 
-export function deleteTodo(userId, todoItem) {
+export function deleteTodo(userId: UserId, todoItem: TodoItem) {
 	const { id: todoId } = todoItem;
 	return remove(ref(database, `todoList/${userId}/${todoId}`));
 }
@@ -85,10 +93,10 @@ export function deleteTodo(userId, todoItem) {
 //   return remove(ref(database, 'todoList'));
 // }
 
-export async function getScrap(userId) {
+export async function getScrap(userId: UserId) {
 	return get(ref(database, `scrap/${userId}`)) //
-		.then((snapshot) => {
-			const items = snapshot.val() || {};
+		.then((snapshot: DataSnapshot) => {
+			const items: Record<string, TodoItem> = snapshot.val() || {};
 			const importantItems = Object.values(items).filter(
 				(item) => item.isImportant
 			);
@@ -96,10 +104,13 @@ export async function getScrap(userId) {
 		});
 }
 
-export async function addOrUpdateToScrap(userId, todoItem) {
+export async function addOrUpdateToScrap(userId: UserId, todoItem: TodoItem) {
 	return set(ref(database, `scrap/${userId}/${todoItem.id}`), todoItem);
 }
 
-export async function removeFromScrap(userId, todoId) {
+export async function removeFromScrap(
+	userId: UserId,
+	todoId: Pick<TodoItem, 'id'>
+) {
 	return remove(ref(database, `scrap/${userId}/${todoId}`));
 }

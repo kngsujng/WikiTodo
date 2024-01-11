@@ -1,8 +1,13 @@
 import React from 'react';
 import * as S from './User.style';
 import { FaRegUser } from 'react-icons/fa';
+import { AuthUser } from '../../Model/auth.js';
 
-export default function User({ user: { photoURL, displayName } }) {
+interface UserProps {
+	user: AuthUser;
+}
+
+const User: React.FC<UserProps> = ({ user: { photoURL, displayName } }) => {
 	return (
 		<S.Wrapper>
 			{photoURL ? (
@@ -17,4 +22,6 @@ export default function User({ user: { photoURL, displayName } }) {
 			{/* <span>{displayName}</span> */}
 		</S.Wrapper>
 	);
-}
+};
+
+export default User;

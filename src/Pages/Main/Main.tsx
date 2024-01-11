@@ -7,18 +7,19 @@ import { AiOutlinePlus } from 'react-icons/ai';
 import { useNavigate } from 'react-router-dom';
 import Loading from '../../Components/Loading/Loading';
 import { useTodos } from '../../Context/TodoContext';
+import { ProgressFilter, ProgressFilters } from '../../Model/todo';
 
-const filters = ['all', 'progressing', 'completed'];
+const filters: ProgressFilters = ['all', 'progressing', 'completed'];
 
 export default function Main() {
 	const { isLoading } = useTodos();
 	const navigate = useNavigate();
-	const [filter, setFilter] = useState(filters[0]);
+	const [filter, setFilter] = useState<ProgressFilter>(filters[0]);
 
 	return (
 		<>
 			{isLoading ? (
-				<Loading />
+				<Loading useLayout={false} />
 			) : (
 				<Layout>
 					<TodoHead

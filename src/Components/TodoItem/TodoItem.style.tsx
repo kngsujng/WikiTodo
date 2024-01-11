@@ -1,6 +1,7 @@
 import styled from 'styled-components';
+import { Category as CategoryType } from '../../Model/todo';
 
-const getCategoryBackgroundColor = (category) => {
+const getCategoryBackgroundColor = (category: CategoryType) => {
 	switch (category) {
 		case 'work':
 			return '#C3BDF3';
@@ -61,7 +62,10 @@ export const Wrapper = styled.li`
 	}
 `;
 
-export const Category = styled.span`
+export const Category = styled.span<{
+	$category: CategoryType;
+	$completed: boolean;
+}>`
 	padding: 3px 8px;
 	border-radius: 10px;
 	background-color: ${({ $category }) => getCategoryBackgroundColor($category)};
@@ -71,7 +75,7 @@ export const Category = styled.span`
 		$completed ? theme.placeholderColor : theme.dateColor};
 `;
 
-export const Title = styled.p`
+export const Title = styled.p<{ $completed: boolean }>`
 	display: inline-block;
 	max-width: 85%;
 	font-size: 16px;
@@ -85,7 +89,7 @@ export const Title = styled.p`
 	text-decoration: ${({ $completed }) => $completed && 'line-through'};
 `;
 
-export const Detail = styled.p`
+export const Detail = styled.p<{ $completed: boolean }>`
 	max-width: 85%;
 	font-size: 14px;
 	line-height: 18px;
@@ -97,13 +101,13 @@ export const Detail = styled.p`
 	text-decoration: ${({ $completed }) => $completed && 'line-through'};
 `;
 
-export const Date = styled.p`
+export const Date = styled.p<{ $completed: boolean }>`
 	color: ${({ $completed, theme }) =>
 		$completed ? theme.grayTxtColor : theme.dateColor};
 	font-size: 13px;
 `;
 
-export const BtnWrapper = styled.div`
+export const BtnWrapper = styled.div<{ $completed: boolean }>`
 	button {
 		color: ${({ theme }) => theme.txtColor};
 		font-size: 1.1rem;

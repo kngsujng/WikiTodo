@@ -6,19 +6,26 @@ import TodoItem from '../../Components/TodoItem/TodoItem';
 import Loading from '../../Components/Loading/Loading';
 import { useTodos } from '../../Context/TodoContext';
 import NoTodoItem from '../../Components/NoTodoItem/NoTodoItem';
+import {
+	Category,
+	TodoItem as TodoItemType,
+	TodoList as TodoListType,
+	scrapSortOption,
+} from '../../Model/todo';
 
 export default function Scrap() {
 	const { todos, isLoading } = useTodos();
-	const [sortedTodos, setSortedTodos] = useState([]);
-	const [isVisible, setIsVisible] = useState(false);
+	const [sortedTodos, setSortedTodos] = useState<TodoListType>([]);
+	const [isVisible, setIsVisible] = useState<boolean>(false);
 
 	useEffect(() => {
 		setSortedTodos(todos.filter((todo) => todo.isImportant));
 	}, [todos]);
 
-	const handleSortScrap = (e) => {
+	const handleSortScrap = (e: React.ChangeEvent<HTMLSelectElement>) => {
 		const { value } = e.target;
-		setSortedTodos(sortByOption(todos, value));
+		const categoryOption = value as scrapSortOption;
+		setSortedTodos(sortByOption(todos, categoryOption));
 		if (value === 'by_caregory') {
 			setIsVisible(true);
 		} else {
@@ -26,12 +33,15 @@ export default function Scrap() {
 		}
 	};
 
-	const handleSortScrapByCategory = (e) => {
+	const handleSortScrapByCategory = (
+		e: React.ChangeEvent<HTMLSelectElement>
+	) => {
 		const { value } = e.target;
+		const categorySortOption = value as Category;
 		setSortedTodos(
-			value === 'all'
+			value === '카테고리 (필수)'
 				? filterImportantTodos(todos)
-				: filterByCategory(filterImportantTodos(todos), value)
+				: filterByCategory(filterImportantTodos(todos), categorySortOption)
 		);
 	};
 
@@ -56,7 +66,7 @@ export default function Scrap() {
 							name="sortByCategory"
 							onChange={handleSortScrapByCategory}
 						>
-							<option value="all">---</option>
+							<option value="카테고리 (필수)">---</option>
 							<option value="work">👩🏻‍💻 업무</option>
 							<option value="study">📚 공부</option>
 							<option value="exercise">👟 운동</option>
@@ -84,21 +94,27 @@ export default function Scrap() {
 	);
 }
 
-const filterImportantTodos = (todoList) =>
-	todoList.filter((todo) => todo.isImportant);
+const filterImportantTodos = (todoList: TodoListType) =>
+	todoList.filter((todo: TodoItemType) => todo.isImportant);
 
-const sortByOption = (todoList, sortOption) => {
+const sortByOption = (todoList: TodoListType, sortOption: scrapSortOption) => {
 	const importantTodos = filterImportantTodos(todoList);
 
 	switch (sortOption) {
 		case 'by_latestDate':
-			return importantTodos.sort((a, b) => new Date(b.date) - new Date(a.date));
+			return importantTodos.sort((a, b) => {
+				const dateA = new Date(a.date).getTime();
+				const dateB = new Date(b.date).getTime();
+				return dateB - dateA;
+			});
 		case 'by_isCompleted':
-			return importantTodos.sort((a, b) => b.isCompleted - a.isCompleted);
+			return importantTodos.sort((a, b) => {
+				return b.isCompleted ? 1 : -1;
+			});
 		default:
 			return importantTodos;
 	}
 };
 
-const filterByCategory = (todoList, category) =>
+const filterByCategory = (todoList: TodoListType, category: Category) =>
 	filterImportantTodos(todoList).filter((todo) => todo.category === category);

@@ -1,4 +1,6 @@
 import {
+	Dispatch,
+	ReactNode,
 	createContext,
 	useContext,
 	useEffect,
@@ -7,17 +9,72 @@ import {
 } from 'react';
 import { addNewTodo, deleteTodo, editTodo, getTodos } from '../Api/firebase';
 import { useAuthContext } from './AuthContext';
+import { TodoItem, TodoList } from '../Model/todo';
+import { User, UserId } from '../Model/auth';
+
+// interface TodoReducerState extends TodoList {}
+
+type State = TodoList | [];
+
+// type Action = {
+// 	type: 'SET' | 'CREATE' | 'UPDATE' | 'TOGGLE' | 'DELETE';
+// 	todos?: TodoList | TodoItem[] | [];
+// 	todo?: TodoItem;
+// 	id?: string;
+// 	user?: User | null;
+// 	uid?: UserId;
+// 	statusType?: 'important' | 'completed';
+// };
+
+type Action =
+	| { type: 'SET'; todos: TodoList | [] }
+	| { type: 'CREATE'; todo: TodoItem; user: User | null; uid: UserId }
+	| {
+			type: 'UPDATE';
+			todo: TodoItem;
+			id: string;
+			user: User | null;
+			uid: UserId;
+	  }
+	| {
+			type: 'TOGGLE';
+			id: string;
+			statusType: 'completed' | 'important';
+			user: User | null;
+			uid: UserId;
+	  }
+	| {
+			type: 'DELETE';
+			id: string;
+			todo: TodoItem;
+			user: User | null;
+			uid: UserId;
+	  };
+// type: 'SET' | 'CREATE' | 'UPDATE' | 'TOGGLE' | 'DELETE';
+// todos?: TodoList | TodoItem[] | [];
+// todo?: TodoItem;
+// id?: string;
+// user?: User | null;
+// uid?: UserId;
+// statusType?: 'important' | 'completed';
+
+type TodoContextType = {
+	todos: TodoList | [];
+	dispatch: Dispatch<Action>;
+	isLoading: boolean;
+};
 
 // reducer 함수 생성
-function todoReducer(state, action) {
-	const localTodos = JSON.parse(localStorage.getItem('todoList')) || [];
+const todoReducer = (state: State, action: Action) => {
+	const storedTodos = localStorage.getItem('todoList');
+	const localTodos: TodoList = storedTodos ? JSON.parse(storedTodos) : [];
 	switch (action.type) {
 		case 'SET':
-			return action.todos || [];
+			return action.todos;
 		case 'CREATE':
 			if (!action.user) {
 				const isDuplicate = localTodos.some(
-					(todo) => todo.id === action.todo.id
+					(todo: TodoItem) => action.todo && todo.id === action.todo.id
 				);
 				const updatedLocalTodos = [action.todo, ...localTodos];
 				if (!isDuplicate) {
@@ -27,12 +84,14 @@ function todoReducer(state, action) {
 					return localTodos;
 				}
 			} else {
-				addNewTodo(action.uid, action.todo);
+				if (action.uid && action.todo) {
+					addNewTodo(action.uid, action.todo);
+				}
 				return [action.todo, ...state];
 			}
 		case 'UPDATE':
 			if (!action.user) {
-				const updatedLocalTodos = localTodos.map((todo) => {
+				const updatedLocalTodos = localTodos.map((todo: TodoItem) => {
 					if (todo.id === action.id) {
 						return action.todo;
 					} else {
@@ -42,8 +101,8 @@ function todoReducer(state, action) {
 				localStorage.setItem('todoList', JSON.stringify(updatedLocalTodos));
 				return updatedLocalTodos;
 			} else {
-				return state.map((todo) => {
-					if (action.id === todo.id) {
+				return state.map((todo: TodoItem) => {
+					if (action.uid && action.todo && action.id === todo.id) {
 						editTodo(action.uid, action.todo);
 						return action.todo;
 					}
@@ -52,7 +111,7 @@ function todoReducer(state, action) {
 			}
 		case 'TOGGLE':
 			if (!action.user) {
-				const updatedTodos = state.map((todo) => {
+				const updatedTodos = state.map((todo: TodoItem) => {
 					if (action.id === todo.id) {
 						if (action.statusType === 'completed') {
 							return {
@@ -72,9 +131,9 @@ function todoReducer(state, action) {
 				localStorage.setItem('todoList', JSON.stringify(updatedTodos));
 				return updatedTodos;
 			} else {
-				return state.map((todo) => {
+				return state.map((todo: TodoItem) => {
 					if (action.id === todo.id) {
-						if (action.statusType === 'completed') {
+						if (action.uid && action.statusType === 'completed') {
 							const toggledTodo = {
 								...todo,
 								isCompleted: !todo.isCompleted,
@@ -82,7 +141,7 @@ function todoReducer(state, action) {
 							editTodo(action.uid, toggledTodo);
 							return toggledTodo;
 						}
-						if (action.statusType === 'important') {
+						if (action.uid && action.statusType === 'important') {
 							const toggledTodo = {
 								...todo,
 								isImportant: !todo.isImportant,
@@ -97,25 +156,26 @@ function todoReducer(state, action) {
 		case 'DELETE':
 			if (!action.user) {
 				const updatedLocalTodos = localTodos.filter(
-					(todo) => todo.id !== action.id
+					(todo: TodoItem) => todo.id !== action.id
 				);
 				localStorage.setItem('todoList', JSON.stringify(updatedLocalTodos));
 				return updatedLocalTodos;
 			} else {
-				deleteTodo(action.uid, action.todo);
-				return state.filter((todo) => todo.id !== action.id);
+				action.uid && action.todo && deleteTodo(action.uid, action.todo);
+				return state.filter((todo: TodoItem) => todo.id !== action.id);
 			}
 		default:
-			throw new Error(`Unhandled action type: ${action.type}`);
+			return state;
+		// throw new Error(`Unhandled action type: ${action.type}`);
 	}
-}
+};
 
-const TodoContext = createContext();
+const TodoContext = createContext<TodoContextType | null>(null);
 
 // context API + reducer 사용
-export function TodoProvider({ children }) {
+const TodoProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
 	const { user, uid } = useAuthContext();
-	const [isLoading, setIsLoading] = useState(false);
+	const [isLoading, setIsLoading] = useState<boolean>(false);
 	const [todos, dispatch] = useReducer(todoReducer, []);
 
 	useEffect(() => {
@@ -123,13 +183,16 @@ export function TodoProvider({ children }) {
 		const fetchData = async () => {
 			try {
 				if (user && 'uid' in user) {
-					const firebaseTodos = (await getTodos(uid)) || [];
+					const firebaseTodos = await getTodos(uid);
 					dispatch({ type: 'SET', todos: firebaseTodos });
 				}
 				if (localStorage.getItem('user') === 'noAuth') {
-					const localStorageTodos =
-						JSON.parse(localStorage.getItem('todoList')) || [];
-					dispatch({ type: 'SET', todos: localStorageTodos });
+					const storedTodos = localStorage.getItem('todoList');
+					const localTodos: TodoList = storedTodos
+						? JSON.parse(storedTodos)
+						: [];
+
+					dispatch({ type: 'SET', todos: localTodos });
 				}
 			} catch (error) {
 				console.error('Error fetching todos:', error);
@@ -146,13 +209,15 @@ export function TodoProvider({ children }) {
 			{children}
 		</TodoContext.Provider>
 	);
-}
+};
 
 // 커스텀 Hooks
-export function useTodos() {
+export const useTodos = () => {
 	const context = useContext(TodoContext);
 	if (!context) {
 		throw new Error('Cannon find TodoProvider');
 	}
 	return context;
-}
+};
+
+export default TodoProvider;

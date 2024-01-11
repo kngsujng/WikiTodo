@@ -1,8 +1,11 @@
-import React from 'react';
 import * as S from './Loading.style';
-import Layout from './../Layout/Layout';
+import Layout from '../Layout/Layout';
 
-export default function Loading({ useLayout = true }) {
+interface LoadingProps {
+	useLayout: boolean;
+}
+
+const Loading: React.FC<LoadingProps> = ({ useLayout = true }) => {
 	return (
 		<>
 			{useLayout ? (
@@ -26,4 +29,6 @@ export default function Loading({ useLayout = true }) {
 			)}
 		</>
 	);
-}
+};
+
+export default Loading;

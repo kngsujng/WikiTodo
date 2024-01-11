@@ -1,15 +1,28 @@
 import * as S from './TodoForm.style';
 import Button from '../Button/Button';
+import { TodoItem } from '../../Model/todo';
 
-export default function TodoForm({
+interface TodoFormProps {
+	todoItem: TodoItem;
+	setTodoItem: React.Dispatch<React.SetStateAction<TodoItem>>;
+	onSubmit: (e: React.FormEvent<HTMLFormElement>) => void;
+	disabled?: boolean;
+	buttonText: string;
+}
+
+const TodoForm: React.FC<TodoFormProps> = ({
 	todoItem,
 	setTodoItem,
 	onSubmit,
 	disabled,
 	buttonText,
-}) {
+}) => {
 	const { date, category, title, detail, isImportant } = todoItem;
-	const onChange = (e) => {
+	const onChange = (
+		e: React.ChangeEvent<
+			HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement
+		>
+	) => {
 		const { name, value } = e.target;
 		if (name === 'isImportant') {
 			setTodoItem((prev) => ({ ...prev, isImportant: !prev.isImportant }));
@@ -56,8 +69,8 @@ export default function TodoForm({
 			<textarea
 				name="detail"
 				id="newTodo_detail"
-				cols="30"
-				rows="10"
+				cols={30}
+				rows={10}
 				placeholder="내용을 입력하세요. (선택)"
 				value={detail ?? ''}
 				onChange={onChange}
@@ -78,4 +91,6 @@ export default function TodoForm({
 			/>
 		</S.FormWrapper>
 	);
-}
+};
+
+export default TodoForm;

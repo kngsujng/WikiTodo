@@ -1,4 +1,3 @@
-import React from 'react';
 import * as S from './TodoItem.style';
 import { useNavigate } from 'react-router-dom';
 import { FaRegTrashAlt, FaStar, FaRegStar } from 'react-icons/fa';
@@ -7,34 +6,42 @@ import { BiSolidEdit } from 'react-icons/bi';
 import { useTodos } from '../../Context/TodoContext';
 import { useAuthContext } from '../../Context/AuthContext';
 import useScrap from '../../Hooks/useScrap';
+import { TodoItem as TodoItemType, ToggleType } from '../../Model/todo';
 
-export default function TodoItem({ id }) {
+const TodoItem: React.FC<{ id: string }> = ({ id }) => {
 	const { user, uid } = useAuthContext();
-	const { addOrUpdateItem, removeItem } = useScrap();
+	// const { addOrUpdateItem, removeItem } = useScrap();
 	const { todos, dispatch } = useTodos();
-	const todo = todos.find((v) => v.id === id);
+	const todo = todos.find((v: TodoItemType) => v.id === id);
 	const navigate = useNavigate();
 	if (!todo) {
 		return null;
 	}
-	const { date, category, title, detail, isCompleted, isImportant } = todo;
+	const {
+		date,
+		category,
+		title,
+		detail,
+		isCompleted,
+		isImportant,
+	}: TodoItemType = todo;
 
-	const toggleStatus = (id, statusType) => {
+	const toggleStatus = (id: string, statusType: ToggleType) => {
 		dispatch({ type: 'TOGGLE', id, statusType, user, uid });
 		if (statusType === 'important') {
 			if (!todo.isImportant) {
-				addOrUpdateItem.mutate({ ...todo, isImportant: !todo.isImportant });
+				// addOrUpdateItem.mutate({ ...todo, isImportant: !todo.isImportant });
 			} else {
-				removeItem.mutate(id);
+				// removeItem.mutate(id);
 			}
 		}
 	};
-	const handleDelete = (id) => {
+	const handleDelete = (id: string) => {
 		dispatch({ type: 'DELETE', id, user, uid, todo });
 	};
 	return (
 		<S.Wrapper
-			key={id}
+			// key={id}
 			onClick={() =>
 				navigate(`/detail/${id}`, {
 					state: { todos },
@@ -44,12 +51,7 @@ export default function TodoItem({ id }) {
 			<div className="todoItemWrap">
 				<div className="leftcss">
 					<div className="contents-line">
-						<S.Title
-							htmlFor={id}
-							$completed={isCompleted}
-						>
-							{title}
-						</S.Title>
+						<S.Title $completed={isCompleted}>{title}</S.Title>
 						<button
 							className="btn_important"
 							onClick={(e) => {
@@ -105,4 +107,5 @@ export default function TodoItem({ id }) {
 			</div>
 		</S.Wrapper>
 	);
-}
+};
+export default TodoItem;

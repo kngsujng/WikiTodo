@@ -1,5 +1,5 @@
-import React, { useContext, useEffect } from 'react';
-import { ThemeModeContext } from './../../Context/ThemeModeProvider';
+import { useContext, useEffect } from 'react';
+import { ThemeModeContext } from '../../Context/ThemeModeProvider';
 import * as S from './NavBar.style';
 import { FiSun, FiMoon } from 'react-icons/fi';
 import { LuListTodo } from 'react-icons/lu';
@@ -7,6 +7,7 @@ import User from '../User/User';
 import { Link, useNavigate } from 'react-router-dom';
 import { useAuthContext } from '../../Context/AuthContext';
 import ScrapStatus from '../ScrapStatus/ScrapStatus';
+import { ThemeMode } from '../../Model/theme';
 
 export default function NavBar() {
 	const { themeMode, setThemeMode, toggleTheme } = useContext(ThemeModeContext);
@@ -18,9 +19,10 @@ export default function NavBar() {
 			localStorage.setItem('theme', themeMode);
 		} else {
 			const storedTheme = localStorage.getItem('theme');
-			setThemeMode(storedTheme);
+			setThemeMode(storedTheme as ThemeMode);
 		}
 	}, [themeMode, setThemeMode]);
+
 	return (
 		<>
 			<S.NavWrapper>
@@ -59,8 +61,10 @@ export default function NavBar() {
 						<button
 							className="btn_logout"
 							onClick={() => {
-								logout();
-								navigate('/');
+								if (user) {
+									logout();
+									navigate('/');
+								}
 							}}
 						>
 							Logout

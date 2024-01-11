@@ -5,20 +5,23 @@ import TodoHead from '../../Components/TodoHead/TodoHead';
 import TodoForm from '../../Components/TodoForm/TodoForm';
 import { useTodos } from '../../Context/TodoContext';
 import { useAuthContext } from '../../Context/AuthContext';
+import { TodoItem as TodoItemType } from '../../Model/todo';
 
 export default function Edit() {
 	const { user, uid } = useAuthContext();
 	const { id } = useParams();
 	const navigate = useNavigate();
 	const { todos, dispatch } = useTodos();
-	const [todoItem, setTodoItem] = useState(todos.find((v) => v.id === id));
+	const [todoItem, setTodoItem] = useState<TodoItemType>(
+		todos.find((v) => v.id === id) as TodoItemType
+	);
 
-	const onSubmit = (e) => {
+	const onSubmit = (e: React.FormEvent<HTMLFormElement>) => {
 		e.preventDefault();
 		dispatch({
 			type: 'UPDATE',
 			todo: todoItem,
-			id,
+			id: id ? id : '',
 			user,
 			uid,
 		});
