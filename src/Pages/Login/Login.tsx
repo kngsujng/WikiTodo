@@ -1,50 +1,27 @@
-import React, { useEffect, useState } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
 import * as S from './Login.style';
+import { Link, useNavigate } from 'react-router-dom';
 import { FcGoogle } from 'react-icons/fc';
 import { googleLogin, emailLogin } from '../../Api/firebase';
+import { useInputWithValidation } from '../../Hooks/useInputWithValidation';
 
 export default function Login() {
-	const [loginInfo, setLoginInfo] = useState({
+	const {
+		value: { email, pwd },
+		errorMsg: { emailErr, pwdErr, etcErr },
+		isBtnActive,
+		onChange,
+		onInputReset,
+		setErrorMsg,
+	} = useInputWithValidation({
 		email: '',
 		pwd: '',
 	});
-	const [loginError, setLoginError] = useState({
-		email: '',
-		pwd: '',
-		etc: '',
-	});
-	const [isBtnActive, setIsBtnActive] = useState(false);
-	const [isRequired, setIsRequired] = useState(true);
 	const navigate = useNavigate();
 
-	const handleInputHandle = (e: React.ChangeEvent<HTMLInputElement>) => {
-		const { name, value } = e.target;
-		setLoginInfo((prev) => ({ ...prev, [name]: value }));
-
-		// 이메일 로그인 유효성 검사
-		if (name === 'email') {
-			const emailPattern =
-				/^[A-Za-z0-9_\\.\\-]+@[A-Za-z0-9\\-]+\.[A-za-z0-9\\-]+/;
-			const errorMsg = emailPattern.test(value)
-				? ''
-				: '✔︎ 이메일 형식이 올바르지 않습니다.';
-			setLoginError((prev) => ({ ...prev, [name]: errorMsg }));
-		}
-		// 비밀번호 로그인 유효성 검사
-		if (name === 'pwd') {
-			const pwdPattern = /^(?=.*[a-zA-Z])(?=.*[!@#$%^*+=-])(?=.*[0-9]).{8,15}$/;
-			const errorMsg = pwdPattern.test(value)
-				? ''
-				: '✔︎ 영문, 숫자, 특수기호를 조합하여 8자리 이상 입력해주세요.';
-			setLoginError((prev) => ({ ...prev, [name]: errorMsg }));
-		}
-	};
 	const handleGoogleLoginBtn = async (
 		e: React.MouseEvent<HTMLButtonElement>
 	) => {
 		e.preventDefault();
-		setIsRequired(false);
 		await googleLogin();
 		navigate('/main');
 	};
@@ -53,33 +30,18 @@ export default function Login() {
 		e: React.MouseEvent<HTMLButtonElement>
 	) => {
 		e.preventDefault();
-		const result = await emailLogin(loginInfo.email, loginInfo.pwd);
+		const result = await emailLogin(email, pwd);
 		if (result === 'auth/invalid-login-credentials') {
-			setLoginError((prev) => ({
+			setErrorMsg((prev) => ({
 				...prev,
-				etc: '✔︎ 아이디 또는 비밀번호를 잘못 입력했습니다. \n입력하신 내용을 다시 확인해주세요.',
+				etcErr:
+					'✔︎ 아이디 또는 비밀번호를 잘못 입력했습니다. \n입력하신 내용을 다시 확인해주세요.',
 			}));
-			setTimeout(() => {
-				setLoginError({ email: '', pwd: '', etc: '' });
-			}, 4000);
-			setLoginInfo({ email: '', pwd: '' });
+			setTimeout(onInputReset, 3000);
 		} else {
 			navigate('/main');
 		}
 	};
-
-	useEffect(() => {
-		if (
-			loginError.email ||
-			loginError.pwd ||
-			!loginInfo.email ||
-			!loginInfo.pwd
-		) {
-			setIsBtnActive(false);
-		} else {
-			setIsBtnActive(true);
-		}
-	}, [loginInfo, loginError]);
 
 	return (
 		<>
@@ -92,24 +54,22 @@ export default function Login() {
 					<form>
 						<label htmlFor="inp_email">Email</label>
 						<input
-							required={isRequired}
 							type="text"
 							id="inp_email"
 							name="email"
-							value={loginInfo.email ?? ''}
-							onChange={handleInputHandle}
+							value={email ?? ''}
+							onChange={onChange}
 						/>
-						<p className="errorTxt">{loginError.email}</p>
+						<p className="errorTxt">{emailErr}</p>
 						<label htmlFor="inp_pwd">Password</label>
 						<input
-							required={isRequired}
 							type="password"
 							id="inp_pwd"
 							name="pwd"
-							value={loginInfo.pwd ?? ''}
-							onChange={handleInputHandle}
+							value={pwd ?? ''}
+							onChange={onChange}
 						/>
-						<p className="errorTxt">{loginError.pwd}</p>
+						<p className="errorTxt">{pwdErr}</p>
 						<div className="wrap_loginKeep">
 							<input
 								type="checkbox"
@@ -117,7 +77,7 @@ export default function Login() {
 							/>
 							<label htmlFor="saveInfo">로그인 상태 유지</label>
 						</div>
-						{loginError.etc && <p className="errorTxt">{loginError.etc}</p>}
+						{etcErr && <p className="errorTxt">{etcErr}</p>}
 						<S.BtnWrapper>
 							<h2 className="screen-out">
 								이메일을 통한 로그인 버튼과 구글계정을 통한 로그인 버튼
