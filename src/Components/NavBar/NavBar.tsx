@@ -61,10 +61,9 @@ export default function NavBar() {
 						<button
 							className="btn_logout"
 							onClick={() => {
-								if (user) {
-									logout();
-									navigate('/');
-								}
+								logout();
+								navigate('/');
+								window.location.reload();
 							}}
 						>
 							Logout

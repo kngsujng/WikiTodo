@@ -46,7 +46,6 @@ export default function Login() {
 		e.preventDefault();
 		setIsRequired(false);
 		await googleLogin();
-		localStorage.setItem('user', 'auth');
 		navigate('/main');
 	};
 
@@ -65,7 +64,6 @@ export default function Login() {
 			}, 4000);
 			setLoginInfo({ email: '', pwd: '' });
 		} else {
-			localStorage.setItem('user', 'auth');
 			navigate('/main');
 		}
 	};

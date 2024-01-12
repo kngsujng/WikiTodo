@@ -6,8 +6,7 @@ import { Email, Pwd, User, UserId } from '../Model/auth';
 
 interface AuthContextType {
 	user: User | null;
-	uid: UserId; // 다시 !
-	setUser: React.Dispatch<React.SetStateAction<User | null>>;
+	uid: UserId;
 	googleLogin: () => void;
 	emailLogin: (email: Email, pwd: Pwd) => void;
 	logout: () => void;
@@ -16,7 +15,6 @@ interface AuthContextType {
 const defaultUser: AuthContextType = {
 	user: null,
 	uid: '',
-	setUser: () => null,
 	googleLogin: () => null,
 	emailLogin: (email: Email, pwd: Pwd) => null,
 	logout: () => null,
@@ -37,7 +35,6 @@ const AuthContextProvider: React.FC<{ children: ReactNode }> = ({
 			value={{
 				user,
 				uid: user ? user.uid : '',
-				setUser,
 				googleLogin,
 				emailLogin,
 				logout,

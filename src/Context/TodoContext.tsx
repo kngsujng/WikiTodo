@@ -182,11 +182,11 @@ const TodoProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
 		setIsLoading(true);
 		const fetchData = async () => {
 			try {
-				if (user && 'uid' in user) {
+				if (user) {
 					const firebaseTodos = await getTodos(uid);
 					dispatch({ type: 'SET', todos: firebaseTodos });
 				}
-				if (localStorage.getItem('user') === 'noAuth') {
+				if (!user) {
 					const storedTodos = localStorage.getItem('todoList');
 					const localTodos: TodoList = storedTodos
 						? JSON.parse(storedTodos)
