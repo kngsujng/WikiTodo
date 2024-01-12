@@ -22,10 +22,14 @@ const useInputWithValidation = (initialValue: ValueType) => {
 		const pwdErrorMsg = pwdPattern.test(inputValue.pwd)
 			? ''
 			: '✔︎ 영문, 숫자, 특수기호를 조합하여 8자리 이상 입력해주세요.';
-		const confirmPwdErrorMsg =
-			inputValue.pwd === inputValue.confirmPwd
-				? ''
-				: '✔︎ 비밀번호가 일치하지 않습니다.';
+		let confirmPwdErrorMsg = '';
+		if (inputValue.confirmPwd !== undefined) {
+			confirmPwdErrorMsg =
+				inputValue.pwd === inputValue.confirmPwd
+					? ''
+					: '✔︎ 비밀번호가 일치하지 않습니다.';
+		}
+
 		if (inputValue.email) {
 			setErrorMsg((prev) => ({ ...prev, emailErr: emailErrorMsg }));
 		}
@@ -35,7 +39,11 @@ const useInputWithValidation = (initialValue: ValueType) => {
 		if (inputValue.confirmPwd) {
 			setErrorMsg((prev) => ({ ...prev, etcErr: confirmPwdErrorMsg }));
 		}
-		return !(emailErrorMsg || pwdErrorMsg || confirmPwdErrorMsg);
+		return !(
+			emailErrorMsg ||
+			pwdErrorMsg ||
+			(inputValue.confirmPwd !== undefined && confirmPwdErrorMsg)
+		);
 	}, []);
 
 	const onChange = (e: React.ChangeEvent<HTMLInputElement>): void => {

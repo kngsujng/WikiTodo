@@ -72,7 +72,7 @@ export default function Signup() {
 										setIsVisible({ ...isVisible, pwd: !isVisible.pwd })
 									}
 								>
-									{isVisible ? (
+									{isVisible.pwd ? (
 										<FaEyeSlash size="18px" />
 									) : (
 										<FaEye size="18px" />
