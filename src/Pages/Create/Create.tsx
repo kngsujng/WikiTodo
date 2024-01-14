@@ -7,8 +7,10 @@ import { useEffect, useState } from 'react';
 import { useAuthContext } from '../../Context/AuthContext';
 import { TodoItem } from './../../Model/todo';
 import useScrap from '../../Hooks/useScrap';
+import useTitle from '../../Hooks/useTitle';
 
 const Create: React.FC = () => {
+	useTitle('WikiTodo | 추가');
 	const { user, uid } = useAuthContext();
 	const { dispatch } = useTodos();
 	const { addOrUpdateItem } = useScrap();

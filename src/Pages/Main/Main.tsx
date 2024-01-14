@@ -8,14 +8,15 @@ import { useNavigate } from 'react-router-dom';
 import Loading from '../../Components/Loading/Loading';
 import { useTodos } from '../../Context/TodoContext';
 import { ProgressFilter, ProgressFilters } from '../../Model/todo';
+import useTitle from '../../Hooks/useTitle';
 
 const filters: ProgressFilters = ['all', 'progressing', 'completed'];
 
 export default function Main() {
+	useTitle('WikiTodo | 홈');
 	const { isLoading } = useTodos();
 	const navigate = useNavigate();
 	const [filter, setFilter] = useState<ProgressFilter>(filters[0]);
-
 	return (
 		<>
 			{isLoading ? (

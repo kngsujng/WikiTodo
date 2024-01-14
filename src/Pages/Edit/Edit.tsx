@@ -7,8 +7,10 @@ import { useTodos } from '../../Context/TodoContext';
 import { useAuthContext } from '../../Context/AuthContext';
 import { TodoItem as TodoItemType } from '../../Model/todo';
 import useScrap from '../../Hooks/useScrap';
+import useTitle from '../../Hooks/useTitle';
 
 export default function Edit() {
+	useTitle('WikiTodo | 편집');
 	const { user, uid } = useAuthContext();
 	const { id } = useParams();
 	const navigate = useNavigate();

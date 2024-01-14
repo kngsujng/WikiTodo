@@ -4,8 +4,10 @@ import { Link, useNavigate } from 'react-router-dom';
 import * as S from './SignUp.style';
 import { signupEmail } from '../../Api/firebase';
 import { useInputWithValidation } from '../../Hooks/useInputWithValidation';
+import useTitle from '../../Hooks/useTitle';
 
 export default function Signup() {
+	useTitle('WikiTodo | 회원가입');
 	const {
 		value: { email, pwd, confirmPwd },
 		errorMsg: { emailErr, pwdErr, etcErr },

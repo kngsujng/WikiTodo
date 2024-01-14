@@ -12,8 +12,10 @@ import {
 	TodoList as TodoListType,
 	scrapSortOption,
 } from '../../Model/todo';
+import useTitle from '../../Hooks/useTitle';
 
 export default function Scrap() {
+	useTitle('WikiTodo | 스크랩');
 	const { todos, isLoading } = useTodos();
 	const [sortedTodos, setSortedTodos] = useState<TodoListType>([]);
 	const [isVisible, setIsVisible] = useState<boolean>(false);

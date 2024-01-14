@@ -3,8 +3,10 @@ import { Link, useNavigate } from 'react-router-dom';
 import { FcGoogle } from 'react-icons/fc';
 import { googleLogin, emailLogin } from '../../Api/firebase';
 import { useInputWithValidation } from '../../Hooks/useInputWithValidation';
+import useTitle from '../../Hooks/useTitle';
 
 export default function Login() {
+	useTitle('WikiTodo | 로그인');
 	const {
 		value: { email, pwd },
 		errorMsg: { emailErr, pwdErr, etcErr },

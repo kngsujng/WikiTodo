@@ -7,8 +7,10 @@ import Layout from '../../Components/Layout/Layout';
 import TodoHead from '../../Components/TodoHead/TodoHead';
 import { useTodos } from '../../Context/TodoContext';
 import { TodoItem, Category } from '../../Model/todo';
+import useTitle from '../../Hooks/useTitle';
 
 export default function Detail() {
+	useTitle('WikiTodo | 상세보기');
 	const { id } = useParams();
 	const navigate = useNavigate();
 	const { todos } = useTodos();
