@@ -20,7 +20,7 @@ export default function Main() {
 	return (
 		<>
 			{isLoading ? (
-				<Loading useLayout={false} />
+				<Loading useLayout={true} />
 			) : (
 				<Layout>
 					<TodoHead

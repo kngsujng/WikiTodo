@@ -12,19 +12,7 @@ import { useAuthContext } from './AuthContext';
 import { TodoItem, TodoList } from '../Model/todo';
 import { User, UserId } from '../Model/auth';
 
-// interface TodoReducerState extends TodoList {}
-
 type State = TodoList | [];
-
-// type Action = {
-// 	type: 'SET' | 'CREATE' | 'UPDATE' | 'TOGGLE' | 'DELETE';
-// 	todos?: TodoList | TodoItem[] | [];
-// 	todo?: TodoItem;
-// 	id?: string;
-// 	user?: User | null;
-// 	uid?: UserId;
-// 	statusType?: 'important' | 'completed';
-// };
 
 type Action =
 	| { type: 'SET'; todos: TodoList | [] }
@@ -50,13 +38,6 @@ type Action =
 			user: User | null;
 			uid: UserId;
 	  };
-// type: 'SET' | 'CREATE' | 'UPDATE' | 'TOGGLE' | 'DELETE';
-// todos?: TodoList | TodoItem[] | [];
-// todo?: TodoItem;
-// id?: string;
-// user?: User | null;
-// uid?: UserId;
-// statusType?: 'important' | 'completed';
 
 type TodoContextType = {
 	todos: TodoList | [];
@@ -166,7 +147,6 @@ const todoReducer = (state: State, action: Action) => {
 			}
 		default:
 			return state;
-		// throw new Error(`Unhandled action type: ${action.type}`);
 	}
 };
 
@@ -191,7 +171,6 @@ const TodoProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
 					const localTodos: TodoList = storedTodos
 						? JSON.parse(storedTodos)
 						: [];
-
 					dispatch({ type: 'SET', todos: localTodos });
 				}
 			} catch (error) {
