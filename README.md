@@ -39,6 +39,8 @@
 
 <br>
 <br>
+<br>
+
 
 ## 2. 프로젝트 세부 기능
 
@@ -61,9 +63,12 @@
         </tr>
         <tr></tr>
         <tr>
-            <td><img src="https://github.com/kngsujng/WikiTodo/assets/110231276/7ae1eec8-ac12-45e1-92ee-23f52a70686b"
-                    alt=""></td>
-            <td>로그인<ul>
+            <td>
+		    <img src="https://github.com/kngsujng/WikiTodo/assets/110231276/7ae1eec8-ac12-45e1-92ee-23f52a70686b"
+                    alt="">
+	    </td>
+            <td>로그인
+	    	<ul>
                     <li>'이메일 로그인', '구글계정을 통한 로그인' 선택</li>
                     <li>이메일 로그인시, 유효성 검사를 진행하고 오류 메시지 제공</li>
                     <li>이메일과 비밀번호가 유효한 경우 메인 화면으로 이동</li>
@@ -89,7 +94,6 @@
 
 <table>
     <tbody>
-        <tr></tr>
         <tr>
             <th>시연</th>
             <th>설명</th>
@@ -105,7 +109,6 @@
                 </ul>
             </td>
         </tr>
-        <tr></tr>
         <tr>
             <td><img src="https://github.com/kngsujng/WikiTodo/assets/110231276/1d774499-f937-433d-81a4-37f4443f1ba1"
                     alt=""></td>
@@ -137,7 +140,11 @@
     </tbody>
 </table>
 
-### **[프로젝트 주요 기능 설명]**
+<br>
+<br>
+<br>
+
+## 3. 프로젝트 주요 기능 설명
 
 - **☑️ Context API를 통한 전역 상태 관리**
 
@@ -155,10 +162,10 @@ React-Query를 통해 'scrap'과 'uid'의 조합으로 고유한 key를 생성�
 3. useScrap : 사용자의 uid가 존재하는 경우 한해서만 스크랩된 할 일을 즉각적으로 업데이트 하기 위한 React-Query 로직 재사용
 
 <br>
+<br>
+<br>
 
 ## 4. 트러블 슈팅
-
-<br>
 
 ### 4.1. 회원/비회원별 할 일 상태 관리
 
@@ -215,6 +222,8 @@ const TodoProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
 };
 ```
 
+<br/>
+
 ### 4.2. 임의로 url창 조작하여 페이지 이동 해결
 
 - **문제 상황**
@@ -234,18 +243,18 @@ const TodoProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
 ```js
 ...
 <Route
-	path="/scrap"
-	element={
-		<ProtectedRoute>
-			<Scrap />
-		</ProtectedRoute>
-}
+  path="/scrap"
+  element={
+    <ProtectedRoute>
+      <Scrap />
+    </ProtectedRoute>
+  }
 />
 ...
 ```
 
 ```js
-onst ProtectedRoute = ({ children }: { children: ReactNode }) => {
+const ProtectedRoute = ({ children }: { children: ReactNode }) => {
 	const { user } = useAuthContext();
 	if (!user) {
 		return (
@@ -258,7 +267,6 @@ onst ProtectedRoute = ({ children }: { children: ReactNode }) => {
 	return children;
 };
 export default ProtectedRoute;
-
 ```
 
 <br>
