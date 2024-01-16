@@ -11,7 +11,7 @@ interface ButtonProps {
 const Button: React.FC<ButtonProps> = ({ text, isDisabled, handleClick }) => {
 	const { pathname } = useLocation();
 
-	if (pathname === '/main') {
+	if (pathname === '/main' || pathname === '/') {
 		return (
 			<S.GotoNewpageBtn
 				disabled={isDisabled}
